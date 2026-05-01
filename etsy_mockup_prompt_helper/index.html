@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Etsy Mockup Prompt Helper ✦ hello_digihana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+:root{
+  --bg:#FBF9FF;
+  --bg2:#F4F0FB;
+  --white:#fff;
+  --pink:#F2A8C4;
+  --pink-lt:#FCE8F3;
+  --pink-dk:#C9698E;
+  --lav:#B8A8E8;
+  --lav-lt:#EDE8FA;
+  --lav-dk:#7B68C8;
+  --lav-mid:#C8BCEE;
+  --mint:#A8D8C8;
+  --mint-lt:#E4F5EF;
+  --mint-dk:#4A9E84;
+  --ink:#2C1F3E;
+  --ink-mid:#5A4878;
+  --ink-lt:#8878A8;
+  --ink-xlt:#BEB0D4;
+  --text-light:#8878A8;
+  --border:rgba(180,160,220,.18);
+  --border-md:rgba(180,160,220,.32);
+  --shadow-card:0 2px 18px rgba(120,100,180,.09);
+  --shadow-md:0 8px 28px rgba(100,80,160,.13);
+  --r-sm:12px;
+  --r-md:14px;
+  --r-lg:20px;
+  --r-xl:28px;
+  --r-full:9999px;
+  --ff:'DM Sans','Hiragino Sans','Noto Sans JP',system-ui,sans-serif;
+  --transition:.2s ease;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:var(--ff);
+  background:var(--bg);
+  color:var(--ink);
+  font-size:14px;
+  line-height:1.7;
+  min-height:100vh;
+}
+
+/* Header — matched to index.html */
+.site-header{
+  background:linear-gradient(160deg,#F0EAFF 0%,#FDE8F3 45%,#E8F5FB 100%);
+  padding:4.2rem 1.25rem 3.6rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.site-header:before{
+  content:'';
+  position:absolute;
+  top:-70px;
+  right:-60px;
+  width:260px;
+  height:260px;
+  background:radial-gradient(circle,rgba(184,168,232,.3),transparent 70%);
+  border-radius:50%;
+  pointer-events:none;
+}
+.site-header:after{
+  content:'';
+  position:absolute;
+  bottom:-40px;
+  left:-40px;
+  width:220px;
+  height:220px;
+  background:radial-gradient(circle,rgba(242,168,196,.25),transparent 70%);
+  border-radius:50%;
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-block;
+  background:#fff;
+  border:1.5px solid var(--lav-mid);
+  color:var(--lav-dk);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  padding:.35rem 1rem;
+  border-radius:var(--r-full);
+  margin-bottom:1.35rem;
+  position:relative;
+}
+.site-header h1{
+  font-size:clamp(38px,9vw,62px);
+  font-weight:800;
+  color:var(--ink);
+  line-height:1.03;
+  margin-bottom:1rem;
+  letter-spacing:-.045em;
+  position:relative;
+}
+.site-header h1 em{
+  font-style:normal;
+  background:linear-gradient(120deg, #C9698E, #7B68C8, #F2A8C4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.site-header .subtitle{
+  font-size:15px;
+  font-weight:700;
+  color:var(--lav-dk);
+  margin:-.25rem auto .8rem;
+  position:relative;
+}
+.site-header .description{
+  font-size:clamp(13px,3vw,16px);
+  line-height:1.7;
+  color:var(--ink-mid);
+  max-width:620px;
+  margin:0 auto 1.5rem;
+  position:relative;
+}
+.hero-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.65rem;
+  justify-content:center;
+  position:relative;
+}
+.hero-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:.3rem;
+  font-size:13px;
+  padding:.35rem .9rem;
+  border-radius:var(--r-full);
+  font-weight:700;
+}
+.chip-pink{background:var(--pink-lt);color:var(--pink-dk)}
+.chip-lav{background:var(--lav-lt);color:var(--lav-dk)}
+.chip-mint{background:var(--mint-lt);color:var(--mint-dk)}
+
+.container{
+  max-width:860px;
+  margin:0 auto;
+  padding:2.5rem 1.25rem 5rem;
+}
+.card,.result-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--r-xl);
+  padding:1.7rem;
+  box-shadow:var(--shadow-card);
+  margin-bottom:1.25rem;
+}
+.card-title{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  margin-bottom:1.1rem;
+  padding-bottom:1rem;
+  border-bottom:1.5px dashed rgba(184,168,232,.3);
+  font-size:18px;
+  font-weight:800;
+  color:var(--ink);
+}
+.card-title .icon{
+  width:34px;
+  height:34px;
+  background:linear-gradient(135deg,var(--lav),var(--pink));
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:16px;
+  box-shadow:0 2px 10px rgba(123,104,200,.13);
+}
+.required-star{color:var(--pink-dk);font-size:13px}
+
+/* Upload */
+.upload-area{
+  border:2px dashed rgba(242,168,196,.6);
+  border-radius:22px;
+  padding:2rem 1.25rem;
+  text-align:center;
+  cursor:pointer;
+  transition:var(--transition);
+  background:linear-gradient(135deg,#FFF5FA,#FDE8F3,#F6F0FF);
+  position:relative;
+}
+.upload-area:hover,.upload-area.dragover{
+  border-color:var(--pink-dk);
+  box-shadow:0 4px 18px rgba(242,168,196,.2);
+  transform:translateY(-1px);
+}
+.upload-area input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-icon{font-size:34px;margin-bottom:.35rem}
+.upload-text{font-size:14px;color:var(--ink-mid)}
+.upload-text strong{display:block;font-size:15px;color:var(--ink);margin-bottom:.2rem}
+.upload-formats{font-size:12px;color:var(--ink-lt);margin-top:.4rem}
+.preview-wrap{
+  display:none;
+  margin-top:1rem;
+  border-radius:22px;
+  overflow:hidden;
+  border:1.5px solid var(--border-md);
+  background:#FCFAFF;
+  padding:1rem;
+  text-align:center;
+}
+.preview-wrap.visible{display:block}
+.preview-wrap img{max-width:100%;max-height:260px;object-fit:contain;border-radius:14px;display:block;margin:0 auto}
+.preview-filename{font-size:12px;color:var(--ink-lt);margin-top:.55rem}
+.preview-remove{
+  display:inline-block;
+  margin-top:.5rem;
+  font-size:12px;
+  color:var(--pink-dk);
+  cursor:pointer;
+  text-decoration:underline;
+  background:none;
+  border:none;
+  font-family:inherit;
+}
+
+/* Options */
+.size-options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.size-option,.count-option,.checkbox-chip{position:relative}
+.size-option input,.count-option input,.checkbox-chip input{position:absolute;opacity:0;width:1px;height:1px;overflow:hidden;pointer-events:none}
+.size-option label,.count-option label,.checkbox-chip label{
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  user-select:none;
+  background:#FCFAFF;
+  border:1.5px solid var(--border-md);
+  border-radius:var(--r-full);
+  padding:.55rem .9rem;
+  font-family:var(--ff);
+  font-size:12.5px;
+  font-weight:700;
+  color:var(--ink-mid);
+  cursor:pointer;
+  transition:var(--transition);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  line-height:1.25;
+  text-align:center;
+}
+.size-option label{
+  width:100%;
+  min-height:54px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  border-radius:18px;
+  padding:8px 8px;
+  font-size:12px;
+  line-height:1.2;
+  text-align:center;
+}
+.count-option label{padding:.58rem 1.35rem}
+.size-option label .size-ratio{
+  display:block;
+  font-size:10.5px;
+  color:var(--ink-lt);
+  font-weight:700;
+  margin-top:1px;
+  line-height:1.2;
+}
+.size-option input:checked+label,.count-option input:checked+label,.checkbox-chip input:checked+label{
+  background:linear-gradient(135deg,var(--lav-lt),var(--pink-lt));
+  border-color:var(--lav-mid);
+  color:var(--lav-dk);
+  box-shadow:0 2px 10px rgba(123,104,200,.14);
+}
+.size-option label:hover,.count-option label:hover,.checkbox-chip label:hover{
+  border-color:var(--lav-mid);
+  background:linear-gradient(135deg,#fff,var(--pink-lt));
+}
+.checkbox-group,.count-options{display:flex;flex-wrap:wrap;gap:12px 14px;align-items:flex-start}
+.custom-size-row{display:none;gap:.75rem;margin-top:1rem;align-items:center;flex-wrap:wrap}
+.custom-size-row.visible{display:flex}
+.custom-size-row label{font-size:12px;font-weight:800;color:var(--ink-lt)}
+.custom-size-row input[type="number"],textarea,.result-textarea{
+  width:100%;
+  border:1.5px solid var(--border-md);
+  border-radius:18px;
+  padding:.9rem 1rem;
+  font-size:14px;
+  font-family:var(--ff);
+  color:var(--ink);
+  background:#FCFAFF;
+  transition:var(--transition);
+  line-height:1.7;
+}
+.custom-size-row input[type="number"]{width:96px;padding:.55rem .7rem;background:#fff}
+textarea{min-height:108px;resize:vertical}
+.result-textarea{min-height:170px;resize:vertical;background:linear-gradient(135deg,rgba(255,247,251,.6),rgba(246,240,255,.5));font-size:13px}
+.custom-size-row input:focus,textarea:focus,.result-textarea:focus{
+  outline:none;
+  border-color:var(--lav-mid);
+  box-shadow:0 0 0 4px rgba(184,168,232,.14);
+}
+.textarea-hint{font-size:12px;color:var(--ink-lt);margin-top:.5rem}
+
+/* Buttons */
+.action-section{margin-bottom:2rem}
+.btn-primary,.btn-reset,.btn-copy,.btn-copy-all,.sister-link,.creator-link{
+  font-family:var(--ff);
+  cursor:pointer;
+  transition:var(--transition);
+}
+.btn-primary{
+  display:block;
+  width:100%;
+  padding:1rem 1.5rem;
+  background:linear-gradient(135deg,var(--pink-dk),var(--lav-dk));
+  color:#fff;
+  border:none;
+  border-radius:var(--r-full);
+  font-size:16px;
+  font-weight:800;
+  box-shadow:0 6px 24px rgba(201,105,142,.3);
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(201,105,142,.4)}
+.btn-reset{
+  display:block;
+  width:100%;
+  padding:.85rem 1.5rem;
+  background:#fff;
+  color:var(--ink-mid);
+  border:1.5px solid var(--border-md);
+  border-radius:var(--r-full);
+  font-size:14px;
+  font-weight:800;
+  margin-top:.65rem;
+}
+.btn-reset:hover,.btn-copy:hover,.btn-copy-all:hover,.sister-link:hover{
+  background:var(--lav-lt);
+  color:var(--lav-dk);
+  border-color:var(--lav-mid);
+  text-decoration:none;
+}
+.btn-copy,.btn-copy-all,.sister-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.45rem;
+  background:#fff;
+  color:var(--ink-mid);
+  border:1.5px solid var(--border-md);
+  border-radius:var(--r-full);
+  font-size:13px;
+  font-weight:800;
+  text-decoration:none;
+}
+.btn-copy{padding:.45rem .95rem;white-space:nowrap}
+.btn-copy-all{padding:.75rem 1.8rem}
+.btn-copy.copied{background:var(--mint-lt);border-color:var(--mint);color:var(--mint-dk)}
+.error-msg{
+  display:none;
+  background:#fff5f8;
+  border:1.5px solid rgba(242,168,196,.75);
+  border-radius:18px;
+  padding:.8rem 1rem;
+  font-size:13px;
+  color:var(--pink-dk);
+  margin-top:.75rem;
+  line-height:1.6;
+  font-weight:700;
+}
+.error-msg.visible{display:block}
+
+/* Results */
+.results-section{display:none}
+.results-section.visible{display:block}
+.results-header{text-align:center;margin:1.9rem 0 1.3rem}
+.results-header h2{
+  font-size:clamp(26px,6vw,38px);
+  font-weight:800;
+  color:var(--ink);
+  letter-spacing:-.04em;
+}
+.results-header h2 em{
+  font-style:normal;
+  background:linear-gradient(120deg,var(--lav-dk),var(--pink-dk));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.results-header p{font-size:13px;font-weight:700;color:var(--ink-lt);margin-top:.15rem}
+.result-card-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:1rem;
+  gap:.75rem;
+  flex-wrap:wrap;
+  padding-bottom:.8rem;
+  border-bottom:1.5px dashed rgba(184,168,232,.3);
+}
+.result-card-title{font-size:15px;font-weight:800;color:var(--ink)}
+.note-card{background:linear-gradient(135deg,#FFF7FB,#F6F0FF);border:2px solid rgba(184,168,232,.28)}
+.note-list{list-style:none;padding:0}
+.note-list li{
+  font-size:13px;
+  color:var(--ink-mid);
+  padding:.45rem 0;
+  border-bottom:1px dashed rgba(184,168,232,.28);
+  display:flex;
+  align-items:flex-start;
+  gap:.55rem;
+}
+.note-list li:last-child{border-bottom:none}
+.note-list li:before{
+  content:'✓';
+  color:var(--lav-dk);
+  font-weight:800;
+  flex-shrink:0;
+}
+.copy-all-wrap{text-align:center;margin-top:.5rem;padding-bottom:1rem}
+
+/* Footer / creator card — matched to index.html */
+.site-footer{
+  text-align:center;
+  padding:0 1.25rem 2.2rem;
+  color:var(--ink-xlt);
+  font-size:11px;
+  font-weight:700;
+}
+.sister-link{padding:.65rem 1.2rem;margin-bottom:1.25rem}
+.creator-card{
+  max-width:860px;
+  margin:0 auto 1.25rem;
+  text-align:center;
+  background:linear-gradient(135deg,#F4F0FF,#FDE8F3);
+  border:1.5px solid var(--lav-mid);
+  border-radius:var(--r-xl);
+  padding:1.7rem;
+  box-shadow:var(--shadow-card);
+}
+.creator-label{
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-xlt);
+  font-weight:800;
+  margin-bottom:1rem;
+}
+.creator-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.9rem;
+  flex-wrap:wrap;
+  margin-bottom:1.1rem;
+}
+.creator-icon{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  border:2.5px solid var(--lav-mid);
+  object-fit:cover;
+  background:rgba(255,255,255,.5);
+  overflow:hidden;
+  box-shadow:0 6px 18px rgba(120,100,180,.12);
+}
+.creator-name{font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.creator-role{font-size:13px;color:var(--ink-lt)}
+.creator-text{font-size:13px;color:var(--ink-mid);line-height:1.8;margin:0 auto 1.2rem;max-width:520px}
+.creator-link{
+  display:inline-flex;
+  padding:.75rem 1.8rem;
+  background:var(--ink);
+  color:#fff;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:800;
+  box-shadow:var(--shadow-md);
+  border:none;
+}
+.creator-link:hover{transform:translateY(-1px);background:#241834;text-decoration:none}
+.footer-small{font-size:11px;color:var(--ink-xlt);font-weight:700}
+.toast{
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%) translateY(40px);
+  background:var(--ink);
+  color:#fff;
+  padding:.65rem 1.5rem;
+  border-radius:var(--r-full);
+  font-size:13px;
+  font-weight:800;
+  opacity:0;
+  transition:.3s ease;
+  z-index:9999;
+  pointer-events:none;
+  white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.section-divider{font-size:12px;color:var(--ink-lt);text-align:center;margin:.25rem 0 1rem;letter-spacing:.08em}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--lav-mid);border-radius:3px}
+
+@media(max-width:600px){
+  .site-header{padding:2.2rem 1rem 1.9rem}
+  .hero-badge{font-size:10px;margin-bottom:.8rem;padding:.25rem .75rem}
+  .site-header h1{font-size:clamp(34px,12vw,46px);margin-bottom:.7rem}
+  .site-header .subtitle{font-size:13.5px;line-height:1.65;margin-bottom:.45rem}
+  .site-header .description{font-size:13.5px;line-height:1.65;margin-bottom:1rem}
+  .hero-chips{gap:.45rem}
+  .hero-chip{font-size:11.5px;padding:.25rem .65rem}
+  .container{padding:2rem 1rem 4rem}
+  .card,.result-card,.creator-card{border-radius:26px;padding:1.25rem}
+  .card-title{font-size:16px}
+  .size-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .size-option label{min-height:56px;padding:8px 6px;font-size:11.5px}
+  .result-card-header{align-items:flex-start}
+}
+@media(max-width:390px){
+  .size-options{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="site-header">
+    <div class="hero-badge">✦ Tool for Etsy Invitation Sellers ✦</div>
+    <h1>Etsy <em>Mockup</em> Prompt Helper</h1>
+    <p class="subtitle">Etsy商品写真風モックアップ指示文メーカー</p>
+    <p class="description">
+      招待状画像をアップロードして、サイズ・構図・雰囲気を選ぶだけ。<br>
+      ChatGPT / Gemini / Canva AI 向けの「コラージュ回避済み」<br>モックアップ生成プロンプトをまとめて作成できます。
+    </p>
+    <div class="hero-chips">
+      <span class="hero-chip chip-pink">🎀 Invitation Mockups</span>
+      <span class="hero-chip chip-mint">🌿 Etsy Listing</span>
+      <span class="hero-chip chip-lav">✨ AI Prompt Helper</span>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN ==================== -->
+  <main class="container">
+
+    <!-- 1. Upload -->
+    <div class="card">
+      <p class="card-title">
+        <span class="icon">🖼️</span>
+        招待状画像をアップロード
+        <span class="required-star">*</span>
+      </p>
+      <div class="upload-area" id="uploadArea">
+        <input type="file" id="imageInput" accept="image/png,image/jpeg,image/webp" />
+        <div class="upload-icon">📎</div>
+        <div class="upload-text">
+          <strong>画像をここにドロップ、またはクリックして選択</strong>
+          PNG / JPG / WEBP に対応しています
+        </div>
+        <div class="upload-formats">スマホの場合はタップしてカメラロールから選択できます</div>
+      </div>
+      <div class="preview-wrap" id="previewWrap">
+        <img id="previewImg" src="" alt="プレビュー" />
+        <p class="preview-filename" id="previewFilename"></p>
+        <button class="preview-remove" id="removeImageBtn">× 画像を削除する</button>
+      </div>
+    </div>
+
+    <!-- 2. Size -->
+    <div class="card">
+      <p class="card-title">
+        <span class="icon">📐</span>
+        出力サイズ
+      </p>
+      <div class="size-options">
+        <div class="size-option">
+          <input type="radio" name="size" id="size_43" value="4:3" checked />
+          <label for="size_43">
+            Etsy横長
+            <span class="size-ratio">4 : 3</span>
+          </label>
+        </div>
+        <div class="size-option">
+          <input type="radio" name="size" id="size_11" value="1:1" />
+          <label for="size_11">
+            正方形
+            <span class="size-ratio">1 : 1</span>
+          </label>
+        </div>
+        <div class="size-option">
+          <input type="radio" name="size" id="size_45" value="4:5" />
+          <label for="size_45">
+            Instagram縦長
+            <span class="size-ratio">4 : 5</span>
+          </label>
+        </div>
+        <div class="size-option">
+          <input type="radio" name="size" id="size_23" value="2:3" />
+          <label for="size_23">
+            Pinterest縦長
+            <span class="size-ratio">2 : 3</span>
+          </label>
+        </div>
+        <div class="size-option">
+          <input type="radio" name="size" id="size_note" value="note" />
+          <label for="size_note">
+            note見出し
+            <span class="size-ratio">1280 × 670</span>
+          </label>
+        </div>
+        <div class="size-option">
+          <input type="radio" name="size" id="size_custom" value="custom" />
+          <label for="size_custom">
+            カスタム
+            <span class="size-ratio">幅 × 高さ</span>
+          </label>
+        </div>
+      </div>
+      <div class="custom-size-row" id="customSizeRow">
+        <label for="customW">幅</label>
+        <input type="number" id="customW" placeholder="例: 1200" min="1" />
+        <label for="customH">高さ</label>
+        <input type="number" id="customH" placeholder="例: 900" min="1" />
+        <span style="font-size:12px;color:var(--text-light)">px</span>
+      </div>
+    </div>
+
+    <!-- 3. Composition -->
+    <div class="card">
+      <p class="card-title">
+        <span class="icon">🎨</span>
+        構図
+        <span style="font-size:12px;font-weight:400;color:var(--text-light);margin-left:4px">（複数選択可）</span>
+      </p>
+      <div class="checkbox-group">
+        <div class="checkbox-chip">
+          <input type="checkbox" id="comp_any" value="any" />
+          <label for="comp_any">おまかせ</label>
+        </div>
+        <div class="checkbox-chip">
+          <input type="checkbox" id="comp_flatlay" value="flatlay" />
+          <label for="comp_flatlay">フラットレイ</label>
+        </div>
+        <div class="checkbox-chip">
+          <input type="checkbox" id="comp_hand" value="hand" />
+          <label for="comp_hand">手持ち</label>
+        </div>
+        <div class="checkbox-chip">
+          <input type="checkbox" id="comp_linen" value="linen" />
+          <label for="comp_linen">リネン・布背景</label>
+        </div>
+        <div class="checkbox-chip">
+          <input type="checkbox" id="comp_floral" value="floral" />
+          <label for="comp_floral">花や小物を添えた上品スタイル</label>
+        </div>
+        <div class="checkbox-chip">
+          <input type="checkbox" id="comp_minimal" value="minimal" />
+          <label for="comp_minimal">ミニマル高級感</label>
+        </div>
+        <div class="checkbox-chip">
+          <input type="checkbox" id="comp_table" value="table" />
+          <label for="comp_table">テーブル上の自然な演出</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Mood -->
+    <div class="card">
+      <p class="card-title">
+        <span class="icon">✨</span>
+        雰囲気
+        <span style="font-size:12px;font-weight:400;color:var(--text-light);margin-left:4px">（複数選択可）</span>
+      </p>
+      <div class="checkbox-group">
+        <div class="checkbox-chip">
+          <input type="checkbox" id="mood_etsy" value="etsy" />
+          <label for="mood_etsy">Etsy王道・売れ筋風</label>
+        </div>
+        <div class="checkbox-chip">
+          <input type="checkbox" id="mood_elegant" value="elegant" />
+          <label for="mood_elegant">上品高見え</label>
+        </div>
+        <div class="checkbox-chip">
+          <input type="checkbox" id="mood_cute" value="cute" />
+          <label for="mood_cute">やわらかく可愛い</label>
+        </div>
+        <div class="checkbox-chip">
+          <input type="checkbox" id="mood_natural" value="natural" />
+          <label for="mood_natural">ナチュラル</label>
+        </div>
+        <div class="checkbox-chip">
+          <input type="checkbox" id="mood_luxury" value="luxury" />
+          <label for="mood_luxury">高級感強め</label>
+        </div>
+        <div class="checkbox-chip">
+          <input type="checkbox" id="mood_seasonal" value="seasonal" />
+          <label for="mood_seasonal">季節感あり</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Count -->
+    <div class="card">
+      <p class="card-title">
+        <span class="icon">🔢</span>
+        生成枚数
+      </p>
+      <div class="count-options">
+        <div class="count-option">
+          <input type="radio" name="count" id="count_1" value="1" checked />
+          <label for="count_1">1枚</label>
+        </div>
+        <div class="count-option">
+          <input type="radio" name="count" id="count_4" value="4" />
+          <label for="count_4">4枚</label>
+        </div>
+        <div class="count-option">
+          <input type="radio" name="count" id="count_6" value="6" />
+          <label for="count_6">6枚</label>
+        </div>
+        <div class="count-option">
+          <input type="radio" name="count" id="count_10" value="10" />
+          <label for="count_10">10枚</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Memo -->
+    <div class="card">
+      <p class="card-title">
+        <span class="icon">📝</span>
+        補足メモ
+        <span style="font-size:12px;font-weight:400;color:var(--text-light);margin-left:4px">（任意）</span>
+      </p>
+      <textarea id="memoInput" placeholder="例：蝶の招待状です。春らしく、上品でやわらかい雰囲気にしたい。小物は控えめ。手持ちモックアップも欲しい。テーマに合わせて欲しい。"></textarea>
+      <p class="textarea-hint">未入力でもOK。アップロード画像の色味・雰囲気に合わせて自動で作成します。</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-section">
+      <button class="btn-primary" id="generateBtn">✨ モックアップ指示文を生成する ✨</button>
+      <button class="btn-reset" id="resetBtn">↺ リセット</button>
+      <div class="error-msg" id="errorMsg"></div>
+    </div>
+
+    <!-- ==================== RESULTS ==================== -->
+    <div class="results-section" id="resultsSection">
+      <div class="results-header">
+        <h2>生成<em>結果</em></h2>
+        <p>各ブロックの「コピー」ボタンでそのまま貼り付けられます</p>
+      </div>
+
+      <!-- 1. ChatGPT -->
+      <div class="result-card">
+        <div class="result-card-header">
+          <div class="result-card-title">💬 ChatGPT向けプロンプト</div>
+          <button class="btn-copy" data-target="out_chatgpt">📋 コピー</button>
+        </div>
+        <textarea class="result-textarea" id="out_chatgpt" readonly></textarea>
+      </div>
+
+      <!-- 2. Gemini -->
+      <div class="result-card">
+        <div class="result-card-header">
+          <div class="result-card-title">🌀 Gemini向けプロンプト</div>
+          <button class="btn-copy" data-target="out_gemini">📋 コピー</button>
+        </div>
+        <textarea class="result-textarea" id="out_gemini" readonly></textarea>
+      </div>
+
+      <!-- 3. Canva -->
+      <div class="result-card">
+        <div class="result-card-header">
+          <div class="result-card-title">🎨 Canva AI向け短文プロンプト</div>
+          <button class="btn-copy" data-target="out_canva">📋 コピー</button>
+        </div>
+        <textarea class="result-textarea" id="out_canva" readonly style="min-height:100px"></textarea>
+      </div>
+
+      <!-- 4. Anti-collage -->
+      <div class="result-card">
+        <div class="result-card-header">
+          <div class="result-card-title">🚫 コラージュ回避用の強化文</div>
+          <button class="btn-copy" data-target="out_anticollage">📋 コピー</button>
+        </div>
+        <textarea class="result-textarea" id="out_anticollage" readonly style="min-height:120px"></textarea>
+      </div>
+
+      <!-- 5. Notes (Japanese) -->
+      <div class="result-card note-card">
+        <div class="result-card-header">
+          <div class="result-card-title">✅ 注意点チェック</div>
+        </div>
+        <ul class="note-list" id="out_notes"></ul>
+      </div>
+
+      <!-- Copy all -->
+      <div class="copy-all-wrap">
+        <button class="btn-copy-all" id="copyAllBtn">📋 生成結果をすべてコピー</button>
+      </div>
+
+    </div><!-- /results-section -->
+
+  </main><!-- /container -->
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="creator-card" aria-label="制作者情報">
+      <div class="creator-label">Created by</div>
+      <div class="creator-row">
+        <img class="creator-icon" src="./creator-icon.png" alt="デジハナの制作者アイコン" loading="lazy" />
+        <div>
+          <div class="creator-name">デジハナ</div>
+          <div class="creator-role">Etsy seller</div>
+        </div>
+      </div>
+      <p class="creator-text">
+        日本人クリエイター向けに、<br>
+        Etsy・Canva・AI画像生成まわりの制作効率化ツールを作っています。
+      </p>
+      <a class="creator-link" href="https://www.threads.com/@hello_digihana/" target="_blank" rel="noopener">
+        @ Follow on Threads
+      </a>
+    </div>
+
+    <p class="footer-small">© Etsy Mockup Prompt Helper · AI Prompt Tool for Etsy Invitation Sellers</p>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">コピーしました ✓</div>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    'use strict';
+
+    /* ============================================================
+       State
+    ============================================================ */
+    let uploadedFile = null;
+
+    /* ============================================================
+       DOM References
+    ============================================================ */
+    const uploadArea     = document.getElementById('uploadArea');
+    const imageInput     = document.getElementById('imageInput');
+    const previewWrap    = document.getElementById('previewWrap');
+    const previewImg     = document.getElementById('previewImg');
+    const previewFilename = document.getElementById('previewFilename');
+    const removeImageBtn = document.getElementById('removeImageBtn');
+    const customSizeRow  = document.getElementById('customSizeRow');
+    const generateBtn    = document.getElementById('generateBtn');
+    const resetBtn       = document.getElementById('resetBtn');
+    const errorMsg       = document.getElementById('errorMsg');
+    const resultsSection = document.getElementById('resultsSection');
+    const toast          = document.getElementById('toast');
+
+    /* ============================================================
+       Upload: drag & drop + click
+    ============================================================ */
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file) handleFileSelect(file);
+    });
+
+    imageInput.addEventListener('change', () => {
+      if (imageInput.files[0]) handleFileSelect(imageInput.files[0]);
+    });
+
+    removeImageBtn.addEventListener('click', clearImage);
+
+    /**
+     * Handle a selected image file: validate and preview
+     * @param {File} file
+     */
+    function handleFileSelect(file) {
+      const allowed = ['image/png', 'image/jpeg', 'image/webp'];
+      if (!allowed.includes(file.type)) {
+        showError('PNG / JPG / WEBP のいずれかの画像ファイルを選択してください。');
+        return;
+      }
+      uploadedFile = file;
+      const url = URL.createObjectURL(file);
+      previewImg.src = url;
+      previewFilename.textContent = file.name;
+      previewWrap.classList.add('visible');
+      clearError();
+    }
+
+    /** Clear uploaded image */
+    function clearImage() {
+      uploadedFile = null;
+      imageInput.value = '';
+      previewImg.src = '';
+      previewFilename.textContent = '';
+      previewWrap.classList.remove('visible');
+    }
+
+    /* ============================================================
+       Custom size toggle
+    ============================================================ */
+    document.querySelectorAll('input[name="size"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        if (radio.value === 'custom') {
+          customSizeRow.classList.add('visible');
+        } else {
+          customSizeRow.classList.remove('visible');
+        }
+      });
+    });
+
+    /* ============================================================
+       Generate button
+    ============================================================ */
+    generateBtn.addEventListener('click', () => {
+      if (!validate()) return;
+      const params = collectParams();
+      const prompts = buildPrompts(params);
+      renderResults(prompts, params);
+      resultsSection.classList.add('visible');
+      // Scroll to results
+      setTimeout(() => {
+        resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    });
+
+    /* ============================================================
+       Reset button
+    ============================================================ */
+    resetBtn.addEventListener('click', resetAll);
+
+    function resetAll() {
+      // Clear image
+      clearImage();
+
+      // Reset size to default
+      document.getElementById('size_43').checked = true;
+      customSizeRow.classList.remove('visible');
+      document.getElementById('customW').value = '';
+      document.getElementById('customH').value = '';
+
+      // Uncheck all composition
+      document.querySelectorAll('input[id^="comp_"]').forEach(cb => cb.checked = false);
+
+      // Uncheck all mood
+      document.querySelectorAll('input[id^="mood_"]').forEach(cb => cb.checked = false);
+
+      // Reset count to 1
+      document.getElementById('count_1').checked = true;
+
+      // Clear memo
+      document.getElementById('memoInput').value = '';
+
+      // Clear errors and results
+      clearError();
+      resultsSection.classList.remove('visible');
+    }
+
+    /* ============================================================
+       Validation
+    ============================================================ */
+    function validate() {
+      clearError();
+
+      if (!uploadedFile) {
+        showError('⚠️ 招待状画像が未選択です。\n画像をアップロードしてから生成してください。');
+        return false;
+      }
+
+      const selectedSize = document.querySelector('input[name="size"]:checked').value;
+      if (selectedSize === 'custom') {
+        const w = document.getElementById('customW').value;
+        const h = document.getElementById('customH').value;
+        if (!w || !h || parseInt(w) <= 0 || parseInt(h) <= 0) {
+          showError('⚠️ カスタムサイズを選択した場合、幅と高さを両方入力してください。');
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    function showError(msg) {
+      errorMsg.textContent = msg;
+      errorMsg.classList.add('visible');
+      errorMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function clearError() {
+      errorMsg.textContent = '';
+      errorMsg.classList.remove('visible');
+    }
+
+    /* ============================================================
+       Collect form parameters
+    ============================================================ */
+    function collectParams() {
+      // Size
+      const sizeVal = document.querySelector('input[name="size"]:checked').value;
+      let sizeLabel = '';
+      let sizeEnglish = '';
+      if (sizeVal === '4:3')    { sizeLabel = 'Etsy横長（4:3）';        sizeEnglish = 'aspect ratio 4:3 (landscape)'; }
+      else if (sizeVal === '1:1') { sizeLabel = '正方形（1:1）';         sizeEnglish = 'square format 1:1'; }
+      else if (sizeVal === '4:5') { sizeLabel = 'Instagram縦長（4:5）'; sizeEnglish = 'portrait aspect ratio 4:5'; }
+      else if (sizeVal === '2:3') { sizeLabel = 'Pinterest縦長（2:3）'; sizeEnglish = 'portrait aspect ratio 2:3'; }
+      else if (sizeVal === 'note') { sizeLabel = 'note見出し（1280×670）'; sizeEnglish = 'custom size: width 1280px, height 670px (wide landscape)'; }
+      else if (sizeVal === 'custom') {
+        const w = document.getElementById('customW').value;
+        const h = document.getElementById('customH').value;
+        sizeLabel = `カスタム（${w} × ${h} px）`;
+        sizeEnglish = `custom size: width ${w}px, height ${h}px`;
+      }
+
+      // Composition
+      const compMap = {
+        any:     { ja: 'おまかせ',              en: 'natural and versatile composition' },
+        flatlay: { ja: 'フラットレイ',           en: 'flat lay composition from above' },
+        hand:    { ja: '手持ち',                en: 'hand holding the invitation' },
+        linen:   { ja: 'リネン・布背景',         en: 'on a soft linen or fabric background' },
+        floral:  { ja: '花や小物を添えた上品スタイル', en: 'elegant styling with subtle florals and tasteful props' },
+        minimal: { ja: 'ミニマル高級感',         en: 'minimal luxury styling with clean composition' },
+        table:   { ja: 'テーブル上の自然な演出',  en: 'natural table top setting' },
+      };
+      const selectedComps = Array.from(document.querySelectorAll('input[id^="comp_"]:checked')).map(cb => cb.value);
+      const compJa = selectedComps.map(v => compMap[v]?.ja).filter(Boolean);
+      const compEn = selectedComps.map(v => compMap[v]?.en).filter(Boolean);
+
+      // Mood
+      const moodMap = {
+        etsy:     { ja: 'Etsy王道・売れ筋風',  en: 'polished Etsy bestseller aesthetic, styled for high conversion' },
+        elegant:  { ja: '上品高見え',           en: 'elegant and upscale, refined and sophisticated' },
+        cute:     { ja: 'やわらかく可愛い',      en: 'soft, sweet, and gently feminine' },
+        natural:  { ja: 'ナチュラル',           en: 'natural, warm, and organic feel' },
+        luxury:   { ja: '高級感強め',           en: 'high-end luxury feel, premium and polished' },
+        seasonal: { ja: '季節感あり',           en: 'with a seasonal, timely atmosphere' },
+      };
+      const selectedMoods = Array.from(document.querySelectorAll('input[id^="mood_"]:checked')).map(cb => cb.value);
+      const moodJa = selectedMoods.map(v => moodMap[v]?.ja).filter(Boolean);
+      const moodEn = selectedMoods.map(v => moodMap[v]?.en).filter(Boolean);
+
+      // Count
+      const count = parseInt(document.querySelector('input[name="count"]:checked').value);
+
+      // Memo
+      const memo = document.getElementById('memoInput').value.trim();
+
+      return { sizeVal, sizeLabel, sizeEnglish, selectedComps, compJa, compEn, selectedMoods, moodJa, moodEn, count, memo };
+    }
+
+    /* ============================================================
+       Translate memo to natural English hints
+    ============================================================ */
+    function memoToEnglish(memo) {
+      if (!memo) return '';
+      // Simple keyword-based mapping for common Japanese phrases
+      // In a future API-connected version, this can be replaced with a translation API call
+      let en = memo;
+      const replacements = [
+        [/春らし[くい]/, 'with a fresh spring feel'],
+        [/夏らし[くい]/, 'with a bright summer feel'],
+        [/秋らし[くい]/, 'with a warm autumn feel'],
+        [/冬らし[くい]/, 'with a cozy winter feel'],
+        [/上品[でにな]?/, 'elegant and refined, '],
+        [/やわらか[くい]/, 'soft and gentle, '],
+        [/かわいい?/, 'cute and sweet, '],
+        [/小物は控えめ/, 'keep props minimal, '],
+        [/手持ち/, 'include a hand-holding mockup, '],
+        [/シンプル/, 'keep it simple and clean, '],
+        [/高級感/, 'premium and luxurious feel, '],
+        [/ナチュラル/, 'natural and organic, '],
+        [/蝶/, 'butterfly motif invitation, '],
+        [/花/, 'floral, '],
+        [/和風/, 'Japanese-inspired style, '],
+      ];
+      for (const [pattern, replacement] of replacements) {
+        en = en.replace(pattern, replacement);
+      }
+      // If mostly Japanese remains, just wrap as a note
+      // A simple heuristic: if more than 30% chars are CJK, prepend a note
+      const cjkCount = (en.match(/[\u3000-\u9FFF\uF900-\uFAFF]/g) || []).length;
+      if (cjkCount / en.length > 0.3) {
+        return `Additional styling note from creator: "${memo}"`;
+      }
+      return en.replace(/,\s*$/, '').trim();
+    }
+
+    /* ============================================================
+       Build all prompts
+    ============================================================ */
+    function buildPrompts(p) {
+      const memoEn = memoToEnglish(p.memo);
+
+      // Compose sections
+      const cardRule = `Use the uploaded invitation image exactly as the card design.
+Do not redesign, crop, recolor, rewrite, distort, or change the invitation in any way.
+Keep the card front-facing, straight, readable, and in its original vertical ratio.`;
+
+      const antiCollage = `Do not create a collage.
+Do not create a grid.
+Do not show multiple mockups in one image.
+Create separate images — one mockup per image only.`;
+
+      const countLine = p.count === 1
+        ? 'Create 1 product mockup image.'
+        : `Create ${p.count} separate mockup images. Each image must contain only one mockup.`;
+
+      const compositionLine = p.compEn.length > 0
+        ? p.compEn.join('; ')
+        : 'use a versatile, naturally styled composition';
+
+      const moodLine = p.moodEn.length > 0
+        ? p.moodEn.join(', ')
+        : 'warm, natural light, soft shadow, elegant and polished Etsy product photo look';
+
+      /* ---- ChatGPT (detailed) ---- */
+      const chatgpt = buildChatGPT({ p, cardRule, antiCollage, countLine, compositionLine, moodLine, memoEn });
+
+      /* ---- Gemini (concise) ---- */
+      const gemini = buildGemini({ p, cardRule, antiCollage, countLine, compositionLine, moodLine, memoEn });
+
+      /* ---- Canva AI (short) ---- */
+      const canva = buildCanva({ p, countLine, compositionLine, moodLine, memoEn });
+
+      /* ---- Anti-collage block ---- */
+      const anticollage = `Do not create a collage.
+Do not create a grid.
+Show only one mockup in each image.
+Create separate images only.
+Keep the invitation card large, straight, and readable.
+Do not combine multiple photos into a single frame.`;
+
+      /* ---- Notes (Japanese) ---- */
+      const notes = buildNotes(p, memoEn);
+
+      return { chatgpt, gemini, canva, anticollage, notes };
+    }
+
+    function buildChatGPT({ p, cardRule, antiCollage, countLine, compositionLine, moodLine, memoEn }) {
+      let txt = '';
+      txt += `Please create a professional product mockup image for an Etsy listing.\n\n`;
+
+      txt += `=== CARD PRESERVATION — HIGHEST PRIORITY ===\n`;
+      txt += cardRule + '\n\n';
+
+      txt += `=== COLLAGE / GRID PROHIBITION ===\n`;
+      txt += antiCollage + '\n\n';
+
+      txt += `=== SIZE & FORMAT ===\n`;
+      txt += `Output image format: ${p.sizeEnglish}\n\n`;
+
+      txt += `=== QUANTITY ===\n`;
+      txt += `${countLine}\n\n`;
+
+      txt += `=== COMPOSITION ===\n`;
+      txt += `Style: ${compositionLine}\n`;
+      txt += `The invitation card should be the clear focal point of the image. Surrounding props (if any) must remain secondary and subtle.\n\n`;
+
+      txt += `=== MOOD & AESTHETIC ===\n`;
+      txt += `Mood: ${moodLine}\n`;
+      txt += `Use natural light, soft shadows, and warm tones. The overall feel should be polished and premium — fitting for a high-quality Etsy product photo.\n\n`;
+
+      txt += `=== PHOTOGRAPHY QUALITY ===\n`;
+      txt += `- Clean, high-resolution look\n`;
+      txt += `- Soft, directional natural light\n`;
+      txt += `- Subtle, tasteful depth of field\n`;
+      txt += `- No harsh shadows or distracting backgrounds\n`;
+      txt += `- The text on the invitation must remain legible\n\n`;
+
+      if (memoEn) {
+        txt += `=== ADDITIONAL NOTES FROM CREATOR ===\n`;
+        txt += `${memoEn}\n\n`;
+      }
+
+      txt += `=== REMINDER ===\n`;
+      txt += `Keep the invitation card intact, unchanged, and front-facing throughout. The uploaded card design must appear exactly as provided.`;
+
+      return txt;
+    }
+
+    function buildGemini({ p, cardRule, antiCollage, countLine, compositionLine, moodLine, memoEn }) {
+      let txt = '';
+      txt += `Create a product mockup photo for an Etsy listing.\n\n`;
+
+      txt += `IMPORTANT RULES:\n`;
+      txt += cardRule + '\n';
+      txt += antiCollage + '\n\n';
+
+      txt += `FORMAT: ${p.sizeEnglish}\n`;
+      txt += `QUANTITY: ${countLine}\n\n`;
+
+      txt += `COMPOSITION: ${compositionLine}\n`;
+      txt += `MOOD: ${moodLine}\n\n`;
+
+      txt += `Keep the invitation card as the main subject. Use soft natural light, warm tones, and a clean background. The card text must remain fully readable.\n`;
+
+      if (memoEn) {
+        txt += `\nExtra note: ${memoEn}`;
+      }
+
+      return txt;
+    }
+
+    function buildCanva({ p, countLine, compositionLine, moodLine, memoEn }) {
+      let txt = '';
+      txt += `Product mockup photo, ${p.sizeEnglish}. `;
+      txt += `Use uploaded invitation as-is — no redesign, no recolor. `;
+      txt += `One mockup only, no collage or grid. `;
+      txt += `${compositionLine}. `;
+      txt += `${moodLine}. `;
+      txt += `Soft natural light, clean and polished Etsy look.`;
+      if (memoEn) txt += ` ${memoEn}.`;
+
+      return txt;
+    }
+
+    function buildNotes(p, memoEn) {
+      const items = [];
+      items.push('招待状の文字・色・レイアウトは変更しないよう、英語で強く指示しています');
+      items.push('1画像につき1モックアップになるよう、コラージュ・グリッド禁止を明記しています');
+      items.push('カードを正面向き・読みやすく保つ指定をすべてのプロンプトに含めています');
+
+      if (p.count > 1) {
+        items.push(`${p.count}枚生成の場合は「別画像で生成（Create separate images）」と明記しています`);
+      }
+
+      if (p.compJa.length > 0) {
+        items.push(`構図「${p.compJa.join('・')}」を英語で自然に反映しています`);
+      }
+
+      if (p.moodJa.length > 0) {
+        items.push(`雰囲気「${p.moodJa.join('・')}」を英語のムードワードに変換して反映しています`);
+      }
+
+      items.push(`出力サイズ「${p.sizeLabel}」を英語形式でプロンプトに明記しています`);
+
+      if (memoEn) {
+        items.push('補足メモの内容を英語に変換してプロンプトの末尾に追記しています');
+      }
+
+      items.push('ChatGPT版は詳細構造型、Gemini版は簡潔型、Canva版は1文短文型で出力しています');
+
+      return items;
+    }
+
+    /* ============================================================
+       Render results
+    ============================================================ */
+    function renderResults(prompts, params) {
+      document.getElementById('out_chatgpt').value       = prompts.chatgpt;
+      document.getElementById('out_gemini').value        = prompts.gemini;
+      document.getElementById('out_canva').value         = prompts.canva;
+      document.getElementById('out_anticollage').value   = prompts.anticollage;
+
+      // Notes
+      const notesList = document.getElementById('out_notes');
+      notesList.innerHTML = prompts.notes.map(n => `<li>${escapeHtml(n)}</li>`).join('');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    /* ============================================================
+       Copy buttons
+    ============================================================ */
+    document.querySelectorAll('.btn-copy').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const el = document.getElementById(targetId);
+        if (!el) return;
+        copyText(el.value, btn);
+      });
+    });
+
+    document.getElementById('copyAllBtn').addEventListener('click', () => {
+      const ids = ['out_chatgpt', 'out_gemini', 'out_canva', 'out_anticollage'];
+      const all = ids.map(id => {
+        const el = document.getElementById(id);
+        const title = el.closest('.result-card').querySelector('.result-card-title').textContent.trim();
+        return `===== ${title} =====\n${el.value}`;
+      }).join('\n\n');
+      navigator.clipboard.writeText(all).then(() => showToast('すべてコピーしました ✓'));
+    });
+
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('コピーしました ✓');
+        if (btn) {
+          btn.classList.add('copied');
+          btn.textContent = '✓ コピー済み';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = '📋 コピー';
+          }, 2000);
+        }
+      }).catch(() => {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('コピーしました ✓');
+      });
+    }
+
+    /* ============================================================
+       Toast
+    ============================================================ */
+    let toastTimer = null;
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+  </script>
+
+</body>
+</html>
