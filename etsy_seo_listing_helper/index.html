@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Etsy Canva Listing Helper ✦ hello_digihana</title>
+<title>Etsy SEO Listing Helper ✦ hello_digihana</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -485,6 +485,54 @@ textarea { min-height: 60px; resize: vertical; }
   word-break: break-all;
 }
 
+.tag-category-wrap {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.tag-category-card {
+  background: #FCFAFF;
+  border: 1.5px solid var(--border-md);
+  border-radius: var(--r-md);
+  padding: .85rem .95rem;
+}
+.tag-category-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--lav-dk);
+  margin-bottom: .55rem;
+  letter-spacing: .04em;
+}
+.tag-category-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.tag-warning-box {
+  margin: .75rem 0 1rem;
+  padding: .75rem .95rem;
+  background: #FFF7ED;
+  border: 1.5px solid #F0C8A0;
+  border-left: 4px solid var(--warning);
+  border-radius: var(--r-md);
+  color: var(--warning);
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.65;
+}
+.tag-warning-box.ok {
+  background: #F0FBF7;
+  border-color: rgba(168,216,200,.65);
+  border-left-color: var(--mint-dk);
+  color: var(--mint-dk);
+}
+.tags-copy-label {
+  margin-top: 1rem;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink-mid);
+}
+
 /* ===== 商品説明文 ===== */
 .description-text {
   font-size: 13px;
@@ -943,8 +991,11 @@ footer {
         <div class="output-title">🏷️ 13タグ</div>
         <button class="btn-copy" onclick="copyText(document.getElementById('tags-csv').textContent)">コピー（カンマ区切り）</button>
       </div>
-      <div id="tags-result" class="tags-wrap"></div>
+      <div id="tag-warning-result"></div>
+      <div id="tags-category-result" class="tag-category-wrap"></div>
+      <div class="tags-copy-label">コピペ用13タグ（カンマ区切り）</div>
       <div class="tags-copy-row" id="tags-csv"></div>
+      <div id="tags-result" class="tags-wrap" style="display:none;"></div>
     </div>
 
     <!-- D. 商品説明文 -->
@@ -1241,38 +1292,43 @@ const trademarkWords = [
    関連SEO語辞書
    ============================================================ */
 const relatedSeo = {
-  'pumpkin': ['fall birthday', 'little pumpkin', 'autumn party', 'pumpkin party'],
-  'fall pumpkin': ['fall birthday', 'little pumpkin', 'autumn party'],
-  'construction vehicle': ['truck birthday', 'construction party', 'boy birthday'],
-  'truck': ['truck birthday', 'boy birthday', 'vehicle party'],
-  'excavator': ['construction party', 'boy birthday', 'truck birthday'],
-  'dump truck': ['construction party', 'boy birthday', 'truck birthday'],
-  'strawberry': ['berry first', 'fruit birthday', 'sweet birthday'],
-  'butterfly': ['butterfly garden', 'floral invite', 'spring birthday'],
-  'daisy': ['daisy birthday', 'floral birthday', 'spring birthday'],
-  'bunny': ['some bunny', 'spring birthday', 'easter birthday'],
-  'goose': ['silly goose', 'farm birthday', 'goose birthday'],
-  'dinosaur': ['dino birthday', 'boy birthday', 'kids birthday'],
+  'pumpkin': ['little pumpkin', 'pumpkin party', 'fall birthday', 'autumn party'],
+  'fall pumpkin': ['little pumpkin', 'pumpkin party', 'fall birthday'],
+  'construction vehicle': ['truck birthday', 'construction party', 'digger birthday', 'truck party'],
+  'truck': ['truck birthday', 'truck party', 'boy birthday', 'dump truck party'],
+  'excavator': ['digger birthday', 'construction party', 'truck birthday'],
+  'dump truck': ['dump truck party', 'construction party', 'truck birthday'],
+  'strawberry': ['berry first', 'strawberry party', 'strawberry birthday', 'fruit birthday'],
+  'butterfly': ['butterfly girl', 'butterfly party', 'butterfly garden', 'pink butterfly'],
+  'daisy': ['daisy birthday', 'daisy party', 'spring birthday'],
+  'bunny': ['some bunny', 'bunny birthday', 'spring birthday'],
+  'goose': ['silly goose', 'goose birthday', 'farm birthday'],
+  'dinosaur': ['dino birthday', 'dino party', 'boy birthday'],
   'space': ['space birthday', 'rocket party', 'outer space'],
-  'rainbow': ['rainbow birthday', 'boho rainbow', 'pastel rainbow'],
-  'unicorn': ['unicorn birthday', 'magical birthday', 'girl birthday'],
-  'mermaid': ['mermaid birthday', 'under the sea', 'ocean party'],
-  'farm': ['farm birthday', 'farm animal', 'barnyard party'],
-  'safari': ['safari birthday', 'wild one', 'jungle party'],
+  'rainbow': ['rainbow birthday', 'boho rainbow', 'rainbow party'],
+  'unicorn': ['unicorn birthday', 'unicorn party', 'magical birthday'],
+  'mermaid': ['mermaid birthday', 'mermaid party', 'under the sea'],
+  'farm': ['farm birthday', 'farm party', 'barnyard party'],
+  'safari': ['safari birthday', 'safari party', 'wild one'],
   'cat': ['cat birthday', 'kitten party', 'purrfect'],
-  'kitten': ['cat birthday', 'kitten party', 'purrfect'],
-  'bear': ['teddy bear', 'bear birthday', 'woodland birthday'],
-  'teddy bear': ['bear birthday', 'teddy bear party', 'baby birthday'],
-  'princess': ['princess birthday', 'royal party', 'fairy tale'],
-  'fairy': ['fairy birthday', 'magical birthday', 'fairy garden'],
+  'kitten': ['kitten party', 'cat birthday', 'purrfect'],
+  'bear': ['bear birthday', 'teddy bear party', 'woodland birthday'],
+  'teddy bear': ['teddy bear party', 'bear birthday', 'baby birthday'],
+  'princess': ['princess birthday', 'princess party', 'fairy tale'],
+  'fairy': ['fairy birthday', 'fairy garden', 'magical birthday'],
   'ballet': ['ballerina birthday', 'ballet party', 'tutu birthday'],
-  'baseball': ['baseball birthday', 'sports birthday', 'rookie year'],
-  'soccer': ['soccer birthday', 'sports birthday', 'soccer party'],
+  'baseball': ['baseball birthday', 'baseball party', 'rookie year'],
+  'soccer': ['soccer birthday', 'soccer party', 'sports birthday'],
   'halloween': ['halloween party', 'spooky cute', 'ghost party'],
-  'christmas': ['christmas party', 'holiday clipart', 'winter party'],
-  'valentine': ['valentine clipart', 'heart clipart', 'love theme'],
+  'christmas': ['christmas party', 'holiday party', 'winter party'],
+  'valentine': ['valentine party', 'heart theme', 'love theme'],
   'baby shower': ['baby shower invite', 'baby sprinkle', 'new baby'],
-  'wedding': ['wedding template', 'bridal shower', 'wedding printable']
+  'wedding': ['wedding template', 'bridal shower', 'wedding printable'],
+  'floral': ['floral birthday', 'floral party', 'floral invite'],
+  'watercolor': ['watercolor invite', 'watercolor birthday'],
+  'pastel': ['pastel invite', 'pastel birthday'],
+  'girl': ['girl birthday', 'girls party'],
+  'boy': ['boy birthday', 'boys party']
 };
 
 function expandRelatedSeo(keywords) {
@@ -1469,6 +1525,565 @@ const tagFallbackCa = [
   'png files','hand drawn png','kawaii clipart','pastel clipart'
 ];
 
+
+/* ============================================================
+   13タグ最適化ルール
+   - 6カテゴリ分け
+   - 広すぎるタグを減らす
+   - 主役テーマタグを最低3個
+   - 購入形式タグは2個まで
+   ============================================================ */
+const genericInvitationTags = [
+  'digital download','digital invite','printable invite','printable invitation','birthday template',
+  'party invitation','party invite','canva invitation','canva invite','canva template',
+  'editable invitation','editable invite','editable template','5x7 invitation','5x7 invite',
+  'instant download','digital template','birthday invite','kids party invite'
+];
+const purchaseFormatTags = [
+  'editable invite','canva template','editable template','canva invite','digital download',
+  'instant download','printable invite','digital invite','editable invitation','canva invitation'
+];
+
+/* クリップアート用汎用タグ（多用を避けるもの） */
+const genericClipartTags = [
+  'digital clipart','digital files','instant download','craft supply','printable art',
+  'clipart bundle','png bundle','svg bundle','digital download','clipart set',
+  'clip art','png files','digital art','graphic bundle'
+];
+/* クリップアート用購入形式タグ（最大2個まで） */
+const purchaseClipartTags = [
+  'instant download','digital download','commercial use','personal use'
+];
+
+function isGenericClipartTag(tag) {
+  return genericClipartTags.includes(normalizeTag(tag));
+}
+function isPurchaseClipartTag(tag) {
+  return purchaseClipartTags.includes(normalizeTag(tag));
+}
+
+/* ============================================================
+   クリップアート13タグ最適化
+   6カテゴリ構成：
+   ① 主役テーマタグ × 3
+   ② 素材形式タグ  × 3
+   ③ 雰囲気スタイルタグ × 2
+   ④ 利用用途タグ  × 2
+   ⑤ 購入形式タグ  × 2
+   ⑥ 予備タグ     × 1
+   ============================================================ */
+
+// クリップアートのスタイルStop語（テーマ基底の抽出から除外）
+const caThemeStopWords = new Set([
+  'cute','elegant','natural','playful','simple','botanical','retro','hand drawn','pastel',
+  'watercolor','floral','kawaii','pink','blue','green','yellow','purple','colorful',
+  'clipart','png','svg','jpg','pdf','bundle','digital','commercial','personal','transparent',
+  'background','white','use','files','download','instant','printable','art','craft','supply'
+]);
+
+function getCaThemeBases(themeKws, extraKws, allKws) {
+  const bases = [];
+  [...themeKws, ...extraKws, ...allKws].forEach(kw => {
+    kw = normalizeTag(kw);
+    if (!kw) return;
+    if (caThemeStopWords.has(kw)) return;
+    const wc = kw.split(' ').filter(Boolean).length;
+    if (wc === 1 && kw.length > 15) return;
+    if (wc >= 2 && kw.length > 18) return;
+    if (!bases.includes(kw)) bases.push(kw);
+  });
+  return bases.slice(0, 5);
+}
+
+function buildCaThemeTags(themeBases, allKws, format) {
+  // テーマ名 + clipart / png / illustration / flower など
+  const arr = [];
+  const fmt = (format || 'png').toLowerCase();
+  const fmtWord = fmt === 'svg' ? 'svg' : 'png';
+
+  themeBases.forEach(base => {
+    if (arr.length >= 3) return;
+    base = normalizeTag(base);
+    if (!base) return;
+    const combos = [
+      base + ' clipart',     // daisy clipart
+      base + ' ' + fmtWord, // daisy png
+      base + ' illustration',// daisy illustration  ※要20文字チェック
+      base + ' sticker',
+      base + ' flower',
+      base + ' design',
+    ];
+    combos.forEach(c => {
+      if (arr.length >= 3) return;
+      if (c.length <= 20) addTag(arr, c);
+    });
+    // 何も入らなければ base そのものでも許容（最終手段）
+    if (arr.length < 3 && base.length <= 20) addTag(arr, base);
+  });
+
+  // allKwsの関連語からも補充
+  allKws.forEach(kw => {
+    if (arr.length >= 3) return;
+    kw = normalizeTag(kw);
+    if (!kw || caThemeStopWords.has(kw) || isGenericClipartTag(kw)) return;
+    const c = kw.length <= 13 ? kw + ' clipart' : kw;
+    if (c.length <= 20) addTag(arr, c);
+  });
+
+  while (arr.length < 3) {
+    const fb = ['theme clipart','floral clipart','cute clipart'][arr.length] || 'clipart set';
+    addTag(arr, fb);
+  }
+  return arr.slice(0, 3);
+}
+
+function buildCaFormatTags(format, isTransparent, allKws) {
+  // 素材形式タグ：PNG/SVG × 透過 × 関連語
+  const arr = [];
+  const fmt = (format || 'PNG').toLowerCase();
+
+  if (fmt === 'svg') {
+    addTag(arr, 'svg clipart');
+    addTag(arr, 'svg files');
+    addTag(arr, 'svg bundle');
+  } else if (fmt === 'png + svg' || fmt === 'bundle') {
+    addTag(arr, 'png clipart');
+    addTag(arr, 'svg clipart');
+    if (isTransparent) addTag(arr, 'transparent png');
+    else addTag(arr, 'png bundle');
+  } else {
+    // PNG系
+    addTag(arr, 'png clipart');
+    if (isTransparent) addTag(arr, 'transparent png');
+    else addTag(arr, 'png bundle');
+    // スタイル系のpng
+    if (allKws.includes('watercolor')) addTag(arr, 'watercolor png');
+    else if (allKws.includes('hand drawn')) addTag(arr, 'hand drawn png');
+    else addTag(arr, 'high res png');
+  }
+
+  while (arr.length < 3) {
+    const fb = ['png clipart','transparent png','png files'][arr.length] || 'png bundle';
+    addTag(arr, fb);
+  }
+  return arr.slice(0, 3);
+}
+
+function buildCaStyleTags(moodKws, allKws, themeBases) {
+  // 雰囲気スタイルタグ：テーマ×スタイル or スタイル+clipart/png
+  const arr = [];
+  const base0 = themeBases[0] ? normalizeTag(themeBases[0]) : '';
+  const styleMap = {
+    'watercolor': ['watercolor clipart', 'watercolor png'],
+    'hand drawn': ['hand drawn clipart', 'hand drawn png'],
+    'pastel':     ['pastel clipart', 'pastel png'],
+    'botanical':  ['botanical clipart', 'botanical png'],
+    'floral':     ['floral clipart', 'floral png'],
+    'cute':       ['cute clipart', 'kawaii clipart'],
+    'kawaii':     ['kawaii clipart', 'cute clipart'],
+    'retro':      ['retro clipart', 'vintage clipart'],
+    'vintage':    ['vintage clipart', 'retro clipart'],
+    'natural':    ['nature clipart', 'botanical png'],
+    'girly':      ['girly clipart', 'pink clipart'],
+    'girl':       ['girl clipart', 'pink clipart'],
+    'pink':       ['pink clipart', 'pastel clipart'],
+  };
+
+  const preferred = ['watercolor','hand drawn','pastel','botanical','floral','cute','kawaii','retro','vintage','natural','girl','girly','pink'];
+  preferred.forEach(k => {
+    if (arr.length >= 2) return;
+    if (!(moodKws.includes(k) || allKws.includes(k))) return;
+    // テーマ×スタイル組み合わせを先に試す
+    if (base0) {
+      const combo = base0 + ' ' + k; // e.g. daisy watercolor
+      if (combo.length <= 20 && !arr.includes(combo)) { addTag(arr, combo); return; }
+    }
+    // スタイル単体タグ
+    const candidates = styleMap[k] || [k + ' clipart'];
+    for (const c of candidates) {
+      if (c.length <= 20 && !arr.includes(c)) { addTag(arr, c); break; }
+    }
+  });
+
+  // 補充
+  if (arr.length < 2) addTag(arr, 'floral clipart');
+  if (arr.length < 2) addTag(arr, 'nature clipart');
+  return arr.slice(0, 2);
+}
+
+function buildCaUseTags(caType, themeBases) {
+  // 利用用途タグ：どんな用途に使えるか
+  const arr = [];
+  const base0 = themeBases[0] ? normalizeTag(themeBases[0]) : '';
+  const typeL = (caType || '').toLowerCase();
+
+  if (typeL.includes('sticker')) {
+    addTag(arr, 'sticker clipart');
+    addTag(arr, base0 ? base0 + ' sticker' : 'planner sticker');
+  } else if (typeL.includes('paper')) {
+    addTag(arr, 'digital paper');
+    addTag(arr, 'scrapbook paper');
+  } else if (typeL.includes('printable')) {
+    addTag(arr, 'printable clipart');
+    addTag(arr, 'planner clipart');
+  } else {
+    // 汎用のClipart Bundleなら用途ベースで
+    addTag(arr, 'scrapbook clipart');
+    addTag(arr, 'planner clipart');
+  }
+
+  if (arr.length < 2) addTag(arr, 'card making');
+  if (arr.length < 2) addTag(arr, 'invitation clipart');
+  return arr.slice(0, 2);
+}
+
+function buildCaPurchaseTags(commercialOK) {
+  return commercialOK
+    ? ['commercial use', 'instant download']
+    : ['personal use', 'instant download'];
+}
+
+function buildOptimizedClipartTags({ allKws, themeKws, extraKws, moodKws, format, isTransparent, caType, commercialOK }) {
+  const themeBases = getCaThemeBases(themeKws, extraKws, allKws);
+
+  const categories = [
+    { key:'theme',    title:'① 主役テーマタグ',    max:3, tags: buildCaThemeTags(themeBases, allKws, format) },
+    { key:'format',   title:'② 素材形式タグ',      max:3, tags: buildCaFormatTags(format, isTransparent, allKws) },
+    { key:'style',    title:'③ 雰囲気スタイルタグ', max:2, tags: buildCaStyleTags(moodKws, allKws, themeBases) },
+    { key:'use',      title:'④ 利用用途タグ',      max:2, tags: buildCaUseTags(caType, themeBases) },
+    { key:'purchase', title:'⑤ 購入形式タグ',      max:2, tags: buildCaPurchaseTags(commercialOK) },
+    { key:'spare',    title:'⑥ 予備タグ',          max:1, tags: [] },
+  ];
+
+  // 重複除去・20文字超えチェック・上限適用
+  const used = [];
+  categories.forEach(cat => {
+    const clean = [];
+    cat.tags.forEach(t => {
+      if (!used.includes(normalizeTag(t)) && addTag(clean, t, cat.max)) used.push(normalizeTag(t));
+    });
+    cat.tags = clean;
+  });
+
+  // 予備タグ：テーマ×用途の組み合わせ優先
+  const base0 = themeBases[0] ? normalizeTag(themeBases[0]) : '';
+  const spareCandidates = [
+    base0 ? base0 + ' design' : '',
+    base0 ? base0 + ' art' : '',
+    base0 ? base0 + ' pattern' : '',
+    base0 ? base0 + ' graphic' : '',
+    'flower clipart', 'nature clipart', 'botanical png',
+    'cute clipart', 'pastel clipart', 'kawaii clipart',
+    'scrapbook png', 'planner png',
+  ].filter(Boolean);
+
+  spareCandidates.forEach(t => {
+    if (categories[5].tags.length >= 1) return;
+    const nt = normalizeTag(t);
+    if (!nt || used.includes(nt) || nt.length > 20) return;
+    if (wordCount(nt) < 2) return;
+    if (isGenericClipartTag(nt)) return; // 予備には汎用タグ入れない
+    addTag(categories[5].tags, nt, 1) && used.push(nt);
+  });
+
+  // 13個に足りない場合の汎用補充（汎用は総計2個まで）
+  const fillCa = ['png clipart','transparent png','watercolor png','floral clipart','pastel clipart',
+                   'kawaii clipart','scrapbook clipart','planner clipart','instant download','commercial use'];
+  fillCa.forEach(t => {
+    const all = categories.flatMap(c => c.tags);
+    if (all.length >= 13) return;
+    const nt = normalizeTag(t);
+    if (used.includes(nt)) return;
+    const genericCount = all.filter(isGenericClipartTag).length;
+    if (isGenericClipartTag(nt) && genericCount >= 3) return;
+    const target = categories.find(c => c.tags.length < c.max);
+    if (target && addTag(target.tags, nt, target.max)) used.push(nt);
+  });
+
+  const finalTags = categories.flatMap(c => c.tags).slice(0, 13);
+
+  // 注意点・警告
+  const warnings = [];
+  const themeCount = categories[0].tags.length;
+  const genericCount = finalTags.filter(isGenericClipartTag).length;
+  const purchaseCount = finalTags.filter(isPurchaseClipartTag).length;
+  const weakSingle = finalTags.filter(t => wordCount(t) < 2 && !['png','svg','jpg','pdf'].includes(t));
+  if (themeCount < 3) warnings.push('主役テーマタグが3個未満です。テーマ名・モチーフ名を増やすと効果的です。');
+  if (genericCount > 3) warnings.push(`汎用タグが${genericCount}個あります。商品テーマに近い具体タグへ差し替えを推奨します。`);
+  if (purchaseCount > 2) warnings.push(`購入形式タグが${purchaseCount}個あります。2個までが理想です。`);
+  if (weakSingle.length) warnings.push(`単語1つのタグがあります：${weakSingle.join(', ')}。2〜3語への変更を推奨します。`);
+  if (!warnings.length) warnings.push('クリップアートタグのバランスは良好です。テーマ性を優先した具体的なタグが揃っています。');
+
+  return { categories, finalTags, warnings, themeCount, genericCount, purchaseCount };
+}
+const themeStopWords = new Set(['cute','elegant','luxury','muted color','watercolor','boy','girl','natural','playful','simple','botanical','retro','hand drawn','pastel','birthday','party','invitation','template','editable','canva','digital download','printable','5x7','kids','baby']);
+
+function normalizeTag(tag) {
+  return String(tag || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+function isGenericTag(tag) {
+  const t = normalizeTag(tag);
+  return genericInvitationTags.includes(t) || ['invitation','birthday','template','download','digital'].includes(t);
+}
+function isPurchaseFormatTag(tag) {
+  return purchaseFormatTags.includes(normalizeTag(tag));
+}
+function addTag(arr, tag, max=99) {
+  tag = normalizeTag(tag);
+  if (!tag || tag.length > 20) return false;
+  if (arr.includes(tag)) return false;
+  if (arr.length >= max) return false;
+  arr.push(tag);
+  return true;
+}
+function getThemeBases(themeKws, extraKws, allKws) {
+  const bases = [];
+  [...themeKws, ...extraKws, ...allKws].forEach(kw => {
+    kw = normalizeTag(kw);
+    if (!kw) return;
+    if (themeStopWords.has(kw)) return;
+    // 1語は16文字以内、2語以上は18文字以内まで許容（truck birthday など）
+    const wc = kw.split(' ').filter(Boolean).length;
+    if (wc === 1 && kw.length > 16) return;
+    if (wc >= 2 && kw.length > 18) return;
+    if (!bases.includes(kw)) bases.push(kw);
+  });
+  return bases.slice(0, 5);
+}
+function ageTagsFromAge(age, themeBases) {
+  const a = String(age || '').toLowerCase();
+  const base = (themeBases && themeBases[0]) ? normalizeTag(themeBases[0]) : '';
+
+  // テーマ × 年齢の組み合わせタグを優先的に生成（20文字以内）
+  function themeAgeTag(suffix) {
+    if (!base) return '';
+    const candidate = base + ' ' + suffix;
+    return candidate.length <= 20 ? candidate : '';
+  }
+
+  if (a.includes('first') || a === '1st') {
+    const combo1 = themeAgeTag('1st birthday');  // e.g. butterfly 1st birthday→20文字以内のみ
+    const combo2 = themeAgeTag('girl birthday');  // e.g. butterfly girl birthday
+    const arr = [];
+    if (combo1 && combo1.length <= 20) arr.push(combo1);
+    if (combo2 && combo2.length <= 20 && combo2 !== combo1) arr.push(combo2);
+    if (!arr.includes('1st birthday invite')) arr.push('1st birthday invite');
+    if (arr.length < 3 && !arr.includes('turning one')) arr.push('turning one');
+    return arr.slice(0, 3);
+  }
+  if (a === '2nd') {
+    const combo1 = themeAgeTag('2nd birthday');
+    const arr = [];
+    if (combo1 && combo1.length <= 20) arr.push(combo1);
+    if (!arr.includes('2nd birthday invite')) arr.push('2nd birthday invite');
+    if (arr.length < 3) arr.push('turning two');
+    return arr.slice(0, 3);
+  }
+  if (a === '3rd') {
+    const combo1 = themeAgeTag('3rd birthday');
+    const arr = [];
+    if (combo1 && combo1.length <= 20) arr.push(combo1);
+    if (!arr.includes('3rd birthday invite')) arr.push('3rd birthday invite');
+    if (arr.length < 3) arr.push('3rd birthday boy');
+    return arr.slice(0, 3);
+  }
+  if (a.includes('any')) return ['any age invite', 'birthday invite', 'kids birthday'];
+  if (a.includes('baby shower')) return ['baby shower invite', 'baby shower', 'editable shower'];
+  if (a.includes('bridal')) return ['bridal shower', 'bridal invite', 'shower invitation'];
+  return ['birthday invite', 'kids birthday', 'birthday party'];
+}
+function targetTagsFromMood(moodKws, age) {
+  const isGirl = moodKws.includes('girl');
+  const isBoy = moodKws.includes('boy');
+  const a = String(age || '').toLowerCase();
+  const arr = [];
+  if (isBoy) { addTag(arr,'boy birthday invite'); addTag(arr,'boys party invite'); }
+  if (isGirl) { addTag(arr,'girl birthday invite'); addTag(arr,'girls party invite'); }
+  if (!isBoy && !isGirl) { addTag(arr,'kids birthday'); addTag(arr,'kids party invite'); }
+  if (a.includes('baby')) addTag(arr,'baby shower invite');
+  return arr.slice(0,2);
+}
+function wordCount(tag) {
+  return normalizeTag(tag).split(' ').filter(Boolean).length;
+}
+function makeSpecificTag(tag, role='theme') {
+  const t = normalizeTag(tag);
+  if (!t) return '';
+  if (wordCount(t) >= 2) return t;
+
+  // 単語1つだけの弱いタグを、検索意図が見える2〜3語へ寄せる
+  const targetMap = {
+    girl: ['girl birthday invite','girl birthday'],
+    boy: ['boy birthday invite','boy birthday'],
+    girls: ['girls party invite','girl birthday'],
+    boys: ['boys party invite','boy birthday'],
+    kids: ['kids birthday','kids party invite'],
+    baby: ['baby shower invite','baby birthday']
+  };
+  if (targetMap[t]) return targetMap[t].find(x => x.length <= 20) || t;
+
+  if (role === 'style') {
+    const styleMap = {
+      watercolor: 'watercolor invite',
+      pastel: 'pastel invite',
+      pink: 'pink birthday',
+      blue: 'blue birthday',
+      boho: 'boho invite',
+      retro: 'retro invite',
+      vintage: 'vintage invite',
+      elegant: 'elegant invite',
+      cute: 'cute birthday',
+      natural: 'natural invite',
+      botanical: 'botanical invite',
+      playful: 'playful invite'
+    };
+    if (styleMap[t] && styleMap[t].length <= 20) return styleMap[t];
+  }
+
+  const candidates = role === 'theme'
+    ? [`${t} birthday`, `${t} invite`, `${t} party`, `${t} theme`]
+    : [`${t} birthday`, `${t} invite`, `${t} party`, `${t} theme`];
+  return candidates.find(x => x.length <= 20) || t;
+}
+function styleTagsFromMood(moodKws, allKws, themeBases) {
+  const arr = [];
+  const base0 = themeBases[0] ? normalizeTag(themeBases[0]) : '';
+  const preferred = ['watercolor','pastel','pink','blue','boho','retro','vintage','hand drawn','elegant','cute','natural','botanical','muted color','playful'];
+  preferred.forEach(k => {
+    if (arr.length >= 2) return;
+    if (!(moodKws.includes(k) || allKws.includes(k))) return;
+    // テーマ × スタイルの組み合わせを先に試みる
+    if (base0 && k !== 'muted color') {
+      const combo1 = base0 + ' ' + k; // e.g. "butterfly watercolor"
+      const combo2 = k + ' invite';    // e.g. "watercolor invite"
+      if (combo1.length <= 20 && !arr.includes(combo1)) { addTag(arr, combo1); return; }
+      if (combo2.length <= 20 && !arr.includes(combo2)) { addTag(arr, combo2); return; }
+    }
+    const specific = k === 'muted color' ? 'muted color invite' : makeSpecificTag(k, 'style');
+    addTag(arr, specific);
+  });
+  if (arr.length < 2 && themeBases.includes('floral')) addTag(arr,'floral invite');
+  if (arr.length < 2) addTag(arr,'party theme');
+  return arr.slice(0,2);
+}
+function buildThemeTags(themeBases, allKws, moodKws) {
+  const arr = [];
+  const bases = themeBases.length ? themeBases : allKws.filter(k => !themeStopWords.has(k)).slice(0,3);
+  bases.forEach(base => {
+    if (arr.length >= 3) return;
+    base = normalizeTag(base);
+    if (!base) return;
+    // 主役テーマタグは invite / party / birthday の3バリエーションを優先
+    const combos = [
+      base + ' invite',
+      base + ' birthday',
+      base + ' party',
+      base + ' theme',
+    ];
+    combos.forEach(c => {
+      if (arr.length >= 3) return;
+      if (c.length <= 20) addTag(arr, c);
+    });
+    // 上記で追加できなければ makeSpecificTag にフォールバック
+    if (arr.length < 3) addTag(arr, makeSpecificTag(base, 'theme'));
+  });
+  // 関連語からテーマ性の高いものを補充
+  allKws.forEach(kw => {
+    if (arr.length >= 3) return;
+    kw = normalizeTag(kw);
+    if (!kw || themeStopWords.has(kw) || isGenericTag(kw)) return;
+    addTag(arr, makeSpecificTag(kw, 'theme'));
+  });
+  while (arr.length < 3) addTag(arr, ['theme invite','party theme','birthday theme'][arr.length]);
+  return arr.slice(0,3);
+}
+function buildOptimizedInvitationTags({allKws, themeKws, extraKws, moodKws, age}) {
+  const themeBases = getThemeBases(themeKws, extraKws, allKws);
+  const isGirl = moodKws.includes('girl');
+  const isBoy = moodKws.includes('boy');
+
+  const categories = [
+    { key:'theme', title:'① 主役テーマタグ', max:3, tags: buildThemeTags(themeBases, allKws, moodKws) },
+    { key:'age', title:'② 誕生日・年齢タグ', max:3, tags: ageTagsFromAge(age, themeBases) },
+    { key:'style', title:'③ 雰囲気タグ', max:2, tags: styleTagsFromMood(moodKws, allKws, themeBases) },
+    { key:'format', title:'④ 購入形式タグ', max:2, tags: ['editable invite','canva template'] },
+    { key:'target', title:'⑤ 対象者タグ', max:2, tags: targetTagsFromMood(moodKws, age) },
+    { key:'spare', title:'⑥ 予備タグ', max:1, tags: [] }
+  ];
+  // 20文字・重複・上限を適用
+  const used = [];
+  categories.forEach(cat => {
+    const clean = [];
+    cat.tags.forEach(t => { if (!used.includes(normalizeTag(t)) && addTag(clean,t,cat.max)) used.push(normalizeTag(t)); });
+    cat.tags = clean;
+  });
+
+  // 予備タグ候補：テーマ×スタイル・テーマ×ジェンダーなど具体的な組み合わせを優先
+  const base0 = themeBases[0] ? normalizeTag(themeBases[0]) : '';
+  const themeStyleCombos = [];
+  if (base0) {
+    if (moodKws.includes('watercolor') || allKws.includes('watercolor')) {
+      const c = base0 + ' watercolor';
+      if (c.length <= 20) themeStyleCombos.push(c);
+    }
+    if (moodKws.includes('pastel') || allKws.includes('pastel')) {
+      const c = 'pastel ' + base0;
+      if (c.length <= 20) themeStyleCombos.push(c);
+    }
+    if (isGirl) {
+      const c = base0 + ' girl';
+      if (c.length <= 20) themeStyleCombos.push(c);
+    }
+    if (isBoy) {
+      const c = base0 + ' boy';
+      if (c.length <= 20) themeStyleCombos.push(c);
+    }
+    const c2 = 'pink ' + base0;
+    if (c2.length <= 20 && (isGirl || moodKws.includes('pastel') || moodKws.includes('pink'))) themeStyleCombos.push(c2);
+  }
+
+  const spareCandidates = [
+    ...themeStyleCombos,
+    ...themeBases.map(b => makeSpecificTag(b, 'spare')),
+    ...themeBases.map(b => normalizeTag(b) + ' birthday'),
+    ...themeBases.map(b => normalizeTag(b) + ' template'),
+    ...allKws.map(k => makeSpecificTag(k, 'spare')),
+    'birthday invite','party invite','kids birthday'
+  ];
+  spareCandidates.forEach(t => {
+    if (categories[5].tags.length >= 1) return;
+    const nt = normalizeTag(t);
+    if (!nt || used.includes(nt) || nt.length > 20) return;
+    if (wordCount(nt) < 2) return;
+    if (isGenericTag(nt) && categories.flatMap(c=>c.tags).filter(isGenericTag).length >= 2) return;
+    addTag(categories[5].tags, nt, 1) && used.push(nt);
+  });
+  // 総数不足の補充。汎用タグは最大2個、購入形式タグは最大2個を維持。
+  const fill = ['birthday invite','kids birthday','party invite','birthday party','editable invite','canva template','instant download'];
+  fill.forEach(t => {
+    const all = categories.flatMap(c=>c.tags);
+    if (all.length >= 13) return;
+    if (all.includes(normalizeTag(t))) return;
+    if (isGenericTag(t) && all.filter(isGenericTag).length >= 2) return;
+    if (isPurchaseFormatTag(t) && all.filter(isPurchaseFormatTag).length >= 2) return;
+    // 足りないカテゴリへ優先補充
+    const target = categories.find(c => c.tags.length < c.max);
+    if (target && addTag(target.tags, t, target.max)) used.push(normalizeTag(t));
+  });
+  const finalTags = categories.flatMap(c => c.tags).slice(0,13);
+  const warnings = [];
+  const genericCount = finalTags.filter(isGenericTag).length;
+  const purchaseCount = finalTags.filter(isPurchaseFormatTag).length;
+  const themeCount = categories[0].tags.length;
+  if (genericCount > 2) warnings.push(`汎用タグが${genericCount}個あります。商品テーマに合う具体タグへ差し替え推奨です。`);
+  if (purchaseCount > 2) warnings.push(`購入形式タグが${purchaseCount}個あります。購入形式タグは2個までがおすすめです。`);
+  const weakSingleTags = finalTags.filter(t => wordCount(t) < 2 && !['png','svg','jpg','pdf'].includes(t));
+  if (themeCount < 3) warnings.push('主役テーマタグが3個未満です。テーマ名・モチーフ名を増やすと検索入口が増えます。');
+  if (weakSingleTags.length) warnings.push(`単語1つだけの弱いタグがあります：${weakSingleTags.join(', ')}。2〜3語の検索フレーズへ変更推奨です。`);
+  if (!warnings.length) warnings.push('タグの役割バランスは良好です。単語1つの弱いタグを避け、テーマ性を優先しています。');
+  return { categories, finalTags, warnings, genericCount, purchaseCount, themeCount };
+}
+
 /* ============================================================
    メイン生成処理
    ============================================================ */
@@ -1546,23 +2161,9 @@ function generateInvitation(allKws, themeKws, extraKws, moodKws, hasTrademarkRis
   ];
   renderTitles(titles);
 
-  // タグ生成（招待状）
-  const tagPool = [
-    ageWord.toLowerCase().includes('first') ? '1st birthday' : age.toLowerCase() + ' birthday',
-    mainTheme.toLowerCase() + ' invite',
-    'birthday invite',
-    'editable invite',
-    'canva invite',
-    'digital invite',
-    'party invite',
-    isGirl ? 'girl birthday' : isBoy ? 'boy birthday' : 'kids birthday',
-    'printable invite',
-    size.toLowerCase() + ' invite',
-    'instant download',
-    isWatercolor ? 'watercolor' : 'floral invite',
-    'party template',
-  ];
-  renderTags(tagPool, tagFallbackInv);
+  // タグ生成（招待状）：6カテゴリ最適化
+  const tagData = buildOptimizedInvitationTags({ allKws, themeKws, extraKws, moodKws, age });
+  renderTags(tagData.finalTags, tagFallbackInv, tagData);
 
   // 説明文
   const desc = buildInvDesc(mainTheme, age, type, size, styleWord, genderWord);
@@ -1588,7 +2189,7 @@ function generateInvitation(allKws, themeKws, extraKws, moodKws, hasTrademarkRis
   renderFilenames(filenames);
 
   // チェック
-  runChecks(titles, tagPool, desc, hasTrademarkRisk, 'invitation', {size, type});
+  runChecks(titles, tagData.finalTags, desc, hasTrademarkRisk, 'invitation', {size, type, tagData});
 }
 
 function buildInvDesc(theme, age, type, size, style, gender) {
@@ -1650,23 +2251,12 @@ function generateClipart(allKws, themeKws, extraKws, moodKws, hasTrademarkRisk) 
   ];
   renderTitles(titles);
 
-  // タグ生成（クリップアート）
-  const tagPool = [
-    mainTheme.toLowerCase() + ' clipart',
-    isWatercolor ? 'watercolor png' : mainTheme.toLowerCase() + ' png',
-    'clipart bundle',
-    'png clipart',
-    format.toLowerCase() === 'svg' ? 'svg files' : 'png bundle',
-    isTransparent ? 'transparent png' : 'digital clipart',
-    commercialOK ? 'commercial use' : 'personal use',
-    'instant download',
-    'digital clipart',
-    caType.toLowerCase().includes('sticker') ? 'sticker clipart' : 'printable art',
-    isWatercolor ? 'watercolor clipart' : 'floral clipart',
-    'digital files',
-    'craft supply',
-  ];
-  renderTags(tagPool, tagFallbackCa);
+  // タグ生成（クリップアート）：6カテゴリ最適化
+  const caTagData = buildOptimizedClipartTags({
+    allKws, themeKws, extraKws, moodKws,
+    format, isTransparent, caType, commercialOK
+  });
+  renderTags(caTagData.finalTags, tagFallbackCa, caTagData);
 
   // 説明文
   const desc = buildCaDesc(mainTheme, format, bg, useRange, count, caType, styleWord);
@@ -1690,7 +2280,7 @@ function generateClipart(allKws, themeKws, extraKws, moodKws, hasTrademarkRisk) 
   renderFilenames(filenames);
 
   // チェック
-  runChecks(titles, tagPool, desc, hasTrademarkRisk, 'clipart', {format, bg, useRange, count, caType});
+  runChecks(titles, caTagData.finalTags, desc, hasTrademarkRisk, 'clipart', {format, bg, useRange, count, caType, tagData: caTagData});
 }
 
 function buildCaDesc(theme, format, bg, useRange, count, caType, style) {
@@ -1746,29 +2336,54 @@ function renderTitles(titles) {
   });
 }
 
-function renderTags(pool, fallback) {
+function renderTags(pool, fallback, tagData=null) {
   // 20文字以内チェック＆13個に整える
-  let tags = pool.filter(t => t && t.length <= 20);
-  // 重複除去
+  let tags = pool.filter(t => t && normalizeTag(t).length <= 20).map(normalizeTag);
   tags = [...new Set(tags)];
-  // 不足分を補充
   if (tags.length < 13) {
     for (const fb of fallback) {
       if (tags.length >= 13) break;
-      if (!tags.includes(fb) && fb.length <= 20) tags.push(fb);
+      const nt = normalizeTag(fb);
+      if (!tags.includes(nt) && nt.length <= 20) tags.push(nt);
     }
   }
   tags = tags.slice(0, 13);
 
-  const wrap = document.getElementById('tags-result');
-  wrap.innerHTML = '';
+  const hiddenWrap = document.getElementById('tags-result');
+  hiddenWrap.innerHTML = '';
   tags.forEach(tag => {
     const pill = document.createElement('span');
-    const warn = tag.length > 20;
-    pill.className = 'tag-pill' + (warn ? ' tag-warn' : '');
+    pill.className = 'tag-pill';
     pill.innerHTML = `${escHtml(tag)}<span class="tag-count">${tag.length}</span>`;
-    wrap.appendChild(pill);
+    hiddenWrap.appendChild(pill);
   });
+
+  const categoryWrap = document.getElementById('tags-category-result');
+  const warningWrap = document.getElementById('tag-warning-result');
+  categoryWrap.innerHTML = '';
+  warningWrap.innerHTML = '';
+
+  if (tagData && tagData.categories) {
+    tagData.categories.forEach(cat => {
+      const card = document.createElement('div');
+      card.className = 'tag-category-card';
+      const pills = cat.tags.map(tag => `<span class="tag-pill">${escHtml(tag)}<span class="tag-count">${tag.length}</span></span>`).join('');
+      card.innerHTML = `<div class="tag-category-title">${escHtml(cat.title)} <span style="color:var(--ink-lt);font-weight:700;">${cat.tags.length}/${cat.max}</span></div><div class="tag-category-tags">${pills}</div>`;
+      categoryWrap.appendChild(card);
+    });
+    const isOk = tagData.warnings && tagData.warnings.length === 1 && tagData.warnings[0].includes('良好');
+    const box = document.createElement('div');
+    box.className = 'tag-warning-box' + (isOk ? ' ok' : '');
+    box.innerHTML = (tagData.warnings || []).map(w => `• ${escHtml(w)}`).join('<br>');
+    warningWrap.appendChild(box);
+  } else {
+    // クリップアートモードは従来表示
+    const card = document.createElement('div');
+    card.className = 'tag-category-card';
+    card.innerHTML = `<div class="tag-category-title">13タグ</div><div class="tag-category-tags">${tags.map(tag => `<span class="tag-pill">${escHtml(tag)}<span class="tag-count">${tag.length}</span></span>`).join('')}</div>`;
+    categoryWrap.appendChild(card);
+  }
+
   document.getElementById('tags-csv').textContent = tags.join(', ');
   return tags;
 }
@@ -1820,6 +2435,15 @@ function runChecks(titles, tags, desc, hasTrademarkRisk, mode, opts) {
   const uniqueTags = new Set(csvTags);
   checks.push({ ok: uniqueTags.size === csvTags.length, label: 'タグに重複がないか' });
 
+  if (mode === 'invitation') {
+    const genericCount = csvTags.filter(isGenericTag).length;
+    const formatCount = csvTags.filter(isPurchaseFormatTag).length;
+    const themeCount = opts.tagData ? opts.tagData.themeCount : 0;
+    checks.push({ ok: themeCount >= 3, label: `主役テーマタグが最低3個あるか（現在：${themeCount}個）` });
+    checks.push({ ok: formatCount <= 2, label: `購入形式タグが2個以内か（現在：${formatCount}個）` });
+    checks.push({ ok: genericCount <= 2, label: `広すぎる汎用タグが多すぎないか（現在：${genericCount}個）` });
+  }
+
   checks.push({ ok: !hasTrademarkRisk, label: '商標リスクのある単語が含まれていないか', isError: !hasTrademarkRisk ? false : true });
 
   const seoChips = document.getElementById('seo-result').querySelectorAll('.seo-chip').length;
@@ -1833,6 +2457,13 @@ function runChecks(titles, tags, desc, hasTrademarkRisk, mode, opts) {
     checks.push({ ok: desc.toLowerCase().includes('canva'), label: 'Canvaで編集できることが伝わるか' });
     checks.push({ ok: desc.toLowerCase().includes('refund'), label: '説明文に返金ポリシーが入っているか' });
   } else {
+    // クリップアートモードの品質チェック
+    const caThemeCount  = opts.tagData ? opts.tagData.themeCount  : 0;
+    const caGenericCount = opts.tagData ? opts.tagData.genericCount : 0;
+    const caPurchaseCount = opts.tagData ? opts.tagData.purchaseCount : 0;
+    checks.push({ ok: caThemeCount >= 3,   label: `主役テーマタグが最低3個あるか（現在：${caThemeCount}個）` });
+    checks.push({ ok: caGenericCount <= 3,  label: `広すぎる汎用タグが多すぎないか（現在：${caGenericCount}個）` });
+    checks.push({ ok: caPurchaseCount <= 2, label: `購入形式タグが2個以内か（現在：${caPurchaseCount}個）` });
     checks.push({ ok: desc.toLowerCase().includes('clipart'), label: '説明文に「Clipart / Clip Art Bundle」が入っているか' });
     checks.push({ ok: desc.includes(opts.format || 'PNG'), label: `説明文にファイル形式（${opts.format}）が入っているか` });
     checks.push({ ok: desc.toLowerCase().includes('digital files') || desc.toLowerCase().includes('digital download'), label: '説明文に「Digital files」が入っているか' });
