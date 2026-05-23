@@ -1,1358 +1,2588 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- OGP / SNS Preview -->	
-  <meta property="og:title" content="Etsy Mockup Prompt Helper ✦ hello_digihana">
-  <meta property="og:description" content="Etsy招待状向けのモックアップ生成プロンプトを作るための無料ツールです。">
-  <meta property="og:image" content="https://hellodigihana.github.io/main/etsy_mockup_prompt_helper/ogp.png">
-  <meta property="og:url" content="https://hellodigihana.github.io/main/etsy_mockup_prompt_helper/">
-  <meta property="og:type" content="website">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- OGP / SNS Preview -->
+<meta property="og:title" content="Etsy SEO Listing Helper ✦ hello_digihana">
+<meta property="og:description" content="Etsy向けの英語SEOタイトル・13タグ・商品説明文づくりをサポートする無料ツールです。">
+<meta property="og:image" content="https://hellodigihana.github.io/main/etsy_seo_listing_helper/ogp.png">
+<meta property="og:url" content="https://hellodigihana.github.io/main/etsy_seo_listing_helper/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="hello_digihana">
+
 <!-- Twitter / X Preview -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Etsy Mockup Prompt Helper ✦ hello_digihana">
-  <meta name="twitter:description" content="Etsy招待状向けのモックアップ生成プロンプトを作るための無料ツールです。">
-  <meta name="twitter:image" content="https://hellodigihana.github.io/main/etsy_mockup_prompt_helper/ogp.png">	
-  <title>Etsy Mockup Prompt Helper ✦ hello_digihana</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
-  <style>
-:root{
-  --bg:#FBF9FF;
-  --bg2:#F4F0FB;
-  --white:#fff;
-  --pink:#F2A8C4;
-  --pink-lt:#FCE8F3;
-  --pink-dk:#C9698E;
-  --lav:#B8A8E8;
-  --lav-lt:#EDE8FA;
-  --lav-dk:#7B68C8;
-  --lav-mid:#C8BCEE;
-  --mint:#A8D8C8;
-  --mint-lt:#E4F5EF;
-  --mint-dk:#4A9E84;
-  --ink:#2C1F3E;
-  --ink-mid:#5A4878;
-  --ink-lt:#8878A8;
-  --ink-xlt:#BEB0D4;
-  --text-light:#8878A8;
-  --border:rgba(180,160,220,.18);
-  --border-md:rgba(180,160,220,.32);
-  --shadow-card:0 2px 18px rgba(120,100,180,.09);
-  --shadow-md:0 8px 28px rgba(100,80,160,.13);
-  --r-sm:12px;
-  --r-md:14px;
-  --r-lg:20px;
-  --r-xl:28px;
-  --r-full:9999px;
-  --ff:'DM Sans','Hiragino Sans','Noto Sans JP',system-ui,sans-serif;
-  --transition:.2s ease;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:var(--ff);
-  background:var(--bg);
-  color:var(--ink);
-  font-size:14px;
-  line-height:1.7;
-  min-height:100vh;
-}
-
-/* Header — matched to index.html */
-.site-header{
-  background:linear-gradient(160deg,#F0EAFF 0%,#FDE8F3 45%,#E8F5FB 100%);
-  padding:4.2rem 1.25rem 3.6rem;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.site-header:before{
-  content:'';
-  position:absolute;
-  top:-70px;
-  right:-60px;
-  width:260px;
-  height:260px;
-  background:radial-gradient(circle,rgba(184,168,232,.3),transparent 70%);
-  border-radius:50%;
-  pointer-events:none;
-}
-.site-header:after{
-  content:'';
-  position:absolute;
-  bottom:-40px;
-  left:-40px;
-  width:220px;
-  height:220px;
-  background:radial-gradient(circle,rgba(242,168,196,.25),transparent 70%);
-  border-radius:50%;
-  pointer-events:none;
-}
-.hero-badge{
-  display:inline-block;
-  background:#fff;
-  border:1.5px solid var(--lav-mid);
-  color:var(--lav-dk);
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  padding:.35rem 1rem;
-  border-radius:var(--r-full);
-  margin-bottom:1.35rem;
-  position:relative;
-}
-.site-header h1{
-  font-size:clamp(38px,9vw,62px);
-  font-weight:800;
-  color:var(--ink);
-  line-height:1.03;
-  margin-bottom:1rem;
-  letter-spacing:-.045em;
-  position:relative;
-}
-.site-header h1 em{
-  font-style:normal;
-  background:linear-gradient(120deg, #C9698E, #7B68C8, #F2A8C4);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.site-header .subtitle{
-  font-size:15px;
-  font-weight:700;
-  color:var(--lav-dk);
-  margin:-.25rem auto .8rem;
-  position:relative;
-}
-.site-header .description{
-  font-size:clamp(13px,3vw,16px);
-  line-height:1.7;
-  color:var(--ink-mid);
-  max-width:620px;
-  margin:0 auto 1.5rem;
-  position:relative;
-}
-.hero-chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:.65rem;
-  justify-content:center;
-  position:relative;
-}
-.hero-chip{
-  display:inline-flex;
-  align-items:center;
-  gap:.3rem;
-  font-size:13px;
-  padding:.35rem .9rem;
-  border-radius:var(--r-full);
-  font-weight:700;
-}
-.chip-pink{background:var(--pink-lt);color:var(--pink-dk)}
-.chip-lav{background:var(--lav-lt);color:var(--lav-dk)}
-.chip-mint{background:var(--mint-lt);color:var(--mint-dk)}
-
-.container{
-  max-width:860px;
-  margin:0 auto;
-  padding:2.5rem 1.25rem 5rem;
-}
-.card,.result-card{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:var(--r-xl);
-  padding:1.7rem;
-  box-shadow:var(--shadow-card);
-  margin-bottom:1.25rem;
-}
-.card-title{
-  display:flex;
-  align-items:center;
-  gap:.7rem;
-  margin-bottom:1.1rem;
-  padding-bottom:1rem;
-  border-bottom:1.5px dashed rgba(184,168,232,.3);
-  font-size:18px;
-  font-weight:800;
-  color:var(--ink);
-}
-.card-title .icon{
-  width:34px;
-  height:34px;
-  background:linear-gradient(135deg,var(--lav),var(--pink));
-  border-radius:50%;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  font-size:16px;
-  box-shadow:0 2px 10px rgba(123,104,200,.13);
-}
-.required-star{color:var(--pink-dk);font-size:13px}
-
-/* Upload */
-.upload-area{
-  border:2px dashed rgba(242,168,196,.6);
-  border-radius:22px;
-  padding:2rem 1.25rem;
-  text-align:center;
-  cursor:pointer;
-  transition:var(--transition);
-  background:linear-gradient(135deg,#FFF5FA,#FDE8F3,#F6F0FF);
-  position:relative;
-}
-.upload-area:hover,.upload-area.dragover{
-  border-color:var(--pink-dk);
-  box-shadow:0 4px 18px rgba(242,168,196,.2);
-  transform:translateY(-1px);
-}
-.upload-area input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.upload-icon{font-size:34px;margin-bottom:.35rem}
-.upload-text{font-size:14px;color:var(--ink-mid)}
-.upload-text strong{display:block;font-size:15px;color:var(--ink);margin-bottom:.2rem}
-.upload-formats{font-size:12px;color:var(--ink-lt);margin-top:.4rem}
-.preview-wrap{
-  display:none;
-  margin-top:1rem;
-  border-radius:22px;
-  overflow:hidden;
-  border:1.5px solid var(--border-md);
-  background:#FCFAFF;
-  padding:1rem;
-  text-align:center;
-}
-.preview-wrap.visible{display:block}
-.preview-wrap img{max-width:100%;max-height:260px;object-fit:contain;border-radius:14px;display:block;margin:0 auto}
-.preview-filename{font-size:12px;color:var(--ink-lt);margin-top:.55rem}
-.preview-remove{
-  display:inline-block;
-  margin-top:.5rem;
-  font-size:12px;
-  color:var(--pink-dk);
-  cursor:pointer;
-  text-decoration:underline;
-  background:none;
-  border:none;
-  font-family:inherit;
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Etsy SEO Listing Helper ✦ hello_digihana">
+<meta name="twitter:description" content="Etsy向けの英語SEOタイトル・13タグ・商品説明文づくりをサポートする無料ツールです。">
+<meta name="twitter:image" content="https://hellodigihana.github.io/main/etsy_seo_listing_helper/ogp.png">
+<title>Etsy SEO Listing Helper ✦ hello_digihana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS変数（index.html 統一版） ===== */
+:root {
+  --bg: #FBF9FF;
+  --bg2: #F4F0FB;
+  --white: #fff;
+  --pink: #F2A8C4;
+  --pink-lt: #FCE8F3;
+  --pink-dk: #C9698E;
+  --lav: #B8A8E8;
+  --lav-lt: #EDE8FA;
+  --lav-dk: #7B68C8;
+  --lav-mid: #C8BCEE;
+  --mint: #A8D8C8;
+  --mint-lt: #E4F5EF;
+  --mint-dk: #4A9E84;
+  --ink: #2C1F3E;
+  --ink-mid: #5A4878;
+  --ink-lt: #8878A8;
+  --ink-xlt: #BEB0D4;
+  --border: rgba(180,160,220,.18);
+  --border-md: rgba(180,160,220,.32);
+  --shadow-card: 0 2px 18px rgba(120,100,180,.09);
+  --shadow-md: 0 8px 28px rgba(100,80,160,.13);
+  --r-sm: 12px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-full: 9999px;
+  --ff: 'DM Sans','Hiragino Sans','Noto Sans JP',system-ui,sans-serif;
+  /* legacy aliases */
+  --lavender-light: #EDE8FA;
+  --lavender: #B8A8E8;
+  --lavender-deep: #7B68C8;
+  --pink-light: #FCE8F3;
+  --mint-light: #E4F5EF;
+  --text: #2C1F3E;
+  --text-sub: #8878A8;
+  --warning: #B8580A;
+  --error: #B82040;
+  --ok: #4A9E84;
+  --shadow: 0 2px 18px rgba(120,100,180,.09);
+  --shadow-sm: 0 2px 8px rgba(184,168,232,0.12);
+  --radius: 24px;
+  --radius-sm: 14px;
+  --radius-pill: 9999px;
 }
 
-/* Options */
-.size-options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.size-option,.count-option,.checkbox-chip{position:relative}
-.size-option input,.count-option input,.checkbox-chip input{position:absolute;opacity:0;width:1px;height:1px;overflow:hidden;pointer-events:none}
-.size-option label,.count-option label,.checkbox-chip label{
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;
-  user-select:none;
-  background:#FCFAFF;
-  border:1.5px solid var(--border-md);
-  border-radius:var(--r-full);
-  padding:.55rem .9rem;
-  font-family:var(--ff);
-  font-size:12.5px;
-  font-weight:700;
-  color:var(--ink-mid);
-  cursor:pointer;
-  transition:var(--transition);
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:42px;
-  line-height:1.25;
-  text-align:center;
-}
-.size-option label{
-  width:100%;
-  min-height:54px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:2px;
-  border-radius:18px;
-  padding:8px 8px;
-  font-size:12px;
-  line-height:1.2;
-  text-align:center;
-}
-.count-option label{padding:.58rem 1.35rem}
-.size-option label .size-ratio{
-  display:block;
-  font-size:10.5px;
-  color:var(--ink-lt);
-  font-weight:700;
-  margin-top:1px;
-  line-height:1.2;
-}
-.size-option input:checked+label,.count-option input:checked+label,.checkbox-chip input:checked+label{
-  background:linear-gradient(135deg,var(--lav-lt),var(--pink-lt));
-  border-color:var(--lav-mid);
-  color:var(--lav-dk);
-  box-shadow:0 2px 10px rgba(123,104,200,.14);
-}
-.size-option label:hover,.count-option label:hover,.checkbox-chip label:hover{
-  border-color:var(--lav-mid);
-  background:linear-gradient(135deg,#fff,var(--pink-lt));
-}
-.checkbox-group,.count-options{display:flex;flex-wrap:wrap;gap:12px 14px;align-items:flex-start}
-.custom-size-row{display:none;gap:.75rem;margin-top:1rem;align-items:center;flex-wrap:wrap}
-.custom-size-row.visible{display:flex}
-.custom-size-row label{font-size:12px;font-weight:800;color:var(--ink-lt)}
-.custom-size-row input[type="number"],textarea,.result-textarea{
-  width:100%;
-  border:1.5px solid var(--border-md);
-  border-radius:18px;
-  padding:.9rem 1rem;
-  font-size:14px;
-  font-family:var(--ff);
-  color:var(--ink);
-  background:#FCFAFF;
-  transition:var(--transition);
-  line-height:1.7;
-}
-.custom-size-row input[type="number"]{width:96px;padding:.55rem .7rem;background:#fff}
-textarea{min-height:108px;resize:vertical}
-.result-textarea{min-height:170px;resize:vertical;background:linear-gradient(135deg,rgba(255,247,251,.6),rgba(246,240,255,.5));font-size:13px}
-.custom-size-row input:focus,textarea:focus,.result-textarea:focus{
-  outline:none;
-  border-color:var(--lav-mid);
-  box-shadow:0 0 0 4px rgba(184,168,232,.14);
-}
-.textarea-hint{font-size:12px;color:var(--ink-lt);margin-top:.5rem}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Buttons */
-.action-section{margin-bottom:2rem}
-.btn-primary,.btn-reset,.btn-copy,.btn-copy-all,.sister-link,.creator-link{
-  font-family:var(--ff);
-  cursor:pointer;
-  transition:var(--transition);
+body {
+  font-family: var(--ff);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.7;
+  min-height: 100vh;
 }
-.btn-primary{
-  display:block;
-  width:100%;
-  padding:1rem 1.5rem;
-  background:linear-gradient(135deg,var(--pink-dk),var(--lav-dk));
-  color:#fff;
-  border:none;
-  border-radius:var(--r-full);
-  font-size:16px;
-  font-weight:800;
-  box-shadow:0 6px 24px rgba(201,105,142,.3);
-}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(201,105,142,.4)}
-.btn-reset{
-  display:block;
-  width:100%;
-  padding:.85rem 1.5rem;
-  background:#fff;
-  color:var(--ink-mid);
-  border:1.5px solid var(--border-md);
-  border-radius:var(--r-full);
-  font-size:14px;
-  font-weight:800;
-  margin-top:.65rem;
-}
-.btn-reset:hover,.btn-copy:hover,.btn-copy-all:hover,.sister-link:hover{
-  background:var(--lav-lt);
-  color:var(--lav-dk);
-  border-color:var(--lav-mid);
-  text-decoration:none;
-}
-.btn-copy,.btn-copy-all,.sister-link{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:.45rem;
-  background:#fff;
-  color:var(--ink-mid);
-  border:1.5px solid var(--border-md);
-  border-radius:var(--r-full);
-  font-size:13px;
-  font-weight:800;
-  text-decoration:none;
-}
-.btn-copy{padding:.45rem .95rem;white-space:nowrap}
-.btn-copy-all{padding:.75rem 1.8rem}
-.btn-copy.copied{background:var(--mint-lt);border-color:var(--mint);color:var(--mint-dk)}
-.error-msg{
-  display:none;
-  background:#fff5f8;
-  border:1.5px solid rgba(242,168,196,.75);
-  border-radius:18px;
-  padding:.8rem 1rem;
-  font-size:13px;
-  color:var(--pink-dk);
-  margin-top:.75rem;
-  line-height:1.6;
-  font-weight:700;
-}
-.error-msg.visible{display:block}
 
-/* Results */
-.results-section{display:none}
-.results-section.visible{display:block}
-.results-header{text-align:center;margin:1.9rem 0 1.3rem}
-.results-header h2{
-  font-size:clamp(26px,6vw,38px);
-  font-weight:800;
-  color:var(--ink);
-  letter-spacing:-.04em;
+/* ===== ヒーローエリア（index.html 統一） ===== */
+.hero {
+  background: linear-gradient(160deg, #F0EAFF 0%, #FDE8F3 45%, #E8F5FB 100%);
+  padding: 4.2rem 1.25rem 3.6rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
-.results-header h2 em{
-  font-style:normal;
-  background:linear-gradient(120deg,var(--lav-dk),var(--pink-dk));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -70px; right: -60px;
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(184,168,232,.3), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
 }
-.results-header p{font-size:13px;font-weight:700;color:var(--ink-lt);margin-top:.15rem}
-.result-card-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:1rem;
-  gap:.75rem;
-  flex-wrap:wrap;
-  padding-bottom:.8rem;
-  border-bottom:1.5px dashed rgba(184,168,232,.3);
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(242,168,196,.25), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
 }
-.result-card-title{font-size:15px;font-weight:800;color:var(--ink)}
-.note-card{background:linear-gradient(135deg,#FFF7FB,#F6F0FF);border:2px solid rgba(184,168,232,.28)}
-.note-list{list-style:none;padding:0}
-.note-list li{
-  font-size:13px;
-  color:var(--ink-mid);
-  padding:.45rem 0;
-  border-bottom:1px dashed rgba(184,168,232,.28);
-  display:flex;
-  align-items:flex-start;
-  gap:.55rem;
+.hero-badge {
+  display: inline-block;
+  background: #fff;
+  border: 1.5px solid var(--lav-mid);
+  color: var(--lav-dk);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  padding: .35rem 1rem;
+  border-radius: var(--r-full);
+  margin-bottom: 1.35rem;
+  position: relative;
 }
-.note-list li:last-child{border-bottom:none}
-.note-list li:before{
-  content:'✓';
-  color:var(--lav-dk);
-  font-weight:800;
-  flex-shrink:0;
+.hero h1 {
+  font-size: clamp(38px, 9vw, 60px);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.03;
+  margin-bottom: 1rem;
+  letter-spacing: -.045em;
+  position: relative;
 }
-.copy-all-wrap{text-align:center;margin-top:.5rem;padding-bottom:1rem}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(120deg, var(--mint-dk), var(--lav-dk));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-catch {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--lav-dk);
+  margin: -.4rem auto .9rem;
+  position: relative;
+}
+.hero-sub {
+  font-size: clamp(13px, 3vw, 15px);
+  line-height: 1.75;
+  color: var(--ink-mid);
+  max-width: 560px;
+  margin: 0 auto 1.8rem;
+  position: relative;
+}
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+  justify-content: center;
+  position: relative;
+}
+.hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: 13px;
+  padding: .35rem .9rem;
+  border-radius: var(--r-full);
+  font-weight: 700;
+}
+.chip-pink { background: var(--pink-lt); color: var(--pink-dk); }
+.chip-lav  { background: var(--lav-lt);  color: var(--lav-dk);  }
+.chip-mint { background: var(--mint-lt); color: var(--mint-dk); }
 
-/* Footer / creator card — matched to index.html */
-.site-footer{
-  text-align:center;
-  padding:0 1.25rem 2.2rem;
-  color:var(--ink-xlt);
-  font-size:11px;
-  font-weight:700;
+/* ===== メインコンテナ ===== */
+.top-eyecatch {
+  max-width: 1100px;
+  margin: 24px auto 16px;
+  padding: 0 16px;
 }
-.sister-link{padding:.65rem 1.2rem;margin-bottom:1.25rem}
-.creator-card{
-  max-width:860px;
-  margin:0 auto 1.25rem;
-  text-align:center;
-  background:linear-gradient(135deg,#F4F0FF,#FDE8F3);
-  border:1.5px solid var(--lav-mid);
-  border-radius:var(--r-xl);
-  padding:1.7rem;
-  box-shadow:var(--shadow-card);
+.top-eyecatch img {
+  width: 100%; height: auto;
+  display: block;
+  border-radius: 20px;
 }
-.creator-label{
-  font-size:12px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--ink-xlt);
-  font-weight:800;
-  margin-bottom:1rem;
-}
-.creator-row{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:.9rem;
-  flex-wrap:wrap;
-  margin-bottom:1.1rem;
-}
-.creator-icon{
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  border:2.5px solid var(--lav-mid);
-  object-fit:cover;
-  background:rgba(255,255,255,.5);
-  overflow:hidden;
-  box-shadow:0 6px 18px rgba(120,100,180,.12);
-}
-.creator-name{font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
-.creator-role{font-size:13px;color:var(--ink-lt)}
-.creator-text{font-size:13px;color:var(--ink-mid);line-height:1.8;margin:0 auto 1.2rem;max-width:520px}
-.creator-link{
-  display:inline-flex;
-  padding:.75rem 1.8rem;
-  background:var(--ink);
-  color:#fff;
-  border-radius:999px;
-  text-decoration:none;
-  font-weight:800;
-  box-shadow:var(--shadow-md);
-  border:none;
-}
-.creator-link:hover{transform:translateY(-1px);background:#241834;text-decoration:none}
-.footer-small{font-size:11px;color:var(--ink-xlt);font-weight:700}
-.toast{
-  position:fixed;
-  bottom:24px;
-  left:50%;
-  transform:translateX(-50%) translateY(40px);
-  background:var(--ink);
-  color:#fff;
-  padding:.65rem 1.5rem;
-  border-radius:var(--r-full);
-  font-size:13px;
-  font-weight:800;
-  opacity:0;
-  transition:.3s ease;
-  z-index:9999;
-  pointer-events:none;
-  white-space:nowrap;
-}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.section-divider{font-size:12px;color:var(--ink-lt);text-align:center;margin:.25rem 0 1rem;letter-spacing:.08em}
 
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--lav-mid);border-radius:3px}
-
-@media(max-width:600px){
-  .site-header{padding:2.2rem 1rem 1.9rem}
-  .hero-badge{font-size:10px;margin-bottom:.8rem;padding:.25rem .75rem}
-  .site-header h1{font-size:clamp(34px,12vw,46px);margin-bottom:.7rem}
-  .site-header .subtitle{font-size:13.5px;line-height:1.65;margin-bottom:.45rem}
-  .site-header .description{font-size:13.5px;line-height:1.65;margin-bottom:1rem}
-  .hero-chips{gap:.45rem}
-  .hero-chip{font-size:11.5px;padding:.25rem .65rem}
-  .container{padding:2rem 1rem 4rem}
-  .card,.result-card,.creator-card{border-radius:26px;padding:1.25rem}
-  .card-title{font-size:16px}
-  .size-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  .size-option label{min-height:56px;padding:8px 6px;font-size:11.5px}
-  .result-card-header{align-items:flex-start}
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 5rem;
 }
-@media(max-width:390px){
-  .size-options{grid-template-columns:1fr}
+
+/* ===== モード切替 ===== */
+.mode-switch-wrap {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 2rem 0 0;
+}
+.mode-btn {
+  flex: 1;
+  max-width: 220px;
+  padding: 12px 20px;
+  border-radius: var(--r-full);
+  border: 2px solid var(--border-md);
+  background: var(--white);
+  color: var(--ink-lt);
+  font-family: var(--ff);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.mode-btn.active {
+  background: linear-gradient(135deg, var(--lav), var(--pink));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(184,168,232,.4);
+}
+.mode-btn:hover:not(.active) {
+  border-color: var(--lav-mid);
+  color: var(--ink-mid);
+}
+
+/* ===== カード共通（index.html 統一） ===== */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 1.7rem;
+  margin-top: 1.25rem;
+  box-shadow: var(--shadow-card);
+}
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin-bottom: 1.1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1.5px dashed rgba(184,168,232,.3);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ink);
+}
+.card-title .dot {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--mint), var(--lav));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(123,104,200,.13);
+}
+
+/* ===== サンプルボタン ===== */
+.sample-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.sample-btn {
+  background: var(--mint-lt);
+  border: 1.5px solid rgba(168,216,200,.4);
+  border-radius: var(--r-full);
+  color: var(--mint-dk);
+  font-family: var(--ff);
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: .45rem 1rem;
+  cursor: pointer;
+  transition: all .2s;
+}
+.sample-btn:hover {
+  background: var(--mint);
+  border-color: var(--mint);
+  color: #fff;
+}
+
+/* ===== フォーム要素 ===== */
+.form-group { margin-bottom: 1rem; }
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink-lt);
+  margin-bottom: .4rem;
+  letter-spacing: .05em;
+}
+.form-label .required {
+  color: var(--pink-dk);
+  margin-left: 2px;
+}
+input[type="text"], textarea, select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border-md);
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-family: var(--ff);
+  color: var(--ink);
+  background: var(--white);
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+  -webkit-appearance: none;
+}
+input[type="text"]:focus, textarea:focus, select:focus {
+  border-color: var(--lav-mid);
+  box-shadow: 0 0 0 3px rgba(184,168,232,.18);
+}
+textarea { min-height: 60px; resize: vertical; }
+
+/* ===== ピルチェックボックス ===== */
+.mood-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 14px;
+  align-items: flex-start;
+}
+.mood-pill input[type="checkbox"] { display: none; }
+.mood-pill label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 8px 18px;
+  line-height: 1.25;
+  border-radius: var(--r-full);
+  border: 1.5px solid var(--border-md);
+  background: #FCFAFF;
+  font-family: var(--ff);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink-mid);
+  cursor: pointer;
+  transition: all .2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.mood-pill input:checked + label {
+  background: linear-gradient(135deg, var(--lav-lt), var(--mint-lt));
+  border-color: var(--lav-mid);
+  color: var(--lav-dk);
+  box-shadow: 0 2px 10px rgba(123,104,200,.14);
+}
+.mood-pill label:hover { border-color: var(--lav-mid); background: linear-gradient(135deg,#fff,var(--pink-lt)); }
+
+/* ===== 生成ボタン ===== */
+.btn-generate {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, var(--lav-dk), var(--mint-dk));
+  border: none;
+  border-radius: var(--r-full);
+  color: #fff;
+  font-family: var(--ff);
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  cursor: pointer;
+  margin-top: 1.25rem;
+  box-shadow: 0 6px 24px rgba(123,104,200,.35);
+  transition: all .2s;
+}
+.btn-generate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(123,104,200,.45);
+}
+.btn-generate:active { transform: translateY(0); }
+
+/* ===== リセットボタン ===== */
+.btn-reset {
+  width: 100%;
+  padding: .85rem 1.5rem;
+  background: transparent;
+  border: 1.5px solid var(--border-md);
+  border-radius: var(--r-full);
+  color: var(--ink-lt);
+  font-family: var(--ff);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: .65rem;
+  transition: all .2s;
+}
+.btn-reset:hover { border-color: var(--lav-mid); color: var(--lav-dk); background: var(--lav-lt); }
+
+/* ===== 出力エリア ===== */
+#output-area { margin-top: 1.5rem; }
+.output-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 1.5rem;
+  margin-top: 1.25rem;
+  box-shadow: var(--shadow-card);
+  border-left: 4px solid var(--lav);
+}
+.output-card.pink-border { border-left-color: var(--pink); }
+.output-card.mint-border { border-left-color: var(--mint); }
+.output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .9rem;
+  padding-bottom: .8rem;
+  border-bottom: 1.5px dashed rgba(184,168,232,.3);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.output-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: .04em;
+}
+.btn-copy {
+  background: var(--lav-lt);
+  border: 1.5px solid var(--border-md);
+  border-radius: var(--r-full);
+  color: var(--lav-dk);
+  font-family: var(--ff);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: .35rem .9rem;
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.btn-copy:hover { background: var(--lav); border-color: var(--lav); color: #fff; }
+
+/* ===== SEO変換結果 ===== */
+.seo-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.seo-chip {
+  background: linear-gradient(135deg, var(--mint-lt), var(--lav-lt));
+  border-radius: var(--r-full);
+  padding: .4rem 1rem;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--mint-dk);
+}
+
+/* ===== タイトル出力 ===== */
+.title-item {
+  border: 1.5px solid var(--border-md);
+  border-radius: var(--r-md);
+  padding: .85rem 1rem;
+  margin-bottom: .75rem;
+  font-size: 14px;
+  line-height: 1.6;
+  background: #FCFAFF;
+}
+.title-item:last-child { margin-bottom: 0; }
+.title-meta {
+  font-size: 11px;
+  color: var(--ink-lt);
+  margin-top: 5px;
+}
+.title-meta.warn { color: var(--warning); }
+
+/* ===== タグ表示 ===== */
+.tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--mint-lt);
+  border-radius: var(--r-full);
+  padding: .4rem .9rem;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--mint-dk);
+}
+.tag-pill.tag-warn {
+  background: #FFF0E8;
+  color: var(--warning);
+  border: 1px solid #F0C8A0;
+}
+.tag-count {
+  font-size: 10px;
+  font-weight: 700;
+  opacity: 0.65;
+}
+.tags-copy-row {
+  margin-top: .85rem;
+  padding: .65rem 1rem;
+  background: var(--bg);
+  border-radius: var(--r-md);
+  font-size: 12px;
+  color: var(--ink-lt);
+  word-break: break-all;
+}
+
+.tag-category-wrap {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.tag-category-card {
+  background: #FCFAFF;
+  border: 1.5px solid var(--border-md);
+  border-radius: var(--r-md);
+  padding: .85rem .95rem;
+}
+.tag-category-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--lav-dk);
+  margin-bottom: .55rem;
+  letter-spacing: .04em;
+}
+.tag-category-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.tag-warning-box {
+  margin: .75rem 0 1rem;
+  padding: .75rem .95rem;
+  background: #FFF7ED;
+  border: 1.5px solid #F0C8A0;
+  border-left: 4px solid var(--warning);
+  border-radius: var(--r-md);
+  color: var(--warning);
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.65;
+}
+.tag-warning-box.ok {
+  background: #F0FBF7;
+  border-color: rgba(168,216,200,.65);
+  border-left-color: var(--mint-dk);
+  color: var(--mint-dk);
+}
+.tags-copy-label {
+  margin-top: 1rem;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink-mid);
+}
+
+/* ===== 商品説明文 ===== */
+.description-text {
+  font-size: 13px;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  color: var(--ink);
+}
+
+/* ===== Pinterest / Threads ===== */
+.sns-item {
+  border: 1.5px solid var(--border-md);
+  border-radius: var(--r-md);
+  padding: .85rem 1rem;
+  margin-bottom: .75rem;
+  font-size: 13px;
+  line-height: 1.7;
+  background: #FCFAFF;
+}
+.sns-item:last-child { margin-bottom: 0; }
+.sns-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--lav);
+  margin-bottom: 4px;
+}
+
+/* ===== ファイル名 ===== */
+.filename-item {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  background: var(--mint-lt);
+  border-radius: var(--r-md);
+  padding: .55rem .9rem;
+  margin-bottom: .5rem;
+  color: var(--mint-dk);
+  word-break: break-all;
+}
+.filename-item:last-child { margin-bottom: 0; }
+
+/* ===== 注意点チェック ===== */
+.check-list { list-style: none; }
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.check-item:last-child { border-bottom: none; }
+.check-icon {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 900;
+  margin-top: 1px;
+}
+.check-icon.ok { background: #E0F5EE; color: var(--ok); }
+.check-icon.warn { background: #FFF0E8; color: var(--warning); }
+.check-icon.error { background: #FFEAEE; color: var(--error); }
+.check-text.ok-text { color: var(--ink); }
+.check-text.warn-text { color: var(--warning); font-weight: 600; }
+.check-text.error-text { color: var(--error); font-weight: 600; }
+
+/* ===== 商標警告（やわらかい警告デザイン） ===== */
+.trademark-warn {
+  background: linear-gradient(135deg, #FFF7FB, #FFF0E8);
+  border: 1.5px solid rgba(242,168,196,.5);
+  border-left: 4px solid var(--pink);
+  border-radius: var(--r-md);
+  padding: .85rem 1rem;
+  color: var(--pink-dk);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: .85rem;
+  display: none;
+  line-height: 1.6;
+}
+.trademark-warn.show { display: block; }
+
+/* ===== まとめてコピー ===== */
+.btn-copy-all {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, var(--mint), var(--lav));
+  border: none;
+  border-radius: var(--r-full);
+  color: #fff;
+  font-family: var(--ff);
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 1.25rem;
+  box-shadow: 0 4px 16px rgba(168,216,200,.4);
+  transition: all .2s;
+}
+.btn-copy-all:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(168,216,200,.5); }
+
+/* ===== トースト ===== */
+#toast {
+  position: fixed;
+  bottom: 30px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--ff);
+  font-size: 13px;
+  font-weight: 700;
+  padding: .65rem 1.5rem;
+  border-radius: var(--r-full);
+  opacity: 0;
+  pointer-events: none;
+  transition: all .3s;
+  z-index: 9999;
+  white-space: nowrap;
+}
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ===== Creator Block（index.html 統一） ===== */
+.creator-wrap {
+  padding: 0 1.25rem 3rem;
+}
+.creator-card {
+  max-width: 860px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #F4F0FF, #FDE8F3);
+  border: 1.5px solid var(--lav-mid);
+  border-radius: var(--r-xl);
+  padding: 1.7rem;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+.creator-label {
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-xlt);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+.creator-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .9rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.1rem;
+}
+.creator-icon-wrap { flex-shrink: 0; }
+.creator-icon {
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid var(--lav-mid);
+  display: block;
+  background: rgba(255,255,255,.5);
+  box-shadow: 0 6px 18px rgba(120,100,180,.12);
+}
+.creator-info { text-align: left; }
+.creator-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+.creator-name-sub {
+  font-size: 13px;
+  color: var(--ink-lt);
+}
+.creator-desc {
+  font-size: 13px;
+  color: var(--ink-mid);
+  max-width: 520px;
+  margin: 0 auto 1.2rem;
+  line-height: 1.8;
+}
+.btn-threads {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-full);
+  padding: .75rem 1.8rem;
+  font-family: var(--ff);
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .2s;
+  box-shadow: var(--shadow-md);
+}
+.btn-threads:hover {
+  background: #241834;
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+.threads-icon-text {
+  width: 18px; height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 1;
+  color: currentColor;
+}
+.creator-quote {
+  margin-top: 1rem;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--ink-xlt);
+  letter-spacing: .02em;
+}
+
+/* ===== 入力注意書き ===== */
+.input-note {
+  margin-top: 6px;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--ink-lt);
+  background: rgba(228,245,239,.55);
+  border-left: 3px solid var(--mint);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--ink-xlt);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 600px) {
+  .hero { padding: 2.2rem 1rem 1.9rem; }
+  .hero-badge { font-size: 10px; margin-bottom: .8rem; padding: .25rem .75rem; }
+  .hero h1 { font-size: clamp(32px, 12vw, 44px); margin-bottom: .7rem; }
+  .hero-catch { font-size: 13.5px; }
+  .hero-sub { font-size: 13px; }
+  .hero-chips { gap: .45rem; }
+  .hero-chip { font-size: 11.5px; padding: .25rem .65rem; }
+  .container { padding: 1.5rem 1rem 4rem; }
+  .card { border-radius: 22px; padding: 1.2rem; }
+  .output-card { padding: 1.1rem 1rem; }
+  .creator-row { flex-direction: column; gap: 12px; }
+  .creator-info { text-align: center; }
+  .mode-switch-wrap { gap: 8px; }
+  .mode-btn { font-size: 13px; padding: 11px 14px; }
+  .top-eyecatch { margin: 18px auto 12px; padding: 0 12px; }
+  .top-eyecatch img { border-radius: 14px; }
 }
 </style>
 </head>
 <body>
 
-  <!-- ==================== HEADER ==================== -->
-  <header class="site-header">
-    <div class="hero-badge">✦ Tool for Etsy Invitation Sellers ✦</div>
-    <h1>Etsy <em>Mockup</em> Prompt Helper</h1>
-    <p class="subtitle">Etsy商品写真風モックアップ指示文メーカー</p>
-    <p class="description">
-      招待状画像をアップロードして、サイズ・構図・雰囲気を選ぶだけ。<br>
-      ChatGPT / Gemini / Canva AI 向けの「コラージュ回避済み」<br>モックアップ生成プロンプトをまとめて作成できます。
-    </p>
-    <div class="hero-chips">
-      <span class="hero-chip chip-pink">🎀 Invitation Mockups</span>
-      <span class="hero-chip chip-mint">🌿 Etsy Listing</span>
-      <span class="hero-chip chip-lav">✨ AI Prompt Helper</span>
+<!-- ===== ヒーロー ===== -->
+<div class="hero">
+  <div class="hero-badge">✦ Tool for Etsy Sellers ✦</div>
+  <h1>Etsy SEO&nbsp; <em>Listing</em> Helper</h1>
+  <p class="hero-catch">日本語入力から、Etsy英語SEOをまとめて作成</p>
+  <p class="hero-sub">商品テーマと雰囲気を選ぶだけで、<br>
+    Etsy向けのタイトル・13タグ・商品説明文を自動生成。<br>
+    Pinterestタイトルやファイル名まで、まとめて整えられます。</p>
+  <div class="hero-chips">
+    <span class="hero-chip chip-mint">🏷️ 13 Etsy Tags</span>
+    <span class="hero-chip chip-lav">🌿 Japanese Friendly</span>
+    <span class="hero-chip chip-pink">✨ SEO Listing Copy</span>
+  </div>
+</div>
+
+<!-- ===== メインコンテナ ===== -->
+<div class="container">
+
+  <!-- モード切替 -->
+  <div class="mode-switch-wrap">
+    <button class="mode-btn active" id="btn-invitation" onclick="switchMode('invitation')">
+      💌 招待状モード
+    </button>
+    <button class="mode-btn" id="btn-clipart" onclick="switchMode('clipart')">
+      🎨 クリップアートモード
+    </button>
+  </div>
+
+  <!-- 入力カード -->
+  <div class="card">
+    <div class="card-title"><span class="dot">✦</span>サンプルを試す</div>
+    <div class="sample-btns" id="sample-btns">
+      <!-- JSで動的に入れる -->
     </div>
-  </header>
+  </div>
 
-  <!-- ==================== MAIN ==================== -->
-  <main class="container">
+  <div class="card">
+    <div class="card-title"><span class="dot">✎</span>商品情報を入力</div>
 
-    <!-- 1. Upload -->
-    <div class="card">
-      <p class="card-title">
-        <span class="icon">🖼️</span>
-        招待状画像をアップロード
-        <span class="required-star">*</span>
-      </p>
-      <div class="upload-area" id="uploadArea">
-        <input type="file" id="imageInput" accept="image/png,image/jpeg,image/webp" />
-        <div class="upload-icon">📎</div>
-        <div class="upload-text">
-          <strong>画像をここにドロップ、またはクリックして選択</strong>
-          PNG / JPG / WEBP に対応しています
-        </div>
-        <div class="upload-formats">スマホの場合はタップしてカメラロールから選択できます</div>
-      </div>
-      <div class="preview-wrap" id="previewWrap">
-        <img id="previewImg" src="" alt="プレビュー" />
-        <p class="preview-filename" id="previewFilename"></p>
-        <button class="preview-remove" id="removeImageBtn">× 画像を削除する</button>
-      </div>
+    <!-- 商標警告 -->
+    <div class="trademark-warn" id="trademark-warn">
+      ⚠️ 商標リスクの可能性がある単語が含まれています。Etsy商品名・タグ・説明文には使用しないことをおすすめします。
     </div>
 
-    <!-- 2. Size -->
-    <div class="card">
-      <p class="card-title">
-        <span class="icon">📐</span>
-        出力サイズ
-      </p>
-      <div class="size-options">
-        <div class="size-option">
-          <input type="radio" name="size" id="size_43" value="4:3" checked />
-          <label for="size_43">
-            Etsy横長
-            <span class="size-ratio">4 : 3</span>
-          </label>
-        </div>
-        <div class="size-option">
-          <input type="radio" name="size" id="size_11" value="1:1" />
-          <label for="size_11">
-            正方形
-            <span class="size-ratio">1 : 1</span>
-          </label>
-        </div>
-        <div class="size-option">
-          <input type="radio" name="size" id="size_45" value="4:5" />
-          <label for="size_45">
-            Instagram縦長
-            <span class="size-ratio">4 : 5</span>
-          </label>
-        </div>
-        <div class="size-option">
-          <input type="radio" name="size" id="size_23" value="2:3" />
-          <label for="size_23">
-            Pinterest縦長
-            <span class="size-ratio">2 : 3</span>
-          </label>
-        </div>
-        <div class="size-option">
-          <input type="radio" name="size" id="size_note" value="note" />
-          <label for="size_note">
-            note見出し
-            <span class="size-ratio">1280 × 670</span>
-          </label>
-        </div>
-        <div class="size-option">
-          <input type="radio" name="size" id="size_custom" value="custom" />
-          <label for="size_custom">
-            カスタム
-            <span class="size-ratio">幅 × 高さ</span>
-          </label>
-        </div>
-      </div>
-      <div class="custom-size-row" id="customSizeRow">
-        <label for="customW">幅</label>
-        <input type="number" id="customW" placeholder="例: 1200" min="1" />
-        <label for="customH">高さ</label>
-        <input type="number" id="customH" placeholder="例: 900" min="1" />
-        <span style="font-size:12px;color:var(--text-light)">px</span>
+    <!-- 共通：商品テーマ -->
+    <div class="form-group">
+      <label class="form-label">商品テーマ <span class="required">*</span></label>
+      <input type="text" id="theme" placeholder="例：かぼちゃ / pumpkin、働く乗り物 / construction vehicle、いちご / strawberry">
+      <div class="input-note">※日本語入力は、登録済みのSEO辞書にある言葉を英語キーワードへ変換します。辞書にない言葉は反映されない場合があります。精度を上げたい場合は、英語キーワードも一緒に入力してください。</div>
+    </div>
+
+    <!-- 共通：雰囲気 -->
+    <div class="form-group">
+      <label class="form-label">雰囲気（複数選択可）</label>
+      <div class="mood-pills">
+        <div class="mood-pill"><input type="checkbox" id="m-cute" value="cute"><label for="m-cute">かわいい</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-elegant" value="elegant"><label for="m-elegant">上品</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-luxury" value="luxury"><label for="m-luxury">高級感</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-muted" value="muted color"><label for="m-muted">くすみカラー</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-watercolor" value="watercolor"><label for="m-watercolor">水彩</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-boy" value="boy"><label for="m-boy">男の子向け</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-girl" value="girl"><label for="m-girl">女の子向け</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-natural" value="natural"><label for="m-natural">ナチュラル</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-pop" value="playful"><label for="m-pop">ポップ</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-simple" value="simple"><label for="m-simple">シンプル</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-botanical" value="botanical"><label for="m-botanical">ボタニカル</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-retro" value="retro"><label for="m-retro">レトロ</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-handdrawn" value="hand drawn"><label for="m-handdrawn">手描き風</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-pale" value="pastel"><label for="m-pale">淡い色</label></div>
+        <div class="mood-pill"><input type="checkbox" id="m-pastel" value="pastel"><label for="m-pastel">パステル</label></div>
       </div>
     </div>
 
-    <!-- 3. Composition -->
-    <div class="card">
-      <p class="card-title">
-        <span class="icon">🎨</span>
-        構図
-        <span style="font-size:12px;font-weight:400;color:var(--text-light);margin-left:4px">（複数選択可）</span>
-      </p>
-      <div class="checkbox-group">
-        <div class="checkbox-chip">
-          <input type="checkbox" id="comp_any" value="any" />
-          <label for="comp_any">おまかせ</label>
-        </div>
-        <div class="checkbox-chip">
-          <input type="checkbox" id="comp_flatlay" value="flatlay" />
-          <label for="comp_flatlay">フラットレイ</label>
-        </div>
-        <div class="checkbox-chip">
-          <input type="checkbox" id="comp_hand" value="hand" />
-          <label for="comp_hand">手持ち</label>
-        </div>
-        <div class="checkbox-chip">
-          <input type="checkbox" id="comp_linen" value="linen" />
-          <label for="comp_linen">リネン・布背景</label>
-        </div>
-        <div class="checkbox-chip">
-          <input type="checkbox" id="comp_floral" value="floral" />
-          <label for="comp_floral">花や小物を添えた上品スタイル</label>
-        </div>
-        <div class="checkbox-chip">
-          <input type="checkbox" id="comp_minimal" value="minimal" />
-          <label for="comp_minimal">ミニマル高級感</label>
-        </div>
-        <div class="checkbox-chip">
-          <input type="checkbox" id="comp_table" value="table" />
-          <label for="comp_table">テーブル上の自然な演出</label>
-        </div>
+    <!-- 招待状モード専用フォーム -->
+    <div id="invitation-fields">
+      <div class="form-group">
+        <label class="form-label">対象年齢</label>
+        <select id="inv-age">
+          <option value="First Birthday">1歳誕生日 / First Birthday</option>
+          <option value="Any Age">年齢変更可 / Any Age</option>
+          <option value="1st">1st</option>
+          <option value="2nd">2nd</option>
+          <option value="3rd">3rd</option>
+          <option value="Kids Birthday">子ども誕生日 / Kids Birthday</option>
+          <option value="Baby Shower">ベビーシャワー / Baby Shower</option>
+          <option value="Bridal Shower">ブライダルシャワー / Bridal Shower</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">商品タイプ</label>
+        <select id="inv-type">
+          <option value="Birthday Invitation">Birthday Invitation</option>
+          <option value="First Birthday Invitation">First Birthday Invitation</option>
+          <option value="Editable Canva Template">Editable Canva Template</option>
+          <option value="Digital Download">Digital Download</option>
+          <option value="Party Invitation">Party Invitation</option>
+          <option value="Back Design Included">Back Design Included</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">サイズ</label>
+        <select id="inv-size">
+          <option value="5x7">5x7</option>
+          <option value="4x6">4x6</option>
+          <option value="A5">A5</option>
+          <option value="Square">Square</option>
+        </select>
       </div>
     </div>
 
-    <!-- 4. Mood -->
-    <div class="card">
-      <p class="card-title">
-        <span class="icon">✨</span>
-        雰囲気
-        <span style="font-size:12px;font-weight:400;color:var(--text-light);margin-left:4px">（複数選択可）</span>
-      </p>
-      <div class="checkbox-group">
-        <div class="checkbox-chip">
-          <input type="checkbox" id="mood_etsy" value="etsy" />
-          <label for="mood_etsy">Etsy王道・売れ筋風</label>
-        </div>
-        <div class="checkbox-chip">
-          <input type="checkbox" id="mood_elegant" value="elegant" />
-          <label for="mood_elegant">上品高見え</label>
-        </div>
-        <div class="checkbox-chip">
-          <input type="checkbox" id="mood_cute" value="cute" />
-          <label for="mood_cute">やわらかく可愛い</label>
-        </div>
-        <div class="checkbox-chip">
-          <input type="checkbox" id="mood_natural" value="natural" />
-          <label for="mood_natural">ナチュラル</label>
-        </div>
-        <div class="checkbox-chip">
-          <input type="checkbox" id="mood_luxury" value="luxury" />
-          <label for="mood_luxury">高級感強め</label>
-        </div>
-        <div class="checkbox-chip">
-          <input type="checkbox" id="mood_seasonal" value="seasonal" />
-          <label for="mood_seasonal">季節感あり</label>
-        </div>
+    <!-- クリップアートモード専用フォーム -->
+    <div id="clipart-fields" style="display:none;">
+      <div class="form-group">
+        <label class="form-label">ファイル形式</label>
+        <select id="ca-format">
+          <option value="PNG">PNG</option>
+          <option value="SVG">SVG</option>
+          <option value="JPG">JPG</option>
+          <option value="PDF">PDF</option>
+          <option value="PNG + SVG">PNG + SVG</option>
+          <option value="Bundle">Bundle</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">背景</label>
+        <select id="ca-bg">
+          <option value="Transparent Background">Transparent Background</option>
+          <option value="White Background">White Background</option>
+          <option value="Mixed Background">Mixed Background</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">利用範囲</label>
+        <select id="ca-use">
+          <option value="Personal and Commercial Use">Personal and Commercial Use</option>
+          <option value="Commercial Use">Commercial Use</option>
+          <option value="Personal Use">Personal Use</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">点数</label>
+        <input type="text" id="ca-count" placeholder="例：12 PNG files, 24 cliparts">
+      </div>
+      <div class="form-group">
+        <label class="form-label">素材タイプ</label>
+        <select id="ca-type">
+          <option value="Clipart Bundle">Clipart Bundle</option>
+          <option value="PNG Clipart">PNG Clipart</option>
+          <option value="SVG Files">SVG Files</option>
+          <option value="Digital Paper">Digital Paper</option>
+          <option value="Sticker Clipart">Sticker Clipart</option>
+          <option value="Printable Art">Printable Art</option>
+        </select>
       </div>
     </div>
 
-    <!-- 5. Count -->
-    <div class="card">
-      <p class="card-title">
-        <span class="icon">🔢</span>
-        生成枚数
-      </p>
-      <div class="count-options">
-        <div class="count-option">
-          <input type="radio" name="count" id="count_1" value="1" checked />
-          <label for="count_1">1枚</label>
-        </div>
-        <div class="count-option">
-          <input type="radio" name="count" id="count_4" value="4" />
-          <label for="count_4">4枚</label>
-        </div>
-        <div class="count-option">
-          <input type="radio" name="count" id="count_6" value="6" />
-          <label for="count_6">6枚</label>
-        </div>
-        <div class="count-option">
-          <input type="radio" name="count" id="count_10" value="10" />
-          <label for="count_10">10枚</label>
-        </div>
-      </div>
+    <!-- 共通：任意キーワード -->
+    <div class="form-group">
+      <label class="form-label">任意キーワード（日本語・英語どちらでもOK）</label>
+      <textarea id="extra-kw" placeholder="例：水彩、くすみカラー、1歳、女の子、透過背景、商用利用、または watercolor, pastel, first birthday"></textarea>
+      <div class="input-note">例：かぼちゃ / pumpkin、働く乗り物 / construction vehicle、水彩 / watercolor のように、日本語と英語を一緒に入れると精度が上がります。</div>
     </div>
 
-    <!-- 6. Memo -->
-    <div class="card">
-      <p class="card-title">
-        <span class="icon">📝</span>
-        補足メモ
-        <span style="font-size:12px;font-weight:400;color:var(--text-light);margin-left:4px">（任意）</span>
-      </p>
-      <textarea id="memoInput" placeholder="例：蝶の招待状です。春らしく、上品でやわらかい雰囲気にしたい。小物は控えめ。手持ちモックアップも欲しい。テーマに合わせて欲しい。"></textarea>
-      <p class="textarea-hint">未入力でもOK。アップロード画像の色味・雰囲気に合わせて自動で作成します。</p>
+    <button class="btn-generate" onclick="generate()">✨ SEO文章を生成する ✨</button>
+    <button class="btn-reset" onclick="resetAll()">↺ リセット</button>
+  </div>
+
+  <!-- ===== 出力エリア ===== -->
+  <div id="output-area" style="display:none;">
+
+    <!-- A. SEO変換結果 -->
+    <div class="output-card">
+      <div class="output-header">
+        <div class="output-title">🔤 英語SEO変換結果</div>
+        <button class="btn-copy" onclick="copySection('seo-result')">コピー</button>
+      </div>
+      <div id="seo-result" class="seo-keywords"></div>
     </div>
 
-    <!-- Action Buttons -->
-    <div class="action-section">
-      <button class="btn-primary" id="generateBtn">✨ モックアップ指示文を生成する ✨</button>
-      <button class="btn-reset" id="resetBtn">↺ リセット</button>
-      <div class="error-msg" id="errorMsg"></div>
+    <!-- B. タイトル -->
+    <div class="output-card pink-border">
+      <div class="output-header">
+        <div class="output-title">📝 Etsyタイトル 3案</div>
+        <button class="btn-copy" onclick="copySection('title-result')">コピー</button>
+      </div>
+      <div id="title-result"></div>
     </div>
 
-    <!-- ==================== RESULTS ==================== -->
-    <div class="results-section" id="resultsSection">
-      <div class="results-header">
-        <h2>生成<em>結果</em></h2>
-        <p>各ブロックの「コピー」ボタンでそのまま貼り付けられます</p>
+    <!-- C. 13タグ -->
+    <div class="output-card">
+      <div class="output-header">
+        <div class="output-title">🏷️ 13タグ</div>
+        <button class="btn-copy" onclick="copyText(document.getElementById('tags-csv').textContent)">コピー（カンマ区切り）</button>
       </div>
-
-      <!-- 1. ChatGPT -->
-      <div class="result-card">
-        <div class="result-card-header">
-          <div class="result-card-title">💬 ChatGPT向けプロンプト</div>
-          <button class="btn-copy" data-target="out_chatgpt">📋 コピー</button>
-        </div>
-        <textarea class="result-textarea" id="out_chatgpt" readonly></textarea>
-      </div>
-
-      <!-- 2. Gemini -->
-      <div class="result-card">
-        <div class="result-card-header">
-          <div class="result-card-title">🌀 Gemini向けプロンプト</div>
-          <button class="btn-copy" data-target="out_gemini">📋 コピー</button>
-        </div>
-        <textarea class="result-textarea" id="out_gemini" readonly></textarea>
-      </div>
-
-      <!-- 3. Canva -->
-      <div class="result-card">
-        <div class="result-card-header">
-          <div class="result-card-title">🎨 Canva AI向け短文プロンプト</div>
-          <button class="btn-copy" data-target="out_canva">📋 コピー</button>
-        </div>
-        <textarea class="result-textarea" id="out_canva" readonly style="min-height:100px"></textarea>
-      </div>
-
-      <!-- 4. Anti-collage -->
-      <div class="result-card">
-        <div class="result-card-header">
-          <div class="result-card-title">🚫 コラージュ回避用の強化文</div>
-          <button class="btn-copy" data-target="out_anticollage">📋 コピー</button>
-        </div>
-        <textarea class="result-textarea" id="out_anticollage" readonly style="min-height:120px"></textarea>
-      </div>
-
-      <!-- 5. Notes (Japanese) -->
-      <div class="result-card note-card">
-        <div class="result-card-header">
-          <div class="result-card-title">✅ 注意点チェック</div>
-        </div>
-        <ul class="note-list" id="out_notes"></ul>
-      </div>
-
-      <!-- Copy all -->
-      <div class="copy-all-wrap">
-        <button class="btn-copy-all" id="copyAllBtn">📋 生成結果をすべてコピー</button>
-      </div>
-
-    </div><!-- /results-section -->
-
-  </main><!-- /container -->
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="creator-card" aria-label="制作者情報">
-      <div class="creator-label">Created by</div>
-      <div class="creator-row">
-        <img class="creator-icon" src="./creator-icon.png" alt="デジハナの制作者アイコン" loading="lazy" />
-        <div>
-          <div class="creator-name">デジハナ</div>
-          <div class="creator-role">Etsy seller</div>
-        </div>
-      </div>
-      <p class="creator-text">
-        日本人クリエイター向けに、<br>
-        Etsy・Canva・AI画像生成まわりの制作効率化ツールを作っています。
-      </p>
-      <a class="creator-link" href="https://www.threads.com/@hello_digihana/" target="_blank" rel="noopener">
-        @ Follow on Threads
-      </a>
+      <div id="tag-warning-result"></div>
+      <div id="tags-category-result" class="tag-category-wrap"></div>
+      <div class="tags-copy-label">コピペ用13タグ（カンマ区切り）</div>
+      <div class="tags-copy-row" id="tags-csv"></div>
+      <div id="tags-result" class="tags-wrap" style="display:none;"></div>
     </div>
 
-    <p class="footer-small">© Etsy Mockup Prompt Helper · AI Prompt Tool for Etsy Invitation Sellers</p>
-  </footer>
+    <!-- D. 商品説明文 -->
+    <div class="output-card mint-border">
+      <div class="output-header">
+        <div class="output-title">📄 商品説明文</div>
+        <button class="btn-copy" onclick="copySection('desc-result')">コピー</button>
+      </div>
+      <div id="desc-result" class="description-text"></div>
+    </div>
 
-  <!-- Toast -->
-  <div class="toast" id="toast">コピーしました ✓</div>
+    <!-- E. Pinterest -->
+    <div class="output-card pink-border">
+      <div class="output-header">
+        <div class="output-title">📌 Pinterestタイトル 3案</div>
+        <button class="btn-copy" onclick="copySection('pinterest-result')">コピー</button>
+      </div>
+      <div id="pinterest-result"></div>
+    </div>
 
-  <!-- ==================== JAVASCRIPT ==================== -->
-  <script>
-    'use strict';
+    <!-- G. ファイル名 -->
+    <div class="output-card mint-border">
+      <div class="output-header">
+        <div class="output-title">📁 ファイル名 3案</div>
+        <button class="btn-copy" onclick="copySection('filename-result')">コピー</button>
+      </div>
+      <div id="filename-result"></div>
+    </div>
 
-    /* ============================================================
-       State
-    ============================================================ */
-    let uploadedFile = null;
+    <!-- H. 注意点チェック -->
+    <div class="output-card">
+      <div class="output-header">
+        <div class="output-title">✅ 注意点チェック</div>
+      </div>
+      <ul class="check-list" id="check-result"></ul>
+    </div>
 
-    /* ============================================================
-       DOM References
-    ============================================================ */
-    const uploadArea     = document.getElementById('uploadArea');
-    const imageInput     = document.getElementById('imageInput');
-    const previewWrap    = document.getElementById('previewWrap');
-    const previewImg     = document.getElementById('previewImg');
-    const previewFilename = document.getElementById('previewFilename');
-    const removeImageBtn = document.getElementById('removeImageBtn');
-    const customSizeRow  = document.getElementById('customSizeRow');
-    const generateBtn    = document.getElementById('generateBtn');
-    const resetBtn       = document.getElementById('resetBtn');
-    const errorMsg       = document.getElementById('errorMsg');
-    const resultsSection = document.getElementById('resultsSection');
-    const toast          = document.getElementById('toast');
+    <!-- まとめてコピー -->
+    <button class="btn-copy-all" onclick="copyAll()">📋 生成結果をすべてコピー</button>
 
-    /* ============================================================
-       Upload: drag & drop + click
-    ============================================================ */
-    uploadArea.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      uploadArea.classList.add('dragover');
-    });
+  </div><!-- /output-area -->
 
-    uploadArea.addEventListener('dragleave', () => {
-      uploadArea.classList.remove('dragover');
-    });
+</div><!-- /container -->
 
-    uploadArea.addEventListener('drop', (e) => {
-      e.preventDefault();
-      uploadArea.classList.remove('dragover');
-      const file = e.dataTransfer.files[0];
-      if (file) handleFileSelect(file);
-    });
+<!-- ===== Creator Block ===== -->
+<div class="creator-wrap">
+  <div class="creator-card">
+    <div class="creator-label">Created by</div>
+    <div class="creator-row">
+      <div class="creator-icon-wrap">
+        <img src="./creator-icon.png" alt="hello_digihana" class="creator-icon"
+          onerror="this.style.background='linear-gradient(135deg,#EDE8FA,#FCE8F3)';this.src='';">
+      </div>
+      <div class="creator-info">
+        <div class="creator-name">デジハナ</div>
+        <div class="creator-name-sub">Etsy seller</div>
+      </div>
+    </div>
+    <div class="creator-desc">
+      日本人クリエイター向けに、<br>Etsy・Canva・AI画像生成まわりの制作効率化ツールを作っています。
+    </div>
+<a class="btn-threads" href="https://www.threads.com/@hello_digihana/" target="_blank" rel="noopener">
+  <span class="threads-icon-text">@</span>
+  Follow on Threads
+</a>
+    <div class="creator-quote">"A clearer listing builds trust — and trust sells."</div>
+  </div>
+</div>
 
-    imageInput.addEventListener('change', () => {
-      if (imageInput.files[0]) handleFileSelect(imageInput.files[0]);
-    });
+<!-- トースト -->
+<div id="toast">コピーしました ✓</div>
 
-    removeImageBtn.addEventListener('click', clearImage);
+<script>
+/* ============================================================
+   日本語 → 英語SEO変換辞書（大幅拡張版）
+   ============================================================ */
+const jpToEn = {
+  // =========================
+  // 基本スタイル・雰囲気
+  // =========================
+  'かわいい':'cute','可愛い':'cute',
+  'ゆめかわ':'dreamy','夢かわ':'dreamy',
+  '上品':'elegant','高級感':'elegant','大人っぽい':'elegant',
+  'ナチュラル':'natural','自然':'natural',
+  'シンプル':'simple','ミニマル':'minimal',
+  'ポップ':'playful','明るい':'bright','カラフル':'colorful',
+  'やさしい':'soft','柔らかい':'soft',
+  '淡い':'pastel','淡い色':'pastel','パステル':'pastel',
+  'くすみカラー':'muted color','くすみ':'muted color',
+  'ニュートラル':'neutral','ベージュ':'beige','アイボリー':'ivory',
+  '水彩':'watercolor','手描き':'hand drawn','手描き風':'hand drawn',
+  '線画':'line art','鉛筆画':'pencil drawing',
+  'イラスト':'illustration','ボタニカル':'botanical',
+  'レトロ':'retro','ヴィンテージ':'vintage','クラシック':'classic',
+  'モダン':'modern','北欧':'scandinavian',
+  '韓国風':'korean style','韓国っぽい':'korean style',
+  'ボーホー':'boho','boho':'boho','コテージコア':'cottagecore',
+  'ガーリー':'girly','フェミニン':'feminine',
+  '男の子向け':'boy','女の子向け':'girl',
+  // =========================
+  // 色
+  // =========================
+  'ピンク':'pink','ブルー':'blue','青':'blue','水色':'light blue',
+  'スカイブルー':'sky blue','グリーン':'green','緑':'green',
+  'ミント':'mint','ミントグリーン':'mint green',
+  'パープル':'purple','紫':'purple','ラベンダー':'lavender',
+  'イエロー':'yellow','黄色':'yellow','オレンジ':'orange',
+  '赤':'red','レッド':'red','白':'white','ホワイト':'white',
+  '黒':'black','ブラック':'black','茶色':'brown','ブラウン':'brown',
+  'ゴールド':'gold','金':'gold','シルバー':'silver','銀':'silver',
+  'ローズゴールド':'rose gold','クリーム':'cream','サーモンピンク':'salmon pink',
+  // =========================
+  // 季節・イベント
+  // =========================
+  '春':'spring','スプリング':'spring',
+  '夏':'summer','サマー':'summer',
+  '秋':'fall','オータム':'autumn','フォール':'fall',
+  '冬':'winter','ウィンター':'winter',
+  'クリスマス':'christmas','ハロウィン':'halloween',
+  'バレンタイン':'valentine','イースター':'easter',
+  '感謝祭':'thanksgiving','収穫':'harvest','収穫祭':'harvest',
+  '新年':'new year','お正月':'new year',
+  '母の日':'mothers day','父の日':'fathers day',
+  '卒業':'graduation','入学':'school','入園':'school',
+  '七五三':'kids celebration',
+  // =========================
+  // 誕生日・年齢・用途
+  // =========================
+  '誕生日':'birthday','誕生日会':'birthday party','バースデー':'birthday',
+  'パーティー':'party',
+  '招待状':'invitation','招待':'invitation','招待カード':'invitation',
+  '1歳':'first birthday','一歳':'first birthday','ファーストバースデー':'first birthday',
+  '2歳':'second birthday','二歳':'second birthday',
+  '3歳':'third birthday','三歳':'third birthday',
+  '4歳':'fourth birthday','5歳':'fifth birthday',
+  '年齢変更可':'any age','何歳でも':'any age',
+  '子ども':'kids','キッズ':'kids',
+  '赤ちゃん':'baby','ベビー':'baby',
+  '男の子':'boy','女の子':'girl',
+  'ベビーシャワー':'baby shower','ブライダルシャワー':'bridal shower',
+  '結婚式':'wedding','ウェディング':'wedding',
+  '席札':'place card','ウェルカムボード':'welcome sign',
+  'サンキューカード':'thank you card','ありがとうカード':'thank you card',
+  // =========================
+  // Etsy商品形式
+  // =========================
+  'テンプレート':'template','Canva':'canva','キャンバ':'canva',
+  '編集可能':'editable','編集できる':'editable',
+  'カスタム':'custom','印刷可能':'printable','プリント':'printable','印刷用':'printable',
+  'デジタル商品':'digital download','デジタル':'digital',
+  'ダウンロード':'digital download','即時ダウンロード':'instant download',
+  '素材':'clipart','クリップアート':'clipart','PNG素材':'png clipart',
+  'PNG':'png','SVG素材':'svg files','SVG':'svg','JPG':'jpg','PDF':'pdf',
+  'セット':'bundle','詰め合わせ':'bundle','バンドル':'bundle',
+  '商用利用':'commercial use','商用可':'commercial use',
+  '個人利用':'personal use',
+  '透過背景':'transparent background','背景透過':'transparent background',
+  '白背景':'white background',
+  'ステッカー':'sticker','ステッカー素材':'sticker clipart',
+  'デジタルペーパー':'digital paper','スクラップブック':'scrapbook',
+  'プランナー':'planner','ラベル':'label','タグ':'tag',
+  // =========================
+  // 花・植物
+  // =========================
+  '花':'floral','お花':'floral','フローラル':'floral','花柄':'floral','小花':'tiny floral',
+  'ブーケ':'bouquet','花束':'bouquet','ガーデン':'garden','庭':'garden',
+  '野花':'wildflower','ワイルドフラワー':'wildflower',
+  '葉っぱ':'leaf','葉':'leaf','リーフ':'leaf',
+  'グリーンリーフ':'greenery','草花':'botanical',
+  'デイジー':'daisy','マーガレット':'daisy',
+  'バラ':'rose','ローズ':'rose','チューリップ':'tulip',
+  'ひまわり':'sunflower','サンフラワー':'sunflower',
+  'ラベンダーの花':'lavender flower',
+  '桜':'cherry blossom','さくら':'cherry blossom',
+  'ポピー':'poppy','あじさい':'hydrangea','紫陽花':'hydrangea',
+  'ユーカリ':'eucalyptus','オリーブ':'olive','ハーブ':'herb',
+  'きのこ':'mushroom','クローバー':'clover',
+  // =========================
+  // 食べ物・スイーツ
+  // =========================
+  'かぼちゃ':'pumpkin','カボチャ':'pumpkin','パンプキン':'pumpkin',
+  '秋かぼちゃ':'fall pumpkin',
+  'いちご':'strawberry','苺':'strawberry','ストロベリー':'strawberry',
+  'レモン':'lemon','オレンジ果物':'orange fruit',
+  'さくらんぼ':'cherry','チェリー':'cherry',
+  'りんご':'apple','リンゴ':'apple',
+  '洋梨':'pear','梨':'pear','桃':'peach','ピーチ':'peach',
+  'ぶどう':'grape','ブルーベリー':'blueberry','ラズベリー':'raspberry',
+  'スイカ':'watermelon','メロン':'melon','バナナ':'banana','パイナップル':'pineapple',
+  'ケーキ':'cake','誕生日ケーキ':'birthday cake','カップケーキ':'cupcake',
+  'クッキー':'cookie','キャンディ':'candy','ドーナツ':'donut',
+  'アイスクリーム':'ice cream','マカロン':'macaron',
+  'チョコ':'chocolate','チョコレート':'chocolate',
+  'はちみつ':'honey','ハニー':'honey',
+  'パン':'bread','ピザ':'pizza','ハンバーガー':'burger','寿司':'sushi',
+  // =========================
+  // 乗り物・働く乗り物
+  // =========================
+  '働く乗り物':'construction vehicle','働く車':'construction vehicle',
+  '工事車両':'construction vehicle','建設車両':'construction vehicle',
+  '重機':'heavy equipment','建設':'construction','工事':'construction',
+  'ショベルカー':'excavator','ブルドーザー':'bulldozer',
+  'ダンプカー':'dump truck','クレーン車':'crane truck','ミキサー車':'cement mixer',
+  '消防車':'fire truck','救急車':'ambulance','パトカー':'police car',
+  'トラック':'truck','バス':'bus','タクシー':'taxi',
+  '電車':'train','新幹線':'bullet train','汽車':'train',
+  '飛行機':'airplane','ヘリコプター':'helicopter',
+  '船':'boat','ヨット':'sailboat','ロケット':'rocket','宇宙船':'spaceship',
+  'レースカー':'race car','レーシングカー':'race car','車レース':'race car',
+  '自転車':'bicycle','スクーター':'scooter','バイク':'motorcycle',
+  '乗り物':'vehicle','車':'vehicle','くるま':'vehicle',
+  // =========================
+  // 動物
+  // =========================
+  '動物':'animal','アニマル':'animal','サファリ':'safari',
+  '森の動物':'woodland animal','森':'woodland','ジャングル':'jungle',
+  '農場':'farm','牧場':'farm',
+  '猫':'cat','ねこ':'cat','子猫':'kitten',
+  '犬':'dog','いぬ':'dog','子犬':'puppy',
+  'うさぎ':'bunny','ウサギ':'bunny','バニー':'bunny',
+  'くま':'bear','クマ':'bear','テディベア':'teddy bear',
+  'ガチョウ':'goose','アヒル':'duck','白鳥':'swan','鳥':'bird',
+  'フクロウ':'owl','きつね':'fox','フォックス':'fox',
+  'たぬき':'raccoon dog','リス':'squirrel','鹿':'deer',
+  'ハリネズミ':'hedgehog','ライオン':'lion','トラ':'tiger',
+  'ぞう':'elephant','ゾウ':'elephant','キリン':'giraffe',
+  'しまうま':'zebra','シマウマ':'zebra','猿':'monkey','さる':'monkey',
+  'パンダ':'panda','コアラ':'koala','ナマケモノ':'sloth',
+  '恐竜':'dinosaur','ダイナソー':'dinosaur',
+  '牛':'cow','馬':'horse','羊':'sheep','豚':'pig',
+  'にわとり':'chicken','ひよこ':'chick',
+  'ユニコーン':'unicorn','人魚':'mermaid','海の生き物':'sea animal',
+  '魚':'fish','イルカ':'dolphin','くじら':'whale',
+  'カニ':'crab','タコ':'octopus','クラゲ':'jellyfish','貝':'seashell',
+  'フラミンゴ':'flamingo','クジャク':'peacock',
+  // =========================
+  // 虫・蝶・自然モチーフ
+  // =========================
+  '蝶':'butterfly','ちょうちょ':'butterfly','バタフライ':'butterfly',
+  '蜂':'bee','はち':'bee','ミツバチ':'bee',
+  'てんとう虫':'ladybug','トンボ':'dragonfly','蛍':'firefly',
+  '月':'moon','星':'star','スター':'star','太陽':'sun',
+  '雲':'cloud','虹':'rainbow','雨':'rain','雪':'snow',
+  '海':'ocean','波':'wave','ビーチ':'beach','山':'mountain','空':'sky',
+  '宇宙':'space',
+  // =========================
+  // ファンタジー・かわいい系
+  // =========================
+  'プリンセス':'princess','お姫様':'princess',
+  '妖精':'fairy','フェアリー':'fairy','魔法':'magic','魔法使い':'wizard',
+  'お城':'castle','城':'castle','王冠':'crown','クラウン':'crown',
+  '天使':'angel','羽':'wing',
+  'リボン':'bow','ピンクリボン':'pink bow',
+  'ハート':'heart','キラキラ':'sparkle','星屑':'stardust',
+  'バレエ':'ballet','バレリーナ':'ballerina','チュチュ':'tutu',
+  // =========================
+  // パーティー小物
+  // =========================
+  '風船':'balloon','バルーン':'balloon',
+  '紙吹雪':'confetti','コンフェッティ':'confetti',
+  'パーティーハット':'party hat','帽子':'party hat',
+  'ガーランド':'garland','バナー':'banner',
+  'プレゼント':'gift','ギフト':'gift',
+  'キャンドル':'candle','ろうそく':'candle',
+  '数字':'number','ナンバー':'number','名前':'name',
+  // =========================
+  // スポーツ・趣味
+  // =========================
+  'スポーツ':'sports','野球':'baseball','サッカー':'soccer',
+  'バスケットボール':'basketball','バスケ':'basketball',
+  'アメフト':'football','フットボール':'football',
+  'テニス':'tennis','ゴルフ':'golf','水泳':'swimming',
+  'ダンス':'dance','音楽':'music','ギター':'guitar','ピアノ':'piano',
+  'ゲーム':'gaming','本':'book','読書':'reading',
+  'キャンプ':'camping','アウトドア':'outdoor',
+  // =========================
+  // 人気テーマ・言い回し
+  // =========================
+  'ワンデフル':'one derful','ワンダフル':'one derful',
+  'ベリーファースト':'berry first','ツーファスト':'two fast',
+  'リトルパンプキン':'little pumpkin','リトルスター':'little star',
+  'サムバニー':'some bunny','シリーグース':'silly goose','パーフェクト':'purrfect'
+};
 
-    /**
-     * Handle a selected image file: validate and preview
-     * @param {File} file
-     */
-    function handleFileSelect(file) {
-      const allowed = ['image/png', 'image/jpeg', 'image/webp'];
-      if (!allowed.includes(file.type)) {
-        showError('PNG / JPG / WEBP のいずれかの画像ファイルを選択してください。');
-        return;
-      }
-      uploadedFile = file;
-      const url = URL.createObjectURL(file);
-      previewImg.src = url;
-      previewFilename.textContent = file.name;
-      previewWrap.classList.add('visible');
-      clearError();
-    }
+/* 商標リスクワード */
+const trademarkWords = [
+  'disney','pokemon','pokémon','barbie','sanrio','hello kitty','bluey',
+  'peppa pig','taylor swift','harry potter','marvel','star wars','nintendo',
+  'tomica','anpanman','studio ghibli','snoopy','miffy','lego','minecraft',
+  'roblox','fortnite','sailor moon','doraemon','paw patrol'
+];
 
-    /** Clear uploaded image */
-    function clearImage() {
-      uploadedFile = null;
-      imageInput.value = '';
-      previewImg.src = '';
-      previewFilename.textContent = '';
-      previewWrap.classList.remove('visible');
-    }
+/* ============================================================
+   関連SEO語辞書
+   ============================================================ */
+const relatedSeo = {
+  'pumpkin': ['little pumpkin', 'pumpkin party', 'fall birthday', 'autumn party'],
+  'fall pumpkin': ['little pumpkin', 'pumpkin party', 'fall birthday'],
+  'construction vehicle': ['truck birthday', 'construction party', 'digger birthday', 'truck party'],
+  'truck': ['truck birthday', 'truck party', 'boy birthday', 'dump truck party'],
+  'excavator': ['digger birthday', 'construction party', 'truck birthday'],
+  'dump truck': ['dump truck party', 'construction party', 'truck birthday'],
+  'strawberry': ['berry first', 'strawberry party', 'strawberry birthday', 'fruit birthday'],
+  'butterfly': ['butterfly girl', 'butterfly party', 'butterfly garden', 'pink butterfly'],
+  'daisy': ['daisy birthday', 'daisy party', 'spring birthday'],
+  'bunny': ['some bunny', 'bunny birthday', 'spring birthday'],
+  'goose': ['silly goose', 'goose birthday', 'farm birthday'],
+  'dinosaur': ['dino birthday', 'dino party', 'boy birthday'],
+  'space': ['space birthday', 'rocket party', 'outer space'],
+  'rainbow': ['rainbow birthday', 'boho rainbow', 'rainbow party'],
+  'unicorn': ['unicorn birthday', 'unicorn party', 'magical birthday'],
+  'mermaid': ['mermaid birthday', 'mermaid party', 'under the sea'],
+  'farm': ['farm birthday', 'farm party', 'barnyard party'],
+  'safari': ['safari birthday', 'safari party', 'wild one'],
+  'cat': ['cat birthday', 'kitten party', 'purrfect'],
+  'kitten': ['kitten party', 'cat birthday', 'purrfect'],
+  'bear': ['bear birthday', 'teddy bear party', 'woodland birthday'],
+  'teddy bear': ['teddy bear party', 'bear birthday', 'baby birthday'],
+  'princess': ['princess birthday', 'princess party', 'fairy tale'],
+  'fairy': ['fairy birthday', 'fairy garden', 'magical birthday'],
+  'ballet': ['ballerina birthday', 'ballet party', 'tutu birthday'],
+  'baseball': ['baseball birthday', 'baseball party', 'rookie year'],
+  'soccer': ['soccer birthday', 'soccer party', 'sports birthday'],
+  'halloween': ['halloween party', 'spooky cute', 'ghost party'],
+  'christmas': ['christmas party', 'holiday party', 'winter party'],
+  'valentine': ['valentine party', 'heart theme', 'love theme'],
+  'baby shower': ['baby shower invite', 'baby sprinkle', 'new baby'],
+  'wedding': ['wedding template', 'bridal shower', 'wedding printable'],
+  'floral': ['floral birthday', 'floral party', 'floral invite'],
+  'watercolor': ['watercolor invite', 'watercolor birthday'],
+  'pastel': ['pastel invite', 'pastel birthday'],
+  'girl': ['girl birthday', 'girls party'],
+  'boy': ['boy birthday', 'boys party']
+};
 
-    /* ============================================================
-       Custom size toggle
-    ============================================================ */
-    document.querySelectorAll('input[name="size"]').forEach((radio) => {
-      radio.addEventListener('change', () => {
-        if (radio.value === 'custom') {
-          customSizeRow.classList.add('visible');
-        } else {
-          customSizeRow.classList.remove('visible');
+function expandRelatedSeo(keywords) {
+  const expanded = [...keywords];
+  keywords.forEach(kw => {
+    if (relatedSeo[kw]) {
+      relatedSeo[kw].forEach(extra => {
+        if (!expanded.includes(extra)) {
+          expanded.push(extra);
         }
       });
+    }
+  });
+  return expanded;
+}
+
+/* ============================================================
+   モード管理
+   ============================================================ */
+let currentMode = 'invitation';
+
+function switchMode(mode) {
+  currentMode = mode;
+  document.getElementById('btn-invitation').classList.toggle('active', mode === 'invitation');
+  document.getElementById('btn-clipart').classList.toggle('active', mode === 'clipart');
+  document.getElementById('invitation-fields').style.display = mode === 'invitation' ? '' : 'none';
+  document.getElementById('clipart-fields').style.display = mode === 'clipart' ? '' : 'none';
+  renderSampleBtns();
+  document.getElementById('output-area').style.display = 'none';
+}
+
+/* ============================================================
+   サンプルボタン
+   ============================================================ */
+const samples = {
+  invitation: [
+    {
+      label:'🦋 蝶の招待状',
+      theme:'蝶',
+      moods:['m-watercolor','m-girl','m-pale'],
+      age:'First Birthday',
+      type:'First Birthday Invitation',
+      size:'5x7',
+      extra:'花、上品、編集可能'
+    },
+    {
+      label:'🎀 ピンクリボン招待状',
+      theme:'ピンクリボン',
+      moods:['m-cute','m-girl','m-pastel'],
+      age:'Any Age',
+      type:'Birthday Invitation',
+      size:'5x7',
+      extra:'かわいい、女の子、パステル'
+    }
+  ],
+  clipart: [
+    {
+      label:'🌼 デイジークリップアート',
+      theme:'デイジー',
+      moods:['m-watercolor','m-natural','m-botanical'],
+      format:'PNG',
+      bg:'Transparent Background',
+      use:'Personal and Commercial Use',
+      count:'24 PNG files',
+      type:'Clipart Bundle',
+      extra:'花、春、商用利用、透過背景'
+    },
+    {
+      label:'🍓 いちごクリップアート',
+      theme:'いちご',
+      moods:['m-cute','m-pastel','m-girl'],
+      format:'PNG',
+      bg:'Transparent Background',
+      use:'Personal and Commercial Use',
+      count:'20 PNG files',
+      type:'Clipart Bundle',
+      extra:'かわいい、パステル、女の子向け'
+    }
+  ]
+};
+
+function renderSampleBtns() {
+  const wrap = document.getElementById('sample-btns');
+  wrap.innerHTML = '';
+  const list = currentMode === 'invitation' ? samples.invitation : samples.clipart;
+  list.forEach(s => {
+    const b = document.createElement('button');
+    b.className = 'sample-btn';
+    b.textContent = s.label;
+    b.onclick = () => fillSample(s);
+    wrap.appendChild(b);
+  });
+}
+
+function fillSample(s) {
+  document.getElementById('theme').value = s.theme;
+  // 全チェックリセット
+  document.querySelectorAll('.mood-pill input').forEach(el => el.checked = false);
+  (s.moods || []).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.checked = true;
+  });
+  if (currentMode === 'invitation') {
+    if (s.age) document.getElementById('inv-age').value = s.age;
+    if (s.type) document.getElementById('inv-type').value = s.type;
+    if (s.size) document.getElementById('inv-size').value = s.size;
+  } else {
+    if (s.format) document.getElementById('ca-format').value = s.format;
+    if (s.bg) document.getElementById('ca-bg').value = s.bg;
+    if (s.use) document.getElementById('ca-use').value = s.use;
+    if (s.count) document.getElementById('ca-count').value = s.count;
+    if (s.type) document.getElementById('ca-type').value = s.type;
+  }
+  document.getElementById('extra-kw').value = s.extra || '';
+  checkTrademark(s.theme + ' ' + (s.extra || ''));
+}
+
+/* ============================================================
+   商標チェック
+   ============================================================ */
+function checkTrademark(text) {
+  const lower = text.toLowerCase();
+  const found = trademarkWords.some(w => lower.includes(w));
+  document.getElementById('trademark-warn').classList.toggle('show', found);
+}
+
+document.getElementById('theme').addEventListener('input', function() {
+  checkTrademark(this.value + ' ' + document.getElementById('extra-kw').value);
+});
+document.getElementById('extra-kw').addEventListener('input', function() {
+  checkTrademark(document.getElementById('theme').value + ' ' + this.value);
+});
+
+/* ============================================================
+   日本語→英語SEO変換（部分一致対応）
+   ============================================================ */
+function convertToEn(text) {
+  const result = [];
+  const input = String(text || '').trim();
+  const normalized = input
+    .replace(/[、。・／/|｜\n\r]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .toLowerCase();
+
+  // キーを長い順に並べて部分一致（長いキーを優先）
+  const sortedKeys = Object.keys(jpToEn).sort((a, b) => b.length - a.length);
+
+  sortedKeys.forEach(key => {
+    if (input.includes(key)) {
+      const value = jpToEn[key];
+      if (value && !result.includes(value)) {
+        result.push(value);
+      }
+    }
+  });
+
+  // 英語入力はそのまま追加
+  const englishTerms = normalized
+    .split(/[,\s]+/)
+    .map(w => w.trim())
+    .filter(Boolean)
+    .filter(w => /^[a-z0-9\-_]+$/.test(w));
+
+  englishTerms.forEach(word => {
+    if (!result.includes(word)) {
+      result.push(word);
+    }
+  });
+
+  return result;
+}
+
+function getMoodKeywords() {
+  const checked = [];
+  document.querySelectorAll('.mood-pill input:checked').forEach(el => {
+    if (!checked.includes(el.value)) checked.push(el.value);
+  });
+  return checked;
+}
+
+/* ============================================================
+   タグ補充候補
+   ============================================================ */
+const tagFallbackInv = [
+  'canva invite','editable invite','digital invite','party invite','kids birthday',
+  'girl birthday','boy birthday','1st birthday','any age invite','printable invite',
+  '5x7 invite','instant download','birthday decor','party template','floral invite',
+  'watercolor','boho invite','cute invite','pastel invite','birthday invite'
+];
+const tagFallbackCa = [
+  'clipart','png clipart','png bundle','svg files','clipart bundle','digital clipart',
+  'commercial use','instant download','transparent png','watercolor png','floral clipart',
+  'printable art','sticker clipart','cute clipart','digital files','craft supply',
+  'png files','hand drawn png','kawaii clipart','pastel clipart'
+];
+
+
+/* ============================================================
+   13タグ最適化ルール
+   - 6カテゴリ分け
+   - 広すぎるタグを減らす
+   - 主役テーマタグを最低3個
+   - 購入形式タグは2個まで
+   ============================================================ */
+const genericInvitationTags = [
+  'digital download','digital invite','printable invite','printable invitation','birthday template',
+  'party invitation','party invite','canva invitation','canva invite','canva template',
+  'editable invitation','editable invite','editable template','5x7 invitation','5x7 invite',
+  'instant download','digital template','birthday invite','kids party invite'
+];
+const purchaseFormatTags = [
+  'editable invite','canva template','editable template','canva invite','digital download',
+  'instant download','printable invite','digital invite','editable invitation','canva invitation'
+];
+
+/* クリップアート用汎用タグ（多用を避けるもの） */
+const genericClipartTags = [
+  'digital clipart','digital files','instant download','craft supply','printable art',
+  'clipart bundle','png bundle','svg bundle','digital download','clipart set',
+  'clip art','png files','digital art','graphic bundle'
+];
+/* クリップアート用購入形式タグ（最大2個まで） */
+const purchaseClipartTags = [
+  'instant download','digital download','commercial use','personal use'
+];
+
+function isGenericClipartTag(tag) {
+  return genericClipartTags.includes(normalizeTag(tag));
+}
+function isPurchaseClipartTag(tag) {
+  return purchaseClipartTags.includes(normalizeTag(tag));
+}
+
+/* ============================================================
+   クリップアート13タグ最適化
+   6カテゴリ構成：
+   ① 主役テーマタグ × 3
+   ② 素材形式タグ  × 3
+   ③ 雰囲気スタイルタグ × 2
+   ④ 利用用途タグ  × 2
+   ⑤ 購入形式タグ  × 2
+   ⑥ 予備タグ     × 1
+   ============================================================ */
+
+// クリップアートのスタイルStop語（テーマ基底の抽出から除外）
+const caThemeStopWords = new Set([
+  'cute','elegant','natural','playful','simple','botanical','retro','hand drawn','pastel',
+  'watercolor','floral','kawaii','pink','blue','green','yellow','purple','colorful',
+  'clipart','png','svg','jpg','pdf','bundle','digital','commercial','personal','transparent',
+  'background','white','use','files','download','instant','printable','art','craft','supply'
+]);
+
+function getCaThemeBases(themeKws, extraKws, allKws) {
+  const bases = [];
+  [...themeKws, ...extraKws, ...allKws].forEach(kw => {
+    kw = normalizeTag(kw);
+    if (!kw) return;
+    if (caThemeStopWords.has(kw)) return;
+    const wc = kw.split(' ').filter(Boolean).length;
+    if (wc === 1 && kw.length > 15) return;
+    if (wc >= 2 && kw.length > 18) return;
+    if (!bases.includes(kw)) bases.push(kw);
+  });
+  return bases.slice(0, 5);
+}
+
+function buildCaThemeTags(themeBases, allKws, format) {
+  // テーマ名 + clipart / png / illustration / flower など
+  const arr = [];
+  const fmt = (format || 'png').toLowerCase();
+  const fmtWord = fmt === 'svg' ? 'svg' : 'png';
+
+  themeBases.forEach(base => {
+    if (arr.length >= 3) return;
+    base = normalizeTag(base);
+    if (!base) return;
+    const combos = [
+      base + ' clipart',     // daisy clipart
+      base + ' ' + fmtWord, // daisy png
+      base + ' illustration',// daisy illustration  ※要20文字チェック
+      base + ' sticker',
+      base + ' flower',
+      base + ' design',
+    ];
+    combos.forEach(c => {
+      if (arr.length >= 3) return;
+      if (c.length <= 20) addTag(arr, c);
     });
+    // 何も入らなければ base そのものでも許容（最終手段）
+    if (arr.length < 3 && base.length <= 20) addTag(arr, base);
+  });
 
-    /* ============================================================
-       Generate button
-    ============================================================ */
-    generateBtn.addEventListener('click', () => {
-      if (!validate()) return;
-      const params = collectParams();
-      const prompts = buildPrompts(params);
-      renderResults(prompts, params);
-      resultsSection.classList.add('visible');
-      // Scroll to results
-      setTimeout(() => {
-        resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
+  // allKwsの関連語からも補充
+  allKws.forEach(kw => {
+    if (arr.length >= 3) return;
+    kw = normalizeTag(kw);
+    if (!kw || caThemeStopWords.has(kw) || isGenericClipartTag(kw)) return;
+    const c = kw.length <= 13 ? kw + ' clipart' : kw;
+    if (c.length <= 20) addTag(arr, c);
+  });
+
+  while (arr.length < 3) {
+    const fb = ['theme clipart','floral clipart','cute clipart'][arr.length] || 'clipart set';
+    addTag(arr, fb);
+  }
+  return arr.slice(0, 3);
+}
+
+function buildCaFormatTags(format, isTransparent, allKws) {
+  // 素材形式タグ：PNG/SVG × 透過 × 関連語
+  const arr = [];
+  const fmt = (format || 'PNG').toLowerCase();
+
+  if (fmt === 'svg') {
+    addTag(arr, 'svg clipart');
+    addTag(arr, 'svg files');
+    addTag(arr, 'svg bundle');
+  } else if (fmt === 'png + svg' || fmt === 'bundle') {
+    addTag(arr, 'png clipart');
+    addTag(arr, 'svg clipart');
+    if (isTransparent) addTag(arr, 'transparent png');
+    else addTag(arr, 'png bundle');
+  } else {
+    // PNG系
+    addTag(arr, 'png clipart');
+    if (isTransparent) addTag(arr, 'transparent png');
+    else addTag(arr, 'png bundle');
+    // スタイル系のpng
+    if (allKws.includes('watercolor')) addTag(arr, 'watercolor png');
+    else if (allKws.includes('hand drawn')) addTag(arr, 'hand drawn png');
+    else addTag(arr, 'high res png');
+  }
+
+  while (arr.length < 3) {
+    const fb = ['png clipart','transparent png','png files'][arr.length] || 'png bundle';
+    addTag(arr, fb);
+  }
+  return arr.slice(0, 3);
+}
+
+function buildCaStyleTags(moodKws, allKws, themeBases) {
+  // 雰囲気スタイルタグ：テーマ×スタイル or スタイル+clipart/png
+  const arr = [];
+  const base0 = themeBases[0] ? normalizeTag(themeBases[0]) : '';
+  const styleMap = {
+    'watercolor': ['watercolor clipart', 'watercolor png'],
+    'hand drawn': ['hand drawn clipart', 'hand drawn png'],
+    'pastel':     ['pastel clipart', 'pastel png'],
+    'botanical':  ['botanical clipart', 'botanical png'],
+    'floral':     ['floral clipart', 'floral png'],
+    'cute':       ['cute clipart', 'kawaii clipart'],
+    'kawaii':     ['kawaii clipart', 'cute clipart'],
+    'retro':      ['retro clipart', 'vintage clipart'],
+    'vintage':    ['vintage clipart', 'retro clipart'],
+    'natural':    ['nature clipart', 'botanical png'],
+    'girly':      ['girly clipart', 'pink clipart'],
+    'girl':       ['girl clipart', 'pink clipart'],
+    'pink':       ['pink clipart', 'pastel clipart'],
+  };
+
+  const preferred = ['watercolor','hand drawn','pastel','botanical','floral','cute','kawaii','retro','vintage','natural','girl','girly','pink'];
+  preferred.forEach(k => {
+    if (arr.length >= 2) return;
+    if (!(moodKws.includes(k) || allKws.includes(k))) return;
+    // テーマ×スタイル組み合わせを先に試す
+    if (base0) {
+      const combo = base0 + ' ' + k; // e.g. daisy watercolor
+      if (combo.length <= 20 && !arr.includes(combo)) { addTag(arr, combo); return; }
+    }
+    // スタイル単体タグ
+    const candidates = styleMap[k] || [k + ' clipart'];
+    for (const c of candidates) {
+      if (c.length <= 20 && !arr.includes(c)) { addTag(arr, c); break; }
+    }
+  });
+
+  // 補充
+  if (arr.length < 2) addTag(arr, 'floral clipart');
+  if (arr.length < 2) addTag(arr, 'nature clipart');
+  return arr.slice(0, 2);
+}
+
+function buildCaUseTags(caType, themeBases) {
+  // 利用用途タグ：どんな用途に使えるか
+  const arr = [];
+  const base0 = themeBases[0] ? normalizeTag(themeBases[0]) : '';
+  const typeL = (caType || '').toLowerCase();
+
+  if (typeL.includes('sticker')) {
+    addTag(arr, 'sticker clipart');
+    addTag(arr, base0 ? base0 + ' sticker' : 'planner sticker');
+  } else if (typeL.includes('paper')) {
+    addTag(arr, 'digital paper');
+    addTag(arr, 'scrapbook paper');
+  } else if (typeL.includes('printable')) {
+    addTag(arr, 'printable clipart');
+    addTag(arr, 'planner clipart');
+  } else {
+    // 汎用のClipart Bundleなら用途ベースで
+    addTag(arr, 'scrapbook clipart');
+    addTag(arr, 'planner clipart');
+  }
+
+  if (arr.length < 2) addTag(arr, 'card making');
+  if (arr.length < 2) addTag(arr, 'invitation clipart');
+  return arr.slice(0, 2);
+}
+
+function buildCaPurchaseTags(commercialOK) {
+  return commercialOK
+    ? ['commercial use', 'instant download']
+    : ['personal use', 'instant download'];
+}
+
+function buildOptimizedClipartTags({ allKws, themeKws, extraKws, moodKws, format, isTransparent, caType, commercialOK }) {
+  const themeBases = getCaThemeBases(themeKws, extraKws, allKws);
+
+  const categories = [
+    { key:'theme',    title:'① 主役テーマタグ',    max:3, tags: buildCaThemeTags(themeBases, allKws, format) },
+    { key:'format',   title:'② 素材形式タグ',      max:3, tags: buildCaFormatTags(format, isTransparent, allKws) },
+    { key:'style',    title:'③ 雰囲気スタイルタグ', max:2, tags: buildCaStyleTags(moodKws, allKws, themeBases) },
+    { key:'use',      title:'④ 利用用途タグ',      max:2, tags: buildCaUseTags(caType, themeBases) },
+    { key:'purchase', title:'⑤ 購入形式タグ',      max:2, tags: buildCaPurchaseTags(commercialOK) },
+    { key:'spare',    title:'⑥ 予備タグ',          max:1, tags: [] },
+  ];
+
+  // 重複除去・20文字超えチェック・上限適用
+  const used = [];
+  categories.forEach(cat => {
+    const clean = [];
+    cat.tags.forEach(t => {
+      if (!used.includes(normalizeTag(t)) && addTag(clean, t, cat.max)) used.push(normalizeTag(t));
     });
+    cat.tags = clean;
+  });
 
-    /* ============================================================
-       Reset button
-    ============================================================ */
-    resetBtn.addEventListener('click', resetAll);
+  // 予備タグ：テーマ×用途の組み合わせ優先
+  const base0 = themeBases[0] ? normalizeTag(themeBases[0]) : '';
+  const spareCandidates = [
+    base0 ? base0 + ' design' : '',
+    base0 ? base0 + ' art' : '',
+    base0 ? base0 + ' pattern' : '',
+    base0 ? base0 + ' graphic' : '',
+    'flower clipart', 'nature clipart', 'botanical png',
+    'cute clipart', 'pastel clipart', 'kawaii clipart',
+    'scrapbook png', 'planner png',
+  ].filter(Boolean);
 
-    function resetAll() {
-      // Clear image
-      clearImage();
+  spareCandidates.forEach(t => {
+    if (categories[5].tags.length >= 1) return;
+    const nt = normalizeTag(t);
+    if (!nt || used.includes(nt) || nt.length > 20) return;
+    if (wordCount(nt) < 2) return;
+    if (isGenericClipartTag(nt)) return; // 予備には汎用タグ入れない
+    addTag(categories[5].tags, nt, 1) && used.push(nt);
+  });
 
-      // Reset size to default
-      document.getElementById('size_43').checked = true;
-      customSizeRow.classList.remove('visible');
-      document.getElementById('customW').value = '';
-      document.getElementById('customH').value = '';
+  // 13個に足りない場合の汎用補充（汎用は総計2個まで）
+  const fillCa = ['png clipart','transparent png','watercolor png','floral clipart','pastel clipart',
+                   'kawaii clipart','scrapbook clipart','planner clipart','instant download','commercial use'];
+  fillCa.forEach(t => {
+    const all = categories.flatMap(c => c.tags);
+    if (all.length >= 13) return;
+    const nt = normalizeTag(t);
+    if (used.includes(nt)) return;
+    const genericCount = all.filter(isGenericClipartTag).length;
+    if (isGenericClipartTag(nt) && genericCount >= 3) return;
+    const target = categories.find(c => c.tags.length < c.max);
+    if (target && addTag(target.tags, nt, target.max)) used.push(nt);
+  });
 
-      // Uncheck all composition
-      document.querySelectorAll('input[id^="comp_"]').forEach(cb => cb.checked = false);
+  const finalTags = categories.flatMap(c => c.tags).slice(0, 13);
 
-      // Uncheck all mood
-      document.querySelectorAll('input[id^="mood_"]').forEach(cb => cb.checked = false);
+  // 注意点・警告
+  const warnings = [];
+  const themeCount = categories[0].tags.length;
+  const genericCount = finalTags.filter(isGenericClipartTag).length;
+  const purchaseCount = finalTags.filter(isPurchaseClipartTag).length;
+  const weakSingle = finalTags.filter(t => wordCount(t) < 2 && !['png','svg','jpg','pdf'].includes(t));
+  if (themeCount < 3) warnings.push('主役テーマタグが3個未満です。テーマ名・モチーフ名を増やすと効果的です。');
+  if (genericCount > 3) warnings.push(`汎用タグが${genericCount}個あります。商品テーマに近い具体タグへ差し替えを推奨します。`);
+  if (purchaseCount > 2) warnings.push(`購入形式タグが${purchaseCount}個あります。2個までが理想です。`);
+  if (weakSingle.length) warnings.push(`単語1つのタグがあります：${weakSingle.join(', ')}。2〜3語への変更を推奨します。`);
+  if (!warnings.length) warnings.push('クリップアートタグのバランスは良好です。テーマ性を優先した具体的なタグが揃っています。');
 
-      // Reset count to 1
-      document.getElementById('count_1').checked = true;
+  return { categories, finalTags, warnings, themeCount, genericCount, purchaseCount };
+}
+const themeStopWords = new Set(['cute','elegant','luxury','muted color','watercolor','boy','girl','natural','playful','simple','botanical','retro','hand drawn','pastel','birthday','party','invitation','template','editable','canva','digital download','printable','5x7','kids','baby']);
 
-      // Clear memo
-      document.getElementById('memoInput').value = '';
+function normalizeTag(tag) {
+  return String(tag || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+function isGenericTag(tag) {
+  const t = normalizeTag(tag);
+  return genericInvitationTags.includes(t) || ['invitation','birthday','template','download','digital'].includes(t);
+}
+function isPurchaseFormatTag(tag) {
+  return purchaseFormatTags.includes(normalizeTag(tag));
+}
+function addTag(arr, tag, max=99) {
+  tag = normalizeTag(tag);
+  if (!tag || tag.length > 20) return false;
+  if (arr.includes(tag)) return false;
+  if (arr.length >= max) return false;
+  arr.push(tag);
+  return true;
+}
+function getThemeBases(themeKws, extraKws, allKws) {
+  const bases = [];
+  [...themeKws, ...extraKws, ...allKws].forEach(kw => {
+    kw = normalizeTag(kw);
+    if (!kw) return;
+    if (themeStopWords.has(kw)) return;
+    // 1語は16文字以内、2語以上は18文字以内まで許容（truck birthday など）
+    const wc = kw.split(' ').filter(Boolean).length;
+    if (wc === 1 && kw.length > 16) return;
+    if (wc >= 2 && kw.length > 18) return;
+    if (!bases.includes(kw)) bases.push(kw);
+  });
+  return bases.slice(0, 5);
+}
+function ageTagsFromAge(age, themeBases) {
+  const a = String(age || '').toLowerCase();
+  const base = (themeBases && themeBases[0]) ? normalizeTag(themeBases[0]) : '';
 
-      // Clear errors and results
-      clearError();
-      resultsSection.classList.remove('visible');
+  // テーマ × 年齢の組み合わせタグを優先的に生成（20文字以内）
+  function themeAgeTag(suffix) {
+    if (!base) return '';
+    const candidate = base + ' ' + suffix;
+    return candidate.length <= 20 ? candidate : '';
+  }
+
+  if (a.includes('first') || a === '1st') {
+    const combo1 = themeAgeTag('1st birthday');  // e.g. butterfly 1st birthday→20文字以内のみ
+    const combo2 = themeAgeTag('girl birthday');  // e.g. butterfly girl birthday
+    const arr = [];
+    if (combo1 && combo1.length <= 20) arr.push(combo1);
+    if (combo2 && combo2.length <= 20 && combo2 !== combo1) arr.push(combo2);
+    if (!arr.includes('1st birthday invite')) arr.push('1st birthday invite');
+    if (arr.length < 3 && !arr.includes('turning one')) arr.push('turning one');
+    return arr.slice(0, 3);
+  }
+  if (a === '2nd') {
+    const combo1 = themeAgeTag('2nd birthday');
+    const arr = [];
+    if (combo1 && combo1.length <= 20) arr.push(combo1);
+    if (!arr.includes('2nd birthday invite')) arr.push('2nd birthday invite');
+    if (arr.length < 3) arr.push('turning two');
+    return arr.slice(0, 3);
+  }
+  if (a === '3rd') {
+    const combo1 = themeAgeTag('3rd birthday');
+    const arr = [];
+    if (combo1 && combo1.length <= 20) arr.push(combo1);
+    if (!arr.includes('3rd birthday invite')) arr.push('3rd birthday invite');
+    if (arr.length < 3) arr.push('3rd birthday boy');
+    return arr.slice(0, 3);
+  }
+  if (a.includes('any')) return ['any age invite', 'birthday invite', 'kids birthday'];
+  if (a.includes('baby shower')) return ['baby shower invite', 'baby shower', 'editable shower'];
+  if (a.includes('bridal')) return ['bridal shower', 'bridal invite', 'shower invitation'];
+  return ['birthday invite', 'kids birthday', 'birthday party'];
+}
+function targetTagsFromMood(moodKws, age) {
+  const isGirl = moodKws.includes('girl');
+  const isBoy = moodKws.includes('boy');
+  const a = String(age || '').toLowerCase();
+  const arr = [];
+  if (isBoy) { addTag(arr,'boy birthday invite'); addTag(arr,'boys party invite'); }
+  if (isGirl) { addTag(arr,'girl birthday invite'); addTag(arr,'girls party invite'); }
+  if (!isBoy && !isGirl) { addTag(arr,'kids birthday'); addTag(arr,'kids party invite'); }
+  if (a.includes('baby')) addTag(arr,'baby shower invite');
+  return arr.slice(0,2);
+}
+function wordCount(tag) {
+  return normalizeTag(tag).split(' ').filter(Boolean).length;
+}
+function makeSpecificTag(tag, role='theme') {
+  const t = normalizeTag(tag);
+  if (!t) return '';
+  if (wordCount(t) >= 2) return t;
+
+  // 単語1つだけの弱いタグを、検索意図が見える2〜3語へ寄せる
+  const targetMap = {
+    girl: ['girl birthday invite','girl birthday'],
+    boy: ['boy birthday invite','boy birthday'],
+    girls: ['girls party invite','girl birthday'],
+    boys: ['boys party invite','boy birthday'],
+    kids: ['kids birthday','kids party invite'],
+    baby: ['baby shower invite','baby birthday']
+  };
+  if (targetMap[t]) return targetMap[t].find(x => x.length <= 20) || t;
+
+  if (role === 'style') {
+    const styleMap = {
+      watercolor: 'watercolor invite',
+      pastel: 'pastel invite',
+      pink: 'pink birthday',
+      blue: 'blue birthday',
+      boho: 'boho invite',
+      retro: 'retro invite',
+      vintage: 'vintage invite',
+      elegant: 'elegant invite',
+      cute: 'cute birthday',
+      natural: 'natural invite',
+      botanical: 'botanical invite',
+      playful: 'playful invite'
+    };
+    if (styleMap[t] && styleMap[t].length <= 20) return styleMap[t];
+  }
+
+  const candidates = role === 'theme'
+    ? [`${t} birthday`, `${t} invite`, `${t} party`, `${t} theme`]
+    : [`${t} birthday`, `${t} invite`, `${t} party`, `${t} theme`];
+  return candidates.find(x => x.length <= 20) || t;
+}
+function styleTagsFromMood(moodKws, allKws, themeBases) {
+  const arr = [];
+  const base0 = themeBases[0] ? normalizeTag(themeBases[0]) : '';
+  const preferred = ['watercolor','pastel','pink','blue','boho','retro','vintage','hand drawn','elegant','cute','natural','botanical','muted color','playful'];
+  preferred.forEach(k => {
+    if (arr.length >= 2) return;
+    if (!(moodKws.includes(k) || allKws.includes(k))) return;
+    // テーマ × スタイルの組み合わせを先に試みる
+    if (base0 && k !== 'muted color') {
+      const combo1 = base0 + ' ' + k; // e.g. "butterfly watercolor"
+      const combo2 = k + ' invite';    // e.g. "watercolor invite"
+      if (combo1.length <= 20 && !arr.includes(combo1)) { addTag(arr, combo1); return; }
+      if (combo2.length <= 20 && !arr.includes(combo2)) { addTag(arr, combo2); return; }
     }
-
-    /* ============================================================
-       Validation
-    ============================================================ */
-    function validate() {
-      clearError();
-
-      if (!uploadedFile) {
-        showError('⚠️ 招待状画像が未選択です。\n画像をアップロードしてから生成してください。');
-        return false;
-      }
-
-      const selectedSize = document.querySelector('input[name="size"]:checked').value;
-      if (selectedSize === 'custom') {
-        const w = document.getElementById('customW').value;
-        const h = document.getElementById('customH').value;
-        if (!w || !h || parseInt(w) <= 0 || parseInt(h) <= 0) {
-          showError('⚠️ カスタムサイズを選択した場合、幅と高さを両方入力してください。');
-          return false;
-        }
-      }
-
-      return true;
-    }
-
-    function showError(msg) {
-      errorMsg.textContent = msg;
-      errorMsg.classList.add('visible');
-      errorMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    function clearError() {
-      errorMsg.textContent = '';
-      errorMsg.classList.remove('visible');
-    }
-
-    /* ============================================================
-       Collect form parameters
-    ============================================================ */
-    function collectParams() {
-      // Size
-      const sizeVal = document.querySelector('input[name="size"]:checked').value;
-      let sizeLabel = '';
-      let sizeEnglish = '';
-      if (sizeVal === '4:3')    { sizeLabel = 'Etsy横長（4:3）';        sizeEnglish = 'aspect ratio 4:3 (landscape)'; }
-      else if (sizeVal === '1:1') { sizeLabel = '正方形（1:1）';         sizeEnglish = 'square format 1:1'; }
-      else if (sizeVal === '4:5') { sizeLabel = 'Instagram縦長（4:5）'; sizeEnglish = 'portrait aspect ratio 4:5'; }
-      else if (sizeVal === '2:3') { sizeLabel = 'Pinterest縦長（2:3）'; sizeEnglish = 'portrait aspect ratio 2:3'; }
-      else if (sizeVal === 'note') { sizeLabel = 'note見出し（1280×670）'; sizeEnglish = 'custom size: width 1280px, height 670px (wide landscape)'; }
-      else if (sizeVal === 'custom') {
-        const w = document.getElementById('customW').value;
-        const h = document.getElementById('customH').value;
-        sizeLabel = `カスタム（${w} × ${h} px）`;
-        sizeEnglish = `custom size: width ${w}px, height ${h}px`;
-      }
-
-      // Composition
-      const compMap = {
-        any:     { ja: 'おまかせ',              en: 'natural and versatile composition' },
-        flatlay: { ja: 'フラットレイ',           en: 'flat lay composition from above' },
-        hand:    { ja: '手持ち',                en: 'hand holding the invitation' },
-        linen:   { ja: 'リネン・布背景',         en: 'on a soft linen or fabric background' },
-        floral:  { ja: '花や小物を添えた上品スタイル', en: 'elegant styling with subtle florals and tasteful props' },
-        minimal: { ja: 'ミニマル高級感',         en: 'minimal luxury styling with clean composition' },
-        table:   { ja: 'テーブル上の自然な演出',  en: 'natural table top setting' },
-      };
-      const selectedComps = Array.from(document.querySelectorAll('input[id^="comp_"]:checked')).map(cb => cb.value);
-      const compJa = selectedComps.map(v => compMap[v]?.ja).filter(Boolean);
-      const compEn = selectedComps.map(v => compMap[v]?.en).filter(Boolean);
-
-      // Mood
-      const moodMap = {
-        etsy:     { ja: 'Etsy王道・売れ筋風',  en: 'polished Etsy bestseller aesthetic, styled for high conversion' },
-        elegant:  { ja: '上品高見え',           en: 'elegant and upscale, refined and sophisticated' },
-        cute:     { ja: 'やわらかく可愛い',      en: 'soft, sweet, and gently feminine' },
-        natural:  { ja: 'ナチュラル',           en: 'natural, warm, and organic feel' },
-        luxury:   { ja: '高級感強め',           en: 'high-end luxury feel, premium and polished' },
-        seasonal: { ja: '季節感あり',           en: 'with a seasonal, timely atmosphere' },
-      };
-      const selectedMoods = Array.from(document.querySelectorAll('input[id^="mood_"]:checked')).map(cb => cb.value);
-      const moodJa = selectedMoods.map(v => moodMap[v]?.ja).filter(Boolean);
-      const moodEn = selectedMoods.map(v => moodMap[v]?.en).filter(Boolean);
-
-      // Count
-      const count = parseInt(document.querySelector('input[name="count"]:checked').value);
-
-      // Memo
-      const memo = document.getElementById('memoInput').value.trim();
-
-      return { sizeVal, sizeLabel, sizeEnglish, selectedComps, compJa, compEn, selectedMoods, moodJa, moodEn, count, memo };
-    }
-
-    /* ============================================================
-       Translate memo to natural English hints
-    ============================================================ */
-    function memoToEnglish(memo) {
-      if (!memo) return '';
-      // Simple keyword-based mapping for common Japanese phrases
-      // In a future API-connected version, this can be replaced with a translation API call
-      let en = memo;
-      const replacements = [
-        [/春らし[くい]/, 'with a fresh spring feel'],
-        [/夏らし[くい]/, 'with a bright summer feel'],
-        [/秋らし[くい]/, 'with a warm autumn feel'],
-        [/冬らし[くい]/, 'with a cozy winter feel'],
-        [/上品[でにな]?/, 'elegant and refined, '],
-        [/やわらか[くい]/, 'soft and gentle, '],
-        [/かわいい?/, 'cute and sweet, '],
-        [/小物は控えめ/, 'keep props minimal, '],
-        [/手持ち/, 'include a hand-holding mockup, '],
-        [/シンプル/, 'keep it simple and clean, '],
-        [/高級感/, 'premium and luxurious feel, '],
-        [/ナチュラル/, 'natural and organic, '],
-        [/蝶/, 'butterfly motif invitation, '],
-        [/花/, 'floral, '],
-        [/和風/, 'Japanese-inspired style, '],
-      ];
-      for (const [pattern, replacement] of replacements) {
-        en = en.replace(pattern, replacement);
-      }
-      // If mostly Japanese remains, just wrap as a note
-      // A simple heuristic: if more than 30% chars are CJK, prepend a note
-      const cjkCount = (en.match(/[\u3000-\u9FFF\uF900-\uFAFF]/g) || []).length;
-      if (cjkCount / en.length > 0.3) {
-        return `Additional styling note from creator: "${memo}"`;
-      }
-      return en.replace(/,\s*$/, '').trim();
-    }
-
-    /* ============================================================
-       Build all prompts
-    ============================================================ */
-    function buildPrompts(p) {
-      const memoEn = memoToEnglish(p.memo);
-
-      // Compose sections
-      const cardRule = `Use the uploaded invitation image exactly as the card design.
-Do not redesign, crop, recolor, rewrite, distort, or change the invitation in any way.
-Keep the card front-facing, straight, readable, and in its original vertical ratio.`;
-
-      const antiCollage = `Do not create a collage.
-Do not create a grid.
-Do not show multiple mockups in one image.
-Create separate images — one mockup per image only.`;
-
-      const countLine = p.count === 1
-        ? 'Create 1 product mockup image.'
-        : `Create ${p.count} separate mockup images. Each image must contain only one mockup.`;
-
-      const compositionLine = p.compEn.length > 0
-        ? p.compEn.join('; ')
-        : 'use a versatile, naturally styled composition';
-
-      const moodLine = p.moodEn.length > 0
-        ? p.moodEn.join(', ')
-        : 'warm, natural light, soft shadow, elegant and polished Etsy product photo look';
-
-      /* ---- ChatGPT (detailed) ---- */
-      const chatgpt = buildChatGPT({ p, cardRule, antiCollage, countLine, compositionLine, moodLine, memoEn });
-
-      /* ---- Gemini (concise) ---- */
-      const gemini = buildGemini({ p, cardRule, antiCollage, countLine, compositionLine, moodLine, memoEn });
-
-      /* ---- Canva AI (short) ---- */
-      const canva = buildCanva({ p, countLine, compositionLine, moodLine, memoEn });
-
-      /* ---- Anti-collage block ---- */
-      const anticollage = `Do not create a collage.
-Do not create a grid.
-Show only one mockup in each image.
-Create separate images only.
-Keep the invitation card large, straight, and readable.
-Do not combine multiple photos into a single frame.`;
-
-      /* ---- Notes (Japanese) ---- */
-      const notes = buildNotes(p, memoEn);
-
-      return { chatgpt, gemini, canva, anticollage, notes };
-    }
-
-    function buildChatGPT({ p, cardRule, antiCollage, countLine, compositionLine, moodLine, memoEn }) {
-      let txt = '';
-      txt += `Please create a professional product mockup image for an Etsy listing.\n\n`;
-
-      txt += `=== CARD PRESERVATION — HIGHEST PRIORITY ===\n`;
-      txt += cardRule + '\n\n';
-
-      txt += `=== COLLAGE / GRID PROHIBITION ===\n`;
-      txt += antiCollage + '\n\n';
-
-      txt += `=== SIZE & FORMAT ===\n`;
-      txt += `Output image format: ${p.sizeEnglish}\n\n`;
-
-      txt += `=== QUANTITY ===\n`;
-      txt += `${countLine}\n\n`;
-
-      txt += `=== COMPOSITION ===\n`;
-      txt += `Style: ${compositionLine}\n`;
-      txt += `The invitation card should be the clear focal point of the image. Surrounding props (if any) must remain secondary and subtle.\n\n`;
-
-      txt += `=== MOOD & AESTHETIC ===\n`;
-      txt += `Mood: ${moodLine}\n`;
-      txt += `Use natural light, soft shadows, and warm tones. The overall feel should be polished and premium — fitting for a high-quality Etsy product photo.\n\n`;
-
-      txt += `=== PHOTOGRAPHY QUALITY ===\n`;
-      txt += `- Clean, high-resolution look\n`;
-      txt += `- Soft, directional natural light\n`;
-      txt += `- Subtle, tasteful depth of field\n`;
-      txt += `- No harsh shadows or distracting backgrounds\n`;
-      txt += `- The text on the invitation must remain legible\n\n`;
-
-      if (memoEn) {
-        txt += `=== ADDITIONAL NOTES FROM CREATOR ===\n`;
-        txt += `${memoEn}\n\n`;
-      }
-
-      txt += `=== REMINDER ===\n`;
-      txt += `Keep the invitation card intact, unchanged, and front-facing throughout. The uploaded card design must appear exactly as provided.`;
-
-      return txt;
-    }
-
-    function buildGemini({ p, cardRule, antiCollage, countLine, compositionLine, moodLine, memoEn }) {
-      let txt = '';
-      txt += `Create a product mockup photo for an Etsy listing.\n\n`;
-
-      txt += `IMPORTANT RULES:\n`;
-      txt += cardRule + '\n';
-      txt += antiCollage + '\n\n';
-
-      txt += `FORMAT: ${p.sizeEnglish}\n`;
-      txt += `QUANTITY: ${countLine}\n\n`;
-
-      txt += `COMPOSITION: ${compositionLine}\n`;
-      txt += `MOOD: ${moodLine}\n\n`;
-
-      txt += `Keep the invitation card as the main subject. Use soft natural light, warm tones, and a clean background. The card text must remain fully readable.\n`;
-
-      if (memoEn) {
-        txt += `\nExtra note: ${memoEn}`;
-      }
-
-      return txt;
-    }
-
-    function buildCanva({ p, countLine, compositionLine, moodLine, memoEn }) {
-      let txt = '';
-      txt += `Product mockup photo, ${p.sizeEnglish}. `;
-      txt += `Use uploaded invitation as-is — no redesign, no recolor. `;
-      txt += `One mockup only, no collage or grid. `;
-      txt += `${compositionLine}. `;
-      txt += `${moodLine}. `;
-      txt += `Soft natural light, clean and polished Etsy look.`;
-      if (memoEn) txt += ` ${memoEn}.`;
-
-      return txt;
-    }
-
-    function buildNotes(p, memoEn) {
-      const items = [];
-      items.push('招待状の文字・色・レイアウトは変更しないよう、英語で強く指示しています');
-      items.push('1画像につき1モックアップになるよう、コラージュ・グリッド禁止を明記しています');
-      items.push('カードを正面向き・読みやすく保つ指定をすべてのプロンプトに含めています');
-
-      if (p.count > 1) {
-        items.push(`${p.count}枚生成の場合は「別画像で生成（Create separate images）」と明記しています`);
-      }
-
-      if (p.compJa.length > 0) {
-        items.push(`構図「${p.compJa.join('・')}」を英語で自然に反映しています`);
-      }
-
-      if (p.moodJa.length > 0) {
-        items.push(`雰囲気「${p.moodJa.join('・')}」を英語のムードワードに変換して反映しています`);
-      }
-
-      items.push(`出力サイズ「${p.sizeLabel}」を英語形式でプロンプトに明記しています`);
-
-      if (memoEn) {
-        items.push('補足メモの内容を英語に変換してプロンプトの末尾に追記しています');
-      }
-
-      items.push('ChatGPT版は詳細構造型、Gemini版は簡潔型、Canva版は1文短文型で出力しています');
-
-      return items;
-    }
-
-    /* ============================================================
-       Render results
-    ============================================================ */
-    function renderResults(prompts, params) {
-      document.getElementById('out_chatgpt').value       = prompts.chatgpt;
-      document.getElementById('out_gemini').value        = prompts.gemini;
-      document.getElementById('out_canva').value         = prompts.canva;
-      document.getElementById('out_anticollage').value   = prompts.anticollage;
-
-      // Notes
-      const notesList = document.getElementById('out_notes');
-      notesList.innerHTML = prompts.notes.map(n => `<li>${escapeHtml(n)}</li>`).join('');
-    }
-
-    function escapeHtml(str) {
-      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
-
-    /* ============================================================
-       Copy buttons
-    ============================================================ */
-    document.querySelectorAll('.btn-copy').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const targetId = btn.getAttribute('data-target');
-        const el = document.getElementById(targetId);
-        if (!el) return;
-        copyText(el.value, btn);
-      });
+    const specific = k === 'muted color' ? 'muted color invite' : makeSpecificTag(k, 'style');
+    addTag(arr, specific);
+  });
+  if (arr.length < 2 && themeBases.includes('floral')) addTag(arr,'floral invite');
+  if (arr.length < 2) addTag(arr,'party theme');
+  return arr.slice(0,2);
+}
+function buildThemeTags(themeBases, allKws, moodKws) {
+  const arr = [];
+  const bases = themeBases.length ? themeBases : allKws.filter(k => !themeStopWords.has(k)).slice(0,3);
+  bases.forEach(base => {
+    if (arr.length >= 3) return;
+    base = normalizeTag(base);
+    if (!base) return;
+    // 主役テーマタグは invite / party / birthday の3バリエーションを優先
+    const combos = [
+      base + ' invite',
+      base + ' birthday',
+      base + ' party',
+      base + ' theme',
+    ];
+    combos.forEach(c => {
+      if (arr.length >= 3) return;
+      if (c.length <= 20) addTag(arr, c);
     });
+    // 上記で追加できなければ makeSpecificTag にフォールバック
+    if (arr.length < 3) addTag(arr, makeSpecificTag(base, 'theme'));
+  });
+  // 関連語からテーマ性の高いものを補充
+  allKws.forEach(kw => {
+    if (arr.length >= 3) return;
+    kw = normalizeTag(kw);
+    if (!kw || themeStopWords.has(kw) || isGenericTag(kw)) return;
+    addTag(arr, makeSpecificTag(kw, 'theme'));
+  });
+  while (arr.length < 3) addTag(arr, ['theme invite','party theme','birthday theme'][arr.length]);
+  return arr.slice(0,3);
+}
+function buildOptimizedInvitationTags({allKws, themeKws, extraKws, moodKws, age}) {
+  const themeBases = getThemeBases(themeKws, extraKws, allKws);
+  const isGirl = moodKws.includes('girl');
+  const isBoy = moodKws.includes('boy');
 
-    document.getElementById('copyAllBtn').addEventListener('click', () => {
-      const ids = ['out_chatgpt', 'out_gemini', 'out_canva', 'out_anticollage'];
-      const all = ids.map(id => {
-        const el = document.getElementById(id);
-        const title = el.closest('.result-card').querySelector('.result-card-title').textContent.trim();
-        return `===== ${title} =====\n${el.value}`;
-      }).join('\n\n');
-      navigator.clipboard.writeText(all).then(() => showToast('すべてコピーしました ✓'));
+  const categories = [
+    { key:'theme', title:'① 主役テーマタグ', max:3, tags: buildThemeTags(themeBases, allKws, moodKws) },
+    { key:'age', title:'② 誕生日・年齢タグ', max:3, tags: ageTagsFromAge(age, themeBases) },
+    { key:'style', title:'③ 雰囲気タグ', max:2, tags: styleTagsFromMood(moodKws, allKws, themeBases) },
+    { key:'format', title:'④ 購入形式タグ', max:2, tags: ['editable invite','canva template'] },
+    { key:'target', title:'⑤ 対象者タグ', max:2, tags: targetTagsFromMood(moodKws, age) },
+    { key:'spare', title:'⑥ 予備タグ', max:1, tags: [] }
+  ];
+  // 20文字・重複・上限を適用
+  const used = [];
+  categories.forEach(cat => {
+    const clean = [];
+    cat.tags.forEach(t => { if (!used.includes(normalizeTag(t)) && addTag(clean,t,cat.max)) used.push(normalizeTag(t)); });
+    cat.tags = clean;
+  });
+
+  // 予備タグ候補：テーマ×スタイル・テーマ×ジェンダーなど具体的な組み合わせを優先
+  const base0 = themeBases[0] ? normalizeTag(themeBases[0]) : '';
+  const themeStyleCombos = [];
+  if (base0) {
+    if (moodKws.includes('watercolor') || allKws.includes('watercolor')) {
+      const c = base0 + ' watercolor';
+      if (c.length <= 20) themeStyleCombos.push(c);
+    }
+    if (moodKws.includes('pastel') || allKws.includes('pastel')) {
+      const c = 'pastel ' + base0;
+      if (c.length <= 20) themeStyleCombos.push(c);
+    }
+    if (isGirl) {
+      const c = base0 + ' girl';
+      if (c.length <= 20) themeStyleCombos.push(c);
+    }
+    if (isBoy) {
+      const c = base0 + ' boy';
+      if (c.length <= 20) themeStyleCombos.push(c);
+    }
+    const c2 = 'pink ' + base0;
+    if (c2.length <= 20 && (isGirl || moodKws.includes('pastel') || moodKws.includes('pink'))) themeStyleCombos.push(c2);
+  }
+
+  const spareCandidates = [
+    ...themeStyleCombos,
+    ...themeBases.map(b => makeSpecificTag(b, 'spare')),
+    ...themeBases.map(b => normalizeTag(b) + ' birthday'),
+    ...themeBases.map(b => normalizeTag(b) + ' template'),
+    ...allKws.map(k => makeSpecificTag(k, 'spare')),
+    'birthday invite','party invite','kids birthday'
+  ];
+  spareCandidates.forEach(t => {
+    if (categories[5].tags.length >= 1) return;
+    const nt = normalizeTag(t);
+    if (!nt || used.includes(nt) || nt.length > 20) return;
+    if (wordCount(nt) < 2) return;
+    if (isGenericTag(nt) && categories.flatMap(c=>c.tags).filter(isGenericTag).length >= 2) return;
+    addTag(categories[5].tags, nt, 1) && used.push(nt);
+  });
+  // 総数不足の補充。汎用タグは最大2個、購入形式タグは最大2個を維持。
+  const fill = ['birthday invite','kids birthday','party invite','birthday party','editable invite','canva template','instant download'];
+  fill.forEach(t => {
+    const all = categories.flatMap(c=>c.tags);
+    if (all.length >= 13) return;
+    if (all.includes(normalizeTag(t))) return;
+    if (isGenericTag(t) && all.filter(isGenericTag).length >= 2) return;
+    if (isPurchaseFormatTag(t) && all.filter(isPurchaseFormatTag).length >= 2) return;
+    // 足りないカテゴリへ優先補充
+    const target = categories.find(c => c.tags.length < c.max);
+    if (target && addTag(target.tags, t, target.max)) used.push(normalizeTag(t));
+  });
+  const finalTags = categories.flatMap(c => c.tags).slice(0,13);
+  const warnings = [];
+  const genericCount = finalTags.filter(isGenericTag).length;
+  const purchaseCount = finalTags.filter(isPurchaseFormatTag).length;
+  const themeCount = categories[0].tags.length;
+  if (genericCount > 2) warnings.push(`汎用タグが${genericCount}個あります。商品テーマに合う具体タグへ差し替え推奨です。`);
+  if (purchaseCount > 2) warnings.push(`購入形式タグが${purchaseCount}個あります。購入形式タグは2個までがおすすめです。`);
+  const weakSingleTags = finalTags.filter(t => wordCount(t) < 2 && !['png','svg','jpg','pdf'].includes(t));
+  if (themeCount < 3) warnings.push('主役テーマタグが3個未満です。テーマ名・モチーフ名を増やすと検索入口が増えます。');
+  if (weakSingleTags.length) warnings.push(`単語1つだけの弱いタグがあります：${weakSingleTags.join(', ')}。2〜3語の検索フレーズへ変更推奨です。`);
+  if (!warnings.length) warnings.push('タグの役割バランスは良好です。単語1つの弱いタグを避け、テーマ性を優先しています。');
+  return { categories, finalTags, warnings, genericCount, purchaseCount, themeCount };
+}
+
+/* ============================================================
+   メイン生成処理
+   ============================================================ */
+function generate() {
+  const theme = document.getElementById('theme').value.trim();
+  if (!theme) { alert('商品テーマを入力してください。'); return; }
+
+  const moodKws = getMoodKeywords();
+  const extraRaw = document.getElementById('extra-kw').value;
+
+  // SEO変換
+  const themeKws = convertToEn(theme);
+  const extraKws = convertToEn(extraRaw);
+  const baseKws = [...new Set([...themeKws, ...moodKws, ...extraKws])];
+  const allKws = expandRelatedSeo(baseKws).slice(0, 20);
+
+  // 商標チェック
+  const allText = (theme + ' ' + extraRaw + ' ' + allKws.join(' ')).toLowerCase();
+  const hasTrademarkRisk = trademarkWords.some(w => allText.includes(w));
+
+  // 表示
+  renderSeoResult(allKws);
+
+  if (currentMode === 'invitation') {
+    generateInvitation(allKws, themeKws, extraKws, moodKws, hasTrademarkRisk);
+  } else {
+    generateClipart(allKws, themeKws, extraKws, moodKws, hasTrademarkRisk);
+  }
+
+  document.getElementById('output-area').style.display = '';
+  setTimeout(() => {
+    document.getElementById('output-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+/* ===== SEO変換結果表示 ===== */
+function renderSeoResult(kws) {
+  const wrap = document.getElementById('seo-result');
+  wrap.innerHTML = '';
+  if (kws.length === 0) {
+    wrap.innerHTML = '<div class="input-note" style="background:rgba(255,234,238,0.7);border-left-color:#F2A8C4;">変換できるキーワードが見つかりませんでした。辞書にない日本語は反映されない場合があります。英語キーワードも入力してください。</div>';
+    return;
+  }
+  kws.forEach(kw => {
+    const chip = document.createElement('span');
+    chip.className = 'seo-chip';
+    chip.textContent = kw;
+    wrap.appendChild(chip);
+  });
+}
+
+/* ============================================================
+   招待状モード生成
+   ============================================================ */
+function generateInvitation(allKws, themeKws, extraKws, moodKws, hasTrademarkRisk) {
+  const age = document.getElementById('inv-age').value;
+  const type = document.getElementById('inv-type').value;
+  const size = document.getElementById('inv-size').value;
+
+  // フォールバック優先順位: themeKws[0] > extraKws[0] > allKws[0] > 'Birthday'
+  const mainTheme = capitalize(themeKws[0] || extraKws[0] || allKws[0] || 'Birthday');
+  const isGirl = moodKws.includes('girl');
+  const isBoy = moodKws.includes('boy');
+  const isWatercolor = allKws.includes('watercolor');
+  const isFirstBday = age === 'First Birthday' || age === '1st';
+  const genderWord = isGirl ? 'Girls' : isBoy ? 'Boys' : '';
+  const ageWord = isFirstBday ? 'First Birthday' : age;
+  const styleWord = isWatercolor ? 'Watercolor ' : moodKws.includes('elegant') ? 'Elegant ' : '';
+
+  // タイトル3案
+  const titles = [
+    `${mainTheme} ${ageWord} Invitation Template, Editable Canva Invite, ${styleWord}${size} Digital Download`,
+    `${styleWord}${mainTheme} ${type}, Editable Canva Template, ${genderWord ? genderWord + ' ' : ''}Party Invite, Digital Download`,
+    `${mainTheme} Birthday Invitation Canva Template, ${ageWord} Party Invite, ${size} Printable, Instant Download`
+  ];
+  renderTitles(titles);
+
+  // タグ生成（招待状）：6カテゴリ最適化
+  const tagData = buildOptimizedInvitationTags({ allKws, themeKws, extraKws, moodKws, age });
+  renderTags(tagData.finalTags, tagFallbackInv, tagData);
+
+  // 説明文
+  const desc = buildInvDesc(mainTheme, age, type, size, styleWord, genderWord);
+  document.getElementById('desc-result').textContent = desc;
+
+  // Pinterest
+  const pins = [
+    `${mainTheme} ${ageWord} Birthday Invitation | Editable Canva Template | ${size} Digital Download`,
+    `${styleWord}${mainTheme} Party Invite for ${genderWord || 'Kids'} | Printable Birthday Invitation | Instant Download`,
+    `${mainTheme} Birthday Party Invitation Template | Canva Editable | ${ageWord} Invite Digital Download`
+  ];
+  renderSNS('pinterest-result', pins);
+
+
+  // ファイル名
+  const t = mainTheme.replace(/\s+/g, '_');
+  const a = ageWord.replace(/\s+/g, '_');
+  const filenames = [
+    `${t}_${a}_Invitation_Template_${size}`,
+    `Editable_${t}_Canva_Invitation_Template`,
+    `${t}_Birthday_Invite_Digital_Download`
+  ];
+  renderFilenames(filenames);
+
+  // チェック
+  runChecks(titles, tagData.finalTags, desc, hasTrademarkRisk, 'invitation', {size, type, tagData});
+}
+
+function buildInvDesc(theme, age, type, size, style, gender) {
+  return `✦ ${theme} ${age} Birthday Invitation – Editable Canva Template
+
+Make your little one's special day extra magical with this beautiful ${style}${theme} birthday invitation template! This fully editable ${type} is designed in Canva and can be customized in minutes — no design experience needed.
+
+✦ WHAT'S INCLUDED
+• 1 Editable Canva Template (${size} size)
+• Easy-to-edit text, colors, and layout
+• Instant access after purchase
+
+✦ HOW TO EDIT
+1. Purchase and receive your Canva template link instantly.
+2. Click the link to open the template in Canva (free account is fine!).
+3. Edit your name, date, time, and venue details.
+4. Download your finished design as a PDF or PNG.
+
+✦ SIZE
+This invitation is sized ${size} inches. Perfect for printing at home or at a local print shop.
+
+✦ DIGITAL DOWNLOAD NOTICE
+This is a DIGITAL download only. No physical item will be shipped. You will receive a link to access the Canva template immediately after purchase.
+
+✦ CANVA NOTE
+You will need a free Canva account to edit this template. Canva is available at canva.com and works on desktop and mobile.
+
+✦ REFUND POLICY
+Due to the digital nature of this product, refunds are not available once the template link has been accessed. Please message me with any questions before purchasing!
+
+✦ NEED HELP?
+I'm happy to help! Please send me a message through Etsy and I'll get back to you as soon as possible. Thank you so much for visiting my shop! 💕`;
+}
+
+
+/* ============================================================
+   クリップアートモード生成
+   ============================================================ */
+function generateClipart(allKws, themeKws, extraKws, moodKws, hasTrademarkRisk) {
+  const format = document.getElementById('ca-format').value;
+  const bg = document.getElementById('ca-bg').value;
+  const useRange = document.getElementById('ca-use').value;
+  const count = document.getElementById('ca-count').value || '12 PNG files';
+  const caType = document.getElementById('ca-type').value;
+
+  // フォールバック優先順位: themeKws[0] > extraKws[0] > allKws[0] > 'Floral'
+  const mainTheme = capitalize(themeKws[0] || extraKws[0] || allKws[0] || 'Floral');
+  const isWatercolor = allKws.includes('watercolor');
+  const isTransparent = bg === 'Transparent Background';
+  const styleWord = isWatercolor ? 'Watercolor ' : '';
+  const bgWord = isTransparent ? 'Transparent PNG' : 'PNG';
+  const commercialOK = useRange.toLowerCase().includes('commercial');
+
+  // タイトル3案
+  const titles = [
+    `${mainTheme} Clipart Bundle, ${styleWord}${format} Files, ${bg}, ${commercialOK ? 'Commercial Use, ' : ''}Instant Download`,
+    `${styleWord}${mainTheme} ${caType}, ${format} ${isTransparent ? 'Transparent Background, ' : ''}Digital Download, ${useRange}`,
+    `${mainTheme} Clip Art Bundle, ${format} Clipart Set, ${isTransparent ? 'Transparent PNG, ' : ''}Digital Files, Instant Download`
+  ];
+  renderTitles(titles);
+
+  // タグ生成（クリップアート）：6カテゴリ最適化
+  const caTagData = buildOptimizedClipartTags({
+    allKws, themeKws, extraKws, moodKws,
+    format, isTransparent, caType, commercialOK
+  });
+  renderTags(caTagData.finalTags, tagFallbackCa, caTagData);
+
+  // 説明文
+  const desc = buildCaDesc(mainTheme, format, bg, useRange, count, caType, styleWord);
+  document.getElementById('desc-result').textContent = desc;
+
+  // Pinterest
+  const pins = [
+    `${mainTheme} Clipart Bundle | ${styleWord}${format} Files | ${bg} | ${useRange}`,
+    `${styleWord}${mainTheme} ${caType} | Instant Download | ${commercialOK ? 'Commercial Use | ' : ''}Digital Files`,
+    `${mainTheme} Clip Art Set | ${format} Bundle | ${isTransparent ? 'Transparent PNG | ' : ''}Digital Download`
+  ];
+  renderSNS('pinterest-result', pins);
+
+  // ファイル名
+  const t = mainTheme.replace(/\s+/g, '_');
+  const filenames = [
+    `${t}_Clipart_Bundle_${format}_${commercialOK ? 'Commercial_Use' : 'Personal_Use'}`,
+    `${styleWord.trim() ? 'Watercolor_' : ''}${t}_${caType.replace(/\s+/g, '_')}_Transparent_PNG`,
+    `${t}_Clip_Art_Bundle_Instant_Download`
+  ];
+  renderFilenames(filenames);
+
+  // チェック
+  runChecks(titles, caTagData.finalTags, desc, hasTrademarkRisk, 'clipart', {format, bg, useRange, count, caType, tagData: caTagData});
+}
+
+function buildCaDesc(theme, format, bg, useRange, count, caType, style) {
+  const isTransparent = bg === 'Transparent Background';
+  const isCommercial = useRange.toLowerCase().includes('commercial');
+  return `✦ ${theme} ${caType} – ${style}${format} Digital Clipart
+
+Add a touch of charm to your creative projects with this beautiful ${style}${theme} clipart set! Perfect for scrapbooking, card making, planners, digital art, and more.
+
+✦ WHAT'S INCLUDED
+• ${count} (high resolution)
+• File format: ${format}
+• Background: ${bg}
+• ${isCommercial ? 'Commercial use allowed ✓' : 'Personal use only'}
+
+✦ FILE FORMAT
+${isTransparent ? 'All files come with a transparent background, making them easy to use on any color background.' : 'Files are provided with a white or mixed background.'}
+High resolution files suitable for printing and digital use.
+
+✦ HOW TO USE
+• Open files in Canva, Photoshop, Procreate, Illustrator, or any program that supports ${format} files.
+• ${isTransparent ? 'Simply place on any background — no clipping needed!' : 'Use as is or crop as needed.'}
+• Great for invitations, labels, stickers, printables, and more!
+
+✦ USAGE NOTE
+${isCommercial
+  ? 'Commercial use is permitted. You may use these files to create and sell finished products (printed goods, digital products, etc.). Please do not resell the original clipart files.'
+  : 'These files are for personal use only. Please do not use for commercial purposes or resell.'}
+
+✦ DIGITAL DOWNLOAD NOTICE
+This is a DIGITAL download only. No physical item will be shipped. Files are available immediately after purchase via Etsy's digital download system.
+
+✦ REFUND POLICY
+Due to the digital nature of this product, refunds cannot be offered once the files have been downloaded. Please feel free to message me with any questions before purchasing!
+
+✦ NEED HELP?
+I'm here to help! Send me a message through Etsy anytime. Thank you so much for supporting my shop! 🌸`;
+}
+
+
+/* ============================================================
+   共通レンダー関数
+   ============================================================ */
+function renderTitles(titles) {
+  const wrap = document.getElementById('title-result');
+  wrap.innerHTML = '';
+  titles.forEach((t, i) => {
+    const len = t.length;
+    const div = document.createElement('div');
+    div.className = 'title-item';
+    div.innerHTML = `<div>案${i+1}：${escHtml(t)}</div><div class="title-meta ${len > 140 ? 'warn' : ''}">${len}文字${len > 140 ? ' ⚠ 140文字を超えています' : ' ✓'}</div>`;
+    wrap.appendChild(div);
+  });
+}
+
+function renderTags(pool, fallback, tagData=null) {
+  // 20文字以内チェック＆13個に整える
+  let tags = pool.filter(t => t && normalizeTag(t).length <= 20).map(normalizeTag);
+  tags = [...new Set(tags)];
+  if (tags.length < 13) {
+    for (const fb of fallback) {
+      if (tags.length >= 13) break;
+      const nt = normalizeTag(fb);
+      if (!tags.includes(nt) && nt.length <= 20) tags.push(nt);
+    }
+  }
+  tags = tags.slice(0, 13);
+
+  const hiddenWrap = document.getElementById('tags-result');
+  hiddenWrap.innerHTML = '';
+  tags.forEach(tag => {
+    const pill = document.createElement('span');
+    pill.className = 'tag-pill';
+    pill.innerHTML = `${escHtml(tag)}<span class="tag-count">${tag.length}</span>`;
+    hiddenWrap.appendChild(pill);
+  });
+
+  const categoryWrap = document.getElementById('tags-category-result');
+  const warningWrap = document.getElementById('tag-warning-result');
+  categoryWrap.innerHTML = '';
+  warningWrap.innerHTML = '';
+
+  if (tagData && tagData.categories) {
+    tagData.categories.forEach(cat => {
+      const card = document.createElement('div');
+      card.className = 'tag-category-card';
+      const pills = cat.tags.map(tag => `<span class="tag-pill">${escHtml(tag)}<span class="tag-count">${tag.length}</span></span>`).join('');
+      card.innerHTML = `<div class="tag-category-title">${escHtml(cat.title)} <span style="color:var(--ink-lt);font-weight:700;">${cat.tags.length}/${cat.max}</span></div><div class="tag-category-tags">${pills}</div>`;
+      categoryWrap.appendChild(card);
     });
+    const isOk = tagData.warnings && tagData.warnings.length === 1 && tagData.warnings[0].includes('良好');
+    const box = document.createElement('div');
+    box.className = 'tag-warning-box' + (isOk ? ' ok' : '');
+    box.innerHTML = (tagData.warnings || []).map(w => `• ${escHtml(w)}`).join('<br>');
+    warningWrap.appendChild(box);
+  } else {
+    // クリップアートモードは従来表示
+    const card = document.createElement('div');
+    card.className = 'tag-category-card';
+    card.innerHTML = `<div class="tag-category-title">13タグ</div><div class="tag-category-tags">${tags.map(tag => `<span class="tag-pill">${escHtml(tag)}<span class="tag-count">${tag.length}</span></span>`).join('')}</div>`;
+    categoryWrap.appendChild(card);
+  }
 
-    function copyText(text, btn) {
-      navigator.clipboard.writeText(text).then(() => {
-        showToast('コピーしました ✓');
-        if (btn) {
-          btn.classList.add('copied');
-          btn.textContent = '✓ コピー済み';
-          setTimeout(() => {
-            btn.classList.remove('copied');
-            btn.innerHTML = '📋 コピー';
-          }, 2000);
-        }
-      }).catch(() => {
-        // Fallback for older browsers
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        showToast('コピーしました ✓');
-      });
-    }
+  document.getElementById('tags-csv').textContent = tags.join(', ');
+  return tags;
+}
 
-    /* ============================================================
-       Toast
-    ============================================================ */
-    let toastTimer = null;
+function renderSNS(id, items) {
+  const wrap = document.getElementById(id);
+  wrap.innerHTML = '';
+  items.forEach((txt, i) => {
+    const div = document.createElement('div');
+    div.className = 'sns-item';
+    div.innerHTML = `<div class="sns-num">案${i+1}</div>${escHtml(txt).replace(/\n/g,'<br>')}`;
+    wrap.appendChild(div);
+  });
+}
 
-    function showToast(msg) {
-      toast.textContent = msg;
-      toast.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
-    }
+function renderFilenames(filenames) {
+  const wrap = document.getElementById('filename-result');
+  wrap.innerHTML = '';
+  filenames.forEach(fn => {
+    const div = document.createElement('div');
+    div.className = 'filename-item';
+    div.textContent = fn;
+    wrap.appendChild(div);
+  });
+}
 
-  </script>
+/* ============================================================
+   注意点チェック
+   ============================================================ */
+function runChecks(titles, tags, desc, hasTrademarkRisk, mode, opts) {
+  const list = document.getElementById('check-result');
+  list.innerHTML = '';
+  const checks = [];
 
+  // 共通チェック
+  const titleLens = titles.map(t => t.length);
+  checks.push({
+    ok: titleLens.every(l => l <= 140),
+    label: `Etsyタイトルが140文字以内 (${titleLens.map(l=>l+'文字').join(' / ')})`
+  });
+
+  const tagCount = document.getElementById('tags-result').querySelectorAll('.tag-pill').length;
+  checks.push({ ok: tagCount === 13, label: `13タグが13個あるか（現在：${tagCount}個）` });
+
+  const csvTags = document.getElementById('tags-csv').textContent.split(', ');
+  const allTagsOk = csvTags.every(t => t.length <= 20);
+  checks.push({ ok: allTagsOk, label: 'すべてのタグが20文字以内か' });
+
+  const uniqueTags = new Set(csvTags);
+  checks.push({ ok: uniqueTags.size === csvTags.length, label: 'タグに重複がないか' });
+
+  if (mode === 'invitation') {
+    const genericCount = csvTags.filter(isGenericTag).length;
+    const formatCount = csvTags.filter(isPurchaseFormatTag).length;
+    const themeCount = opts.tagData ? opts.tagData.themeCount : 0;
+    checks.push({ ok: themeCount >= 3, label: `主役テーマタグが最低3個あるか（現在：${themeCount}個）` });
+    checks.push({ ok: formatCount <= 2, label: `購入形式タグが2個以内か（現在：${formatCount}個）` });
+    checks.push({ ok: genericCount <= 2, label: `広すぎる汎用タグが多すぎないか（現在：${genericCount}個）` });
+  }
+
+  checks.push({ ok: !hasTrademarkRisk, label: '商標リスクのある単語が含まれていないか', isError: !hasTrademarkRisk ? false : true });
+
+  const seoChips = document.getElementById('seo-result').querySelectorAll('.seo-chip').length;
+  checks.push({ ok: seoChips > 0, label: '日本語入力が英語SEOキーワードへ変換されているか' });
+
+  if (mode === 'invitation') {
+    checks.push({ ok: desc.includes('Editable Canva Template'), label: '説明文に「Editable Canva Template」が入っているか' });
+    checks.push({ ok: desc.includes('Digital Download') || desc.includes('DIGITAL'), label: '説明文に「Digital Download」が入っているか' });
+    checks.push({ ok: desc.includes('physical item'), label: '説明文に「No physical item」の記載があるか' });
+    checks.push({ ok: desc.includes(opts.size || '5x7'), label: `説明文にサイズ（${opts.size}）が入っているか` });
+    checks.push({ ok: desc.toLowerCase().includes('canva'), label: 'Canvaで編集できることが伝わるか' });
+    checks.push({ ok: desc.toLowerCase().includes('refund'), label: '説明文に返金ポリシーが入っているか' });
+  } else {
+    // クリップアートモードの品質チェック
+    const caThemeCount  = opts.tagData ? opts.tagData.themeCount  : 0;
+    const caGenericCount = opts.tagData ? opts.tagData.genericCount : 0;
+    const caPurchaseCount = opts.tagData ? opts.tagData.purchaseCount : 0;
+    checks.push({ ok: caThemeCount >= 3,   label: `主役テーマタグが最低3個あるか（現在：${caThemeCount}個）` });
+    checks.push({ ok: caGenericCount <= 3,  label: `広すぎる汎用タグが多すぎないか（現在：${caGenericCount}個）` });
+    checks.push({ ok: caPurchaseCount <= 2, label: `購入形式タグが2個以内か（現在：${caPurchaseCount}個）` });
+    checks.push({ ok: desc.toLowerCase().includes('clipart'), label: '説明文に「Clipart / Clip Art Bundle」が入っているか' });
+    checks.push({ ok: desc.includes(opts.format || 'PNG'), label: `説明文にファイル形式（${opts.format}）が入っているか` });
+    checks.push({ ok: desc.toLowerCase().includes('digital files') || desc.toLowerCase().includes('digital download'), label: '説明文に「Digital files」が入っているか' });
+    checks.push({ ok: desc.includes('physical item'), label: '説明文に「No physical item」の記載があるか' });
+    checks.push({ ok: desc.toLowerCase().includes('background'), label: '説明文に背景情報が入っているか' });
+    checks.push({ ok: desc.toLowerCase().includes('commercial') || desc.toLowerCase().includes('personal use'), label: '説明文に利用範囲（Commercial/Personal Use）が入っているか' });
+    checks.push({ ok: desc.toLowerCase().includes('refund'), label: '説明文に返金ポリシーが入っているか' });
+  }
+
+  checks.forEach(c => {
+    const li = document.createElement('li');
+    li.className = 'check-item';
+    const iconCls = c.ok ? 'ok' : (c.isError ? 'error' : 'warn');
+    const textCls = c.ok ? 'ok-text' : (c.isError ? 'error-text' : 'warn-text');
+    const icon = c.ok ? '✓' : '!';
+    li.innerHTML = `<span class="check-icon ${iconCls}">${icon}</span><span class="check-text ${textCls}">${escHtml(c.label)}</span>`;
+    list.appendChild(li);
+  });
+}
+
+/* ============================================================
+   コピー機能
+   ============================================================ */
+function copySection(id) {
+  const el = document.getElementById(id);
+  let text = '';
+  if (id === 'seo-result') {
+    text = [...el.querySelectorAll('.seo-chip')].map(c => c.textContent).join(' / ');
+  } else if (id === 'title-result') {
+    text = [...el.querySelectorAll('.title-item')].map(d => d.firstChild.textContent.replace(/^案\d：/, '')).join('\n\n');
+  } else if (id === 'desc-result') {
+    text = el.textContent;
+  } else if (id === 'pinterest-result' || id === 'threads-result') {
+    text = [...el.querySelectorAll('.sns-item')].map((d,i) => `【案${i+1}】\n` + d.innerText.replace(/^案\d\n/,'')).join('\n\n');
+  } else if (id === 'filename-result') {
+    text = [...el.querySelectorAll('.filename-item')].map(d => d.textContent).join('\n');
+  }
+  copyText(text);
+}
+
+function copyText(text) {
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => showToast()).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast();
+  });
+}
+
+function copyAll() {
+  const sections = [
+    '【英語SEO変換結果】\n' + [...document.querySelectorAll('.seo-chip')].map(c=>c.textContent).join(' / '),
+    '\n\n【Etsyタイトル】\n' + [...document.querySelectorAll('#title-result .title-item')].map((d,i)=>`案${i+1}：${d.firstChild.textContent.replace(/^案\d：/,'')}`).join('\n'),
+    '\n\n【13タグ（カンマ区切り）】\n' + document.getElementById('tags-csv').textContent,
+    '\n\n【商品説明文】\n' + document.getElementById('desc-result').textContent,
+    '\n\n【Pinterestタイトル】\n' + [...document.querySelectorAll('#pinterest-result .sns-item')].map((d,i)=>`案${i+1}：${d.innerText.replace(/^案\d\n/,'')}`).join('\n'),
+    '\n\n【ファイル名】\n' + [...document.querySelectorAll('#filename-result .filename-item')].map(d=>d.textContent).join('\n'),
+  ];
+  copyText(sections.join(''));
+}
+
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+/* ============================================================
+   リセット
+   ============================================================ */
+function resetAll() {
+  document.getElementById('theme').value = '';
+  document.querySelectorAll('.mood-pill input').forEach(el => el.checked = false);
+  document.getElementById('extra-kw').value = '';
+  document.getElementById('inv-age').value = 'First Birthday';
+  document.getElementById('inv-type').value = 'Birthday Invitation';
+  document.getElementById('inv-size').value = '5x7';
+  document.getElementById('ca-format').value = 'PNG';
+  document.getElementById('ca-bg').value = 'Transparent Background';
+  document.getElementById('ca-use').value = 'Personal and Commercial Use';
+  document.getElementById('ca-count').value = '';
+  document.getElementById('ca-type').value = 'Clipart Bundle';
+  document.getElementById('output-area').style.display = 'none';
+  document.getElementById('trademark-warn').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================================================
+   ユーティリティ
+   ============================================================ */
+function capitalize(str) {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ===== 初期化 ===== */
+renderSampleBtns();
+</script>
 </body>
 </html>
