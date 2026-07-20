@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>難聴児向け 写真カードメーカー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --accent:#3BA8C5;--accent2:#2E8FAA;--accent-light:#E8F6FA;
+  --bg:#F5F8FA;--panel-bg:#fff;--border:#DDE3E8;
+  --text:#1A2733;--text-sub:#5A6A75;
+  --warn:#E67E22;--error:#C0392B;--success:#27AE60;
+}
+body{font-family:"BIZ UDPGothic","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;min-height:100vh;overflow-x:hidden}
+/* Header */
+#header{background:#fff;border-bottom:1px solid var(--border);padding:0 12px;display:flex;align-items:center;gap:10px;height:56px;position:sticky;top:0;z-index:100;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+#header h1{font-size:15px;font-weight:700;color:var(--text);white-space:nowrap}
+.header-spacer{flex:1}
+.hbtn{display:inline-flex;align-items:center;gap:4px;padding:6px 11px;border-radius:7px;border:none;cursor:pointer;font-size:12px;font-weight:700;white-space:nowrap;transition:all .15s}
+.hbtn-new{background:var(--accent-light);color:var(--accent2)}.hbtn-new:hover{background:#c8eaf3}
+.hbtn-save{background:var(--accent);color:#fff}.hbtn-save:hover{background:var(--accent2)}
+.hbtn-export{background:#27AE60;color:#fff}.hbtn-export:hover{background:#219653}
+/* App layout */
+#app{display:flex;flex-direction:column;height:calc(100vh - 56px)}
+@media(min-width:900px){#app{flex-direction:row}}
+/* Panel */
+#panel{width:100%;background:var(--panel-bg);border-right:1px solid var(--border);overflow-y:auto;flex-shrink:0}
+@media(min-width:900px){#panel{width:320px;height:calc(100vh - 56px);position:sticky;top:56px}}
+@media(max-width:899px){#panel{max-height:52vh}}
+/* Sections */
+.section{border-bottom:1px solid var(--border)}
+.section-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;cursor:pointer;user-select:none;font-weight:700;font-size:13px}
+.section-hd:hover{background:#f0f4f6}
+.arr{font-size:10px;color:var(--text-sub);transition:transform .2s}
+.section.open .arr{transform:rotate(180deg)}
+.section-body{display:none;padding:11px 13px;gap:7px;flex-direction:column}
+.section.open .section-body{display:flex}
+/* Form elements */
+label{font-size:12px;font-weight:700;color:var(--text-sub);display:block;margin-bottom:2px}
+input[type=text],input[type=number],select,textarea{width:100%;border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-size:13px;font-family:inherit;color:var(--text);background:#fff;transition:border .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+textarea{resize:vertical;min-height:65px}
+input[type=range]{flex:1;accent-color:var(--accent)}
+input[type=color]{width:44px;height:30px;border:1px solid var(--border);border-radius:5px;cursor:pointer;padding:1px}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:6px 11px;border-radius:6px;border:1px solid var(--border);cursor:pointer;font-size:12px;font-weight:700;background:#fff;color:var(--text);transition:all .15s;white-space:nowrap}
+.btn:hover{background:var(--accent-light);border-color:var(--accent)}
+.btn.active{background:var(--accent);color:#fff;border-color:var(--accent2)}
+.btn-group{display:flex;gap:4px;flex-wrap:wrap}
+/* Drop zones */
+.drop-zone{border:2px dashed var(--border);border-radius:10px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .2s;color:var(--text-sub);font-size:12px}
+.drop-zone:hover,.drop-zone.drag{border-color:var(--accent);background:var(--accent-light);color:var(--accent2)}
+.drop-zone .dz-icon{font-size:28px;margin-bottom:4px}
+/* Messages */
+.msg{padding:7px 9px;border-radius:6px;font-size:11px;display:none}
+.msg.show{display:block}
+.msg.warn{background:#FFF3E0;border:1px solid var(--warn);color:#834b00}
+.msg.error{background:#FDECEA;border:1px solid var(--error);color:var(--error)}
+.msg.info{background:var(--accent-light);border:1px solid var(--accent);color:var(--accent2)}
+/* Slider rows */
+.sl-row{display:flex;gap:5px;align-items:center}
+.sl-row input[type=range]{flex:1}
+.sl-row input[type=number]{width:54px;flex-shrink:0}
+.sl-note{font-size:10px;color:var(--text-sub);margin-top:1px}
+/* Font list */
+.font-list{max-height:190px;overflow-y:auto;border:1px solid var(--border);border-radius:6px}
+.font-item{display:flex;align-items:center;gap:5px;padding:6px 9px;cursor:pointer;border-bottom:1px solid #f0f0f0;transition:background .1s}
+.font-item:hover{background:#f5f8fa}
+.font-item.selected{background:var(--accent-light);border-left:3px solid var(--accent)}
+.fi-name{font-size:11px;font-weight:700;flex-shrink:0;width:105px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.fi-prev{font-size:13px;flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.fi-badge{font-size:9px;flex-shrink:0;padding:1px 4px;border-radius:3px;background:#f0c040;color:#6b4a00}
+.fi-fav{font-size:14px;flex-shrink:0;opacity:.3;cursor:pointer;transition:opacity .15s}
+.fi-fav:hover,.fi-fav.on{opacity:1}
+.fi-fav.on{color:#f0a500}
+.font-cat{padding:4px 9px;font-size:10px;font-weight:700;color:var(--text-sub);background:#f7f7f7;border-bottom:1px solid #eee}
+#font-preview-text{padding:8px;background:#f7f7f7;border-radius:6px;font-size:17px;text-align:center;min-height:36px;border:1px solid var(--border);transition:font-family .2s}
+/* Preview area */
+#preview-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px;background:#E8ECF0;overflow:auto;gap:12px;min-height:300px}
+#canvas-wrap{position:relative;box-shadow:0 4px 24px rgba(0,0,0,.18)}
+#main-canvas{display:block;border-radius:2px;cursor:default}
+.preview-toolbar{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+/* Illust controls */
+.ctrl-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+/* Align buttons */
+.align-group{display:flex;gap:3px}
+.align-group .btn{padding:5px 9px;font-size:12px}
+/* Modals */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:14px;padding:20px;max-width:440px;width:92%;max-height:82vh;overflow-y:auto}
+.modal h2{font-size:15px;margin-bottom:12px;font-weight:700}
+.modal-footer{display:flex;justify-content:flex-end;gap:7px;margin-top:14px}
+.save-item{display:flex;align-items:flex-start;justify-content:space-between;padding:8px 11px;border:1px solid var(--border);border-radius:7px;margin-bottom:6px;gap:6px;flex-wrap:wrap}
+.save-item-name{font-weight:700;font-size:13px}
+.save-item-date{font-size:10px;color:var(--text-sub)}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:#bbb;border-radius:4px}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <h1>📸 難聴児向け 写真カードメーカー</h1>
+  <div class="header-spacer"></div>
+  <button class="hbtn hbtn-new" onclick="confirmNew()">＋ 新規</button>
+  <button class="hbtn hbtn-save" onclick="showSaveModal()">💾 保存</button>
+  <button class="hbtn hbtn-export" onclick="showExportModal()">⬇ 書き出し</button>
+</header>
+
+<div id="app">
+<aside id="panel">
+
+<!-- カードサイズ -->
+<div class="section open" id="sec-size">
+  <div class="section-hd" onclick="toggleSec('sec-size')">📐 カードサイズ <span class="arr">▼</span></div>
+  <div class="section-body">
+    <div>
+      <label>サイズプリセット</label>
+      <select id="card-size-sel" onchange="onSizeChange()">
+        <option value="l-land">L判 横向き 127×89mm</option>
+        <option value="l-port">L判 縦向き 89×127mm</option>
+        <option value="4-3">4:3 横向き</option>
+        <option value="3-2">3:2 横向き</option>
+        <option value="post-land">はがき 横向き 148×100mm</option>
+        <option value="a6-land">A6 横向き 148×105mm</option>
+        <option value="custom">カスタム</option>
+      </select>
+    </div>
+    <div id="size-info" class="msg info show" style="font-size:11px"></div>
+    <div id="custom-size-fields" style="display:none">
+      <div style="display:flex;gap:6px">
+        <div style="flex:1"><label>横幅px</label><input type="number" id="cw-px" value="1500" min="100" max="4000" oninput="onCustomSize()"></div>
+        <div style="flex:1"><label>高さpx</label><input type="number" id="ch-px" value="1051" min="100" max="4000" oninput="onCustomSize()"></div>
+      </div>
+    </div>
+    <div id="guide-unavail-msg" class="msg warn" style="display:none">⚠ このサイズには印刷実寸が設定されていません</div>
+  </div>
+</div>
+
+<!-- レイアウト -->
+<div class="section open" id="sec-layout">
+  <div class="section-hd" onclick="toggleSec('sec-layout')">📏 レイアウト <span class="arr">▼</span></div>
+  <div class="section-body">
+    <div>
+      <label>写真と文字の比率</label>
+      <select id="ratio-sel" onchange="onRatioChange()">
+        <option value="70">写真70%・文字30%</option>
+        <option value="75">写真75%・文字25%</option>
+        <option value="65">写真65%・文字35%</option>
+        <option value="60">写真60%・文字40%</option>
+        <option value="custom-r">カスタム</option>
+      </select>
+    </div>
+    <div id="ratio-custom-row" style="display:none">
+      <label>写真エリア幅 <span id="ratio-val">70</span>%</label>
+      <input type="range" id="ratio-slider" min="40" max="90" value="70" oninput="onRatioSliderInput()" onchange="onRatioSliderChange()">
+    </div>
+    <div>
+      <label>レイアウト方向</label>
+      <div class="btn-group">
+        <button class="btn active" id="lay-left" onclick="setLayout('left')">写真←左</button>
+        <button class="btn" id="lay-right" onclick="setLayout('right')">写真→右</button>
+        <button class="btn" id="lay-top" onclick="setLayout('top')">写真↑上</button>
+        <button class="btn" id="lay-bottom" onclick="setLayout('bottom')">写真↓下</button>
+      </div>
+    </div>
+    <div>
+      <label>安全余白・ガイド</label>
+      <select id="guide-sel" onchange="onGuideChange()">
+        <option value="safe">安全余白を表示</option>
+        <option value="bleed">裁ち落とし範囲を表示</option>
+        <option value="both">両方表示</option>
+        <option value="none">ガイドを非表示</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- 写真 -->
+<div class="section open" id="sec-photo">
+  <div class="section-hd" onclick="toggleSec('sec-photo')">📷 写真 <span class="arr">▼</span></div>
+  <div class="section-body">
+    <div id="photo-drop-zone" class="drop-zone"
+         onclick="document.getElementById('photo-input').click()"
+         ondragover="onPhotoDragOver(event)" ondragleave="onPhotoDragLeave(event)" ondrop="onPhotoDrop(event)"
+         tabindex="0" role="button" aria-label="写真をアップロード"
+         onkeydown="if(event.key==='Enter')document.getElementById('photo-input').click()">
+      <div class="dz-icon">🖼</div>
+      <div>写真を選択またはドラッグ＆ドロップ</div>
+      <div style="font-size:10px;margin-top:3px">JPG・PNG・WebP対応</div>
+    </div>
+    <input type="file" id="photo-input" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="onPhotoFileInput(event)">
+    <div class="msg error" id="photo-err"></div>
+    <div id="photo-controls" style="display:none">
+      <div>
+        <label>表示方法 <span style="font-size:10px;font-weight:400;color:var(--text-sub)">（切替で位置・倍率をリセット）</span></label>
+        <div class="btn-group">
+          <button class="btn active" id="fit-cover" onclick="setFit('cover')">枠いっぱい</button>
+          <button class="btn" id="fit-contain" onclick="setFit('contain')">全体表示</button>
+        </div>
+      </div>
+      <div>
+        <label>拡大縮小 <span id="zoom-val">100</span>%</label>
+        <div class="sl-row"><input type="range" id="zoom-slider" min="10" max="400" value="100" oninput="onZoomInput()" onchange="onZoomChange()"><input type="number" id="zoom-num" min="10" max="400" value="100" oninput="onZoomNumInput()"></div>
+      </div>
+      <div>
+        <label>回転</label>
+        <div style="display:flex;gap:5px;align-items:center">
+          <button class="btn" onclick="rotatePhoto(-90)">↺ -90°</button>
+          <button class="btn" onclick="rotatePhoto(90)">↻ +90°</button>
+          <input type="number" id="rot-num" min="-360" max="360" value="0" style="width:64px" oninput="onRotInput()">
+        </div>
+      </div>
+      <div class="ctrl-grid">
+        <button class="btn" onclick="flipPhoto('h')">⇆ 左右反転</button>
+        <button class="btn" onclick="flipPhoto('v')">⇅ 上下反転</button>
+        <button class="btn" onclick="centerPhoto()">⊙ 中央に戻す</button>
+        <button class="btn" onclick="resetPhoto()">↺ 編集リセット</button>
+      </div>
+      <button class="btn" onclick="removePhoto()" style="width:100%;color:var(--error);border-color:var(--error)">✕ 写真を削除</button>
+    </div>
+  </div>
+</div>
+
+<!-- ことば -->
+<div class="section open" id="sec-text">
+  <div class="section-hd" onclick="toggleSec('sec-text')">✏ ことば <span class="arr">▼</span></div>
+  <div class="section-body">
+    <div>
+      <label>ひらがなを入力（改行で列を分ける）</label>
+      <textarea id="word-input" placeholder="せんろ"></textarea>
+    </div>
+    <div>
+      <label>文字方向</label>
+      <div class="btn-group">
+        <button class="btn active" id="dir-v" onclick="setDir('v')">縦書き</button>
+        <button class="btn" id="dir-h" onclick="setDir('h')">横書き</button>
+      </div>
+    </div>
+    <div class="msg warn" id="text-warn"></div>
+  </div>
+</div>
+
+<!-- 文字設定 -->
+<div class="section" id="sec-font">
+  <div class="section-hd" onclick="toggleSec('sec-font')">🔤 文字設定 <span class="arr">▼</span></div>
+  <div class="section-body">
+    <div>
+      <label>フォント検索</label>
+      <input type="text" id="font-search" placeholder="例：ヒラギノ / Noto / 丸" oninput="buildFontList(this.value)">
+    </div>
+    <div id="font-list" class="font-list"></div>
+    <div id="font-preview-text">あいうえお　せんろ</div>
+    <div class="msg info" id="font-fallback-msg">⚠ この端末では代替フォントで表示されています</div>
+    <div class="msg warn" id="font-unavail-msg"></div>
+    <!-- 文字の太さ スライダー -->
+    <div>
+      <label>文字の太さ（<span id="fw-label">設定値：700</span>）</label>
+      <div class="sl-row" style="align-items:center;gap:8px">
+        <span style="font-size:10px;color:var(--text-sub)">細い</span>
+        <input type="range" id="fw-slider" min="300" max="700" step="100" value="700" oninput="onFWInput()" onchange="onFWChange()">
+        <span style="font-size:10px;color:var(--text-sub)">太い</span>
+      </div>
+      <div class="sl-note" id="fw-applied-note"></div>
+      <div class="msg info" id="fw-no-support-msg" style="font-size:10px">このフォントでは細かな太さ調整に対応していません</div>
+    </div>
+    <!-- 文字サイズ -->
+    <div>
+      <label id="fs-label">最大文字サイズ <span id="fs-val">120</span>px</label>
+      <div class="sl-row"><input type="range" id="fs-slider" min="20" max="400" value="120" oninput="onFSInput()" onchange="onFSChange()"><input type="number" id="fs-num" value="120" min="20" max="400" oninput="onFSNumInput()"></div>
+      <div class="sl-note" id="fs-applied-note"></div>
+    </div>
+    <!-- 文字間隔 -->
+    <div>
+      <label>文字間隔 <span id="ls-val">0</span>px</label>
+      <div class="sl-row"><input type="range" id="ls-slider" min="-20" max="80" value="0" oninput="onLSInput()" onchange="onLSChange()"><input type="number" id="ls-num" value="0" min="-20" max="80" oninput="onLSNumInput()"></div>
+    </div>
+    <!-- 列間 -->
+    <div>
+      <label>縦書き 列間 <span id="cg-val">20</span>px</label>
+      <div class="sl-row"><input type="range" id="cg-slider" min="0" max="150" value="20" oninput="onCGInput()" onchange="onCGChange()"><input type="number" id="cg-num" value="20" min="0" max="150" oninput="onCGNumInput()"></div>
+    </div>
+    <!-- 行間 -->
+    <div>
+      <label>横書き 行間 <span id="lg-val">20</span>px</label>
+      <div class="sl-row"><input type="range" id="lg-slider" min="0" max="150" value="20" oninput="onLGInput()" onchange="onLGChange()"><input type="number" id="lg-num" value="20" min="0" max="150" oninput="onLGNumInput()"></div>
+    </div>
+    <!-- 色 -->
+    <div style="display:flex;gap:14px;align-items:center">
+      <div><label>文字色</label><input type="color" id="text-color" value="#000000"></div>
+      <div><label>背景色</label><input type="color" id="text-bg-color" value="#ffffff"></div>
+    </div>
+    <div>
+      <label><input type="checkbox" id="auto-size-cb" checked> 自動文字サイズ調整</label>
+    </div>
+  </div>
+</div>
+
+<!-- 文字位置 -->
+<div class="section" id="sec-textpos">
+  <div class="section-hd" onclick="toggleSec('sec-textpos')">🎯 文字位置・揃え <span class="arr">▼</span></div>
+  <div class="section-body">
+    <div>
+      <label>横方向の揃え</label>
+      <div class="align-group btn-group">
+        <button class="btn" id="halign-left" onclick="setHAlign('left')">← 左</button>
+        <button class="btn active" id="halign-center" onclick="setHAlign('center')">中央</button>
+        <button class="btn" id="halign-right" onclick="setHAlign('right')">右 →</button>
+      </div>
+    </div>
+    <div>
+      <label>縦方向の揃え</label>
+      <div class="align-group btn-group">
+        <button class="btn" id="valign-top" onclick="setVAlign('top')">↑ 上</button>
+        <button class="btn active" id="valign-middle" onclick="setVAlign('middle')">中央</button>
+        <button class="btn" id="valign-bottom" onclick="setVAlign('bottom')">下 ↓</button>
+      </div>
+    </div>
+    <div>
+      <label>左右微調整 <span id="tx-val">0</span></label>
+      <div class="sl-row"><input type="range" id="tx-slider" min="-100" max="100" value="0" oninput="onTXInput()" onchange="onTXChange()"><input type="number" id="tx-num" value="0" min="-100" max="100" oninput="onTXNumInput()"></div>
+    </div>
+    <div>
+      <label>上下微調整 <span id="ty-val">0</span></label>
+      <div class="sl-row"><input type="range" id="ty-slider" min="-100" max="100" value="0" oninput="onTYInput()" onchange="onTYChange()"><input type="number" id="ty-num" value="0" min="-100" max="100" oninput="onTYNumInput()"></div>
+    </div>
+    <button class="btn" onclick="resetTextPos()" style="width:100%">⊙ 文字位置を中央に戻す</button>
+  </div>
+</div>
+
+<!-- イラスト -->
+<div class="section" id="sec-illust">
+  <div class="section-hd" onclick="toggleSec('sec-illust')">🎨 イラスト・アイコン <span class="arr">▼</span></div>
+  <div class="section-body">
+    <div>
+      <label>イラストの種類</label>
+      <div class="btn-group">
+        <button class="btn active" id="ill-none" onclick="setIllustType('none')">なし</button>
+        <button class="btn" id="ill-img" onclick="setIllustType('image')">画像</button>
+        <button class="btn" id="ill-emoji" onclick="setIllustType('emoji')">絵文字</button>
+      </div>
+    </div>
+    <!-- 画像 -->
+    <div id="illust-img-area" style="display:none">
+      <div id="illust-drop-zone" class="drop-zone"
+           onclick="document.getElementById('illust-input').click()"
+           ondragover="onIllustDragOver(event)" ondragleave="onIllustDragLeave(event)" ondrop="onIllustDrop(event)"
+           tabindex="0" role="button" aria-label="イラストをアップロード"
+           onkeydown="if(event.key==='Enter')document.getElementById('illust-input').click()">
+        <div class="dz-icon">🖼</div>
+        <div>イラストを選択またはドラッグ＆ドロップ</div>
+        <div style="font-size:10px;margin-top:3px">PNG・JPG・WebP対応／透過PNG推奨</div>
+      </div>
+      <input type="file" id="illust-input" accept="image/png,image/jpeg,image/webp" style="display:none" onchange="onIllustFileInput(event)">
+      <div class="msg error" id="illust-err"></div>
+      <div id="illust-replace-btns" style="display:none">
+        <div class="ctrl-grid">
+          <button class="btn" onclick="document.getElementById('illust-input').click()">🔄 差し替え</button>
+          <button class="btn" onclick="removeIllust()" style="color:var(--error)">✕ 削除</button>
+        </div>
+      </div>
+    </div>
+    <!-- 絵文字 -->
+    <div id="illust-emoji-area" style="display:none">
+      <label>絵文字を入力</label>
+      <input type="text" id="emoji-input" placeholder="例：🚂" maxlength="4">
+    </div>
+    <!-- コントロール -->
+    <div id="illust-ctrl" style="display:none">
+      <div>
+        <label><input type="checkbox" id="illust-reserve-cb"> イラスト用スペースを確保（文字エリア下部を空ける）</label>
+      </div>
+      <div>
+        <label>サイズ <span id="ill-size-val">80</span>%</label>
+        <div class="sl-row"><input type="range" id="ill-size" min="10" max="200" value="80" oninput="onIllSizeInput()" onchange="onIllSizeChange()"><input type="number" id="ill-size-num" value="80" min="10" max="200" oninput="onIllSizeNumInput()"></div>
+      </div>
+      <div>
+        <label>左右位置 <span id="ill-x-val">50</span>%</label>
+        <input type="range" id="ill-x" min="0" max="100" value="50" oninput="onIllPosInput()" onchange="onIllPosChange()">
+      </div>
+      <div>
+        <label>上下位置 <span id="ill-y-val">85</span>%</label>
+        <input type="range" id="ill-y" min="0" max="100" value="85" oninput="onIllPosInput()" onchange="onIllPosChange()">
+      </div>
+      <div>
+        <label>回転 <span id="ill-rot-val">0</span>°</label>
+        <div class="sl-row"><input type="range" id="ill-rot" min="-180" max="180" value="0" oninput="onIllRotInput()" onchange="onIllRotChange()"><input type="number" id="ill-rot-num" value="0" min="-180" max="180" oninput="onIllRotNumInput()"></div>
+      </div>
+      <div>
+        <label>透明度 <span id="ill-alpha-val">100</span>%</label>
+        <input type="range" id="ill-alpha" min="10" max="100" value="100" oninput="onIllAlphaInput()" onchange="onIllAlphaChange()">
+      </div>
+      <div class="ctrl-grid">
+        <button class="btn" onclick="resetIllust()">↺ リセット</button>
+        <button class="btn" onclick="removeIllust()" style="color:var(--error)">✕ 削除</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</aside>
+
+<main id="preview-area">
+  <div class="preview-toolbar">
+    <button class="btn" onclick="toggleFullPreview()">🔍 拡大プレビュー</button>
+    <button class="btn" onclick="undo()" id="undo-btn">↩ 元に戻す</button>
+    <button class="btn" onclick="redo()" id="redo-btn">↪ やり直す</button>
+  </div>
+  <div id="canvas-wrap">
+    <canvas id="main-canvas"></canvas>
+  </div>
+  <div class="msg info show" id="drag-hint" style="font-size:11px">📷 写真エリアをドラッグして移動 / 2本指でズーム</div>
+</main>
+</div>
+
+<!-- Save Modal -->
+<div class="modal-overlay" id="save-modal">
+  <div class="modal">
+    <h2>💾 カードを保存</h2>
+    <div><label>保存名</label><input type="text" id="save-name" placeholder="例：せんろカード"></div>
+    <div style="margin-top:12px">
+      <div style="font-weight:700;font-size:12px;margin-bottom:7px">保存済みカード一覧</div>
+      <div id="save-list"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeSaveModal()">キャンセル</button>
+      <button class="btn active" onclick="doSave()">保存する</button>
+    </div>
+  </div>
+</div>
+
+<!-- Export Modal -->
+<div class="modal-overlay" id="export-modal">
+  <div class="modal">
+    <h2>⬇ 画像を書き出す</h2>
+    <div style="display:flex;flex-direction:column;gap:9px">
+      <div>
+        <label>形式</label>
+        <div class="btn-group">
+          <button class="btn active" id="ef-png" onclick="setEF('png')">PNG</button>
+          <button class="btn" id="ef-jpeg" onclick="setEF('jpeg')">JPEG</button>
+        </div>
+      </div>
+      <div id="jpeg-q-row" style="display:none">
+        <label>JPEG画質</label>
+        <select id="jpeg-q"><option value="0.9">90%</option><option value="0.95" selected>95%（推奨）</option><option value="1.0">100%</option></select>
+      </div>
+      <div id="export-size-info" class="msg info show" style="font-size:11px"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeExportModal()">キャンセル</button>
+      <button class="btn active" onclick="doExport()">書き出す</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal">
+    <h2 id="confirm-title">確認</h2>
+    <p id="confirm-msg" style="font-size:13px;margin:9px 0 16px"></p>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeConfirm()">キャンセル</button>
+      <button class="btn active" id="confirm-ok">OK</button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+// ============================================================
+// STATE
+// ============================================================
+const DEFAULT_STATE = {
+  cardW:1500, cardH:1051,
+  photoRatio:0.70, layout:'left',
+  photoX:0, photoY:0, photoScale:1, photoRot:0,
+  photoFlipH:false, photoFlipV:false, photoFit:'cover',
+  word:'', dir:'v',
+  font:'BIZ UDPゴシック', fwSetting:700,
+  fontSize:120, letterSpacing:0, colGap:20, lineGap:20,
+  hAlign:'center', vAlign:'middle', txOffset:0, tyOffset:0,
+  textColor:'#000000', textBgColor:'#ffffff', autoSize:true,
+  illustType:'none', illustImgIsPng:false,
+  illSize:80, illX:50, illY:85, illRot:0, illAlpha:100,
+  illustReserve:false, illustEmoji:'',
+};
+const S = Object.assign({}, DEFAULT_STATE, {photoImg:null, illustImg:null});
+
+let previewScale=1;
+let isDragging=false, dragTarget='none';
+let dragStartX=0, dragStartY=0, photoStartX=0, photoStartY=0;
+let illStartX=50, illStartY=85;
+let touchLastDist=null, touchLastPhotoScale=1;
+let canvas, ctx;
+let wordInputTimer=null;
+let appliedFontSize=120; // 実際に描画したサイズ
+
+// ============================================================
+// UNDO
+// ============================================================
+const UNDO_MAX=30;
+let undoStack=[], redoStack=[];
+function snapShot(){
+  const snap=JSON.parse(JSON.stringify({...S,photoImg:null,illustImg:null}));
+  snap.hasPhoto=!!S.photoImg; snap.hasIllust=!!S.illustImg;
+  undoStack.push(snap);
+  if(undoStack.length>UNDO_MAX) undoStack.shift();
+  redoStack=[];
+  updateUndoUI();
+}
+function undo(){
+  if(undoStack.length<2)return;
+  const cur=undoStack.pop(); redoStack.push(cur);
+  applySnap(undoStack[undoStack.length-1]); updateUndoUI();
+}
+function redo(){
+  if(!redoStack.length)return;
+  const next=redoStack.pop(); undoStack.push(next);
+  applySnap(next); updateUndoUI();
+}
+function applySnap(snap){
+  const kp=S.photoImg, ki=S.illustImg;
+  Object.assign(S,snap);
+  S.photoImg=(snap.hasPhoto&&kp)?kp:null;
+  S.illustImg=(snap.hasIllust&&ki)?ki:null;
+  syncUI(); drawCard();
+}
+function updateUndoUI(){
+  document.getElementById('undo-btn').disabled=undoStack.length<2;
+  document.getElementById('redo-btn').disabled=!redoStack.length;
+}
+
+// ============================================================
+// FONTS
+// ============================================================
+const FONT_DEFS=[
+  {cat:'読みやすさ重視', items:[
+    {name:'BIZ UDPゴシック', primary:'BIZ UDPGothic',
+     css:'"BIZ UDPGothic","Yu Gothic","Meiryo","Noto Sans JP",sans-serif',
+     weights:[400,700]},
+    {name:'Noto Sans JP', primary:'Noto Sans JP',
+     css:'"Noto Sans JP","BIZ UDPGothic","Yu Gothic",sans-serif',
+     weights:[300,400,500,700]},
+    {name:'UDデジタル教科書体', primary:'UD Digi Kyokasho NK-R',
+     css:'"UD Digi Kyokasho NK-R","UD Digi Kyokasho N-R","Yu Gothic","Meiryo",sans-serif',
+     weights:null}, // 端末依存
+  ]},
+  {cat:'ヒラギノ系', items:[
+    {name:'ヒラギノ角ゴシック', primary:'Hiragino Kaku Gothic ProN',
+     css:'"Hiragino Kaku Gothic ProN","Hiragino Sans","BIZ UDPGothic",sans-serif',
+     weights:null},
+    {name:'ヒラギノ丸ゴ', primary:'Hiragino Maru Gothic ProN',
+     css:'"Hiragino Maru Gothic ProN","Hiragino Maru Gothic Pro","BIZ UDPGothic",sans-serif',
+     weights:null},
+    {name:'ヒラギノ明朝', primary:'Hiragino Mincho ProN',
+     css:'"Hiragino Mincho ProN","Hiragino Mincho Pro","Noto Serif JP",serif',
+     weights:null},
+  ]},
+  {cat:'丸みのあるフォント', items:[
+    {name:'M PLUS Rounded 1c', primary:'M PLUS Rounded 1c',
+     css:'"M PLUS Rounded 1c","BIZ UDPGothic",sans-serif',
+     weights:[300,400,500,700]},
+  ]},
+  {cat:'明朝体', items:[
+    {name:'Noto Serif JP', primary:'Noto Serif JP',
+     css:'"Noto Serif JP","Yu Mincho","Hiragino Mincho ProN",serif',
+     weights:[300,400,500,700]},
+  ]},
+];
+const FAV_CATS=[{cat:'★ お気に入り',items:[]},{cat:'🕐 最近使用',items:[]}];
+const ALL_CATS=[...FAV_CATS,...FONT_DEFS];
+let favFonts=JSON.parse(localStorage.getItem('pcm-favfonts')||'[]');
+let recentFonts=JSON.parse(localStorage.getItem('pcm-recentfonts')||'[]');
+const fontAvailCache={};
+
+function allFontItems(){return FONT_DEFS.flatMap(c=>c.items);}
+function findFont(name){return allFontItems().find(f=>f.name===name)||null;}
+function currentFontDef(){return findFont(S.font)||FONT_DEFS[0].items[0];}
+function currentFontCSS(){return currentFontDef().css;}
+
+// フォント利用可能チェック（非同期、キャッシュ付き）
+async function checkFontAvailAsync(primary){
+  if(!primary) return true;
+  if(fontAvailCache[primary]!==undefined) return fontAvailCache[primary];
+  const testStr='あいうえお';
+  // まずsync check
+  let result=document.fonts.check(`12px "${primary}"`, testStr);
+  if(!result){
+    // load試行（タイムアウト1秒）
+    try{
+      await Promise.race([
+        document.fonts.load(`400 24px "${primary}"`, testStr),
+        new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),1000))
+      ]);
+      result=document.fonts.check(`12px "${primary}"`, testStr);
+    }catch{result=false;}
+  }
+  fontAvailCache[primary]=result;
+  return result;
+}
+
+// フォントウェイト解決
+function getAppliedFontWeight(){
+  const def=currentFontDef();
+  const sw=S.fwSetting;
+  if(!def.weights){
+    // 端末依存: そのまま渡す
+    return sw;
+  }
+  // 対応ウェイトから最近傍を選択
+  let best=def.weights[0];
+  let bestDist=Math.abs(sw-best);
+  for(const w of def.weights){
+    const d=Math.abs(sw-w);
+    if(d<bestDist){bestDist=d;best=w;}
+  }
+  return best;
+}
+
+function buildFontList(filter=''){
+  FAV_CATS[0].items=favFonts.map(n=>allFontItems().find(f=>f.name===n)).filter(Boolean);
+  FAV_CATS[1].items=recentFonts.slice(0,5).map(n=>allFontItems().find(f=>f.name===n)).filter(Boolean);
+  const lc=filter.toLowerCase();
+  const ul=document.getElementById('font-list');
+  ul.innerHTML='';
+  for(const cat of ALL_CATS){
+    const filtered=cat.items.filter(f=>!filter||f.name.toLowerCase().includes(lc));
+    if(!filtered.length) continue;
+    const catDiv=document.createElement('div');catDiv.className='font-cat';catDiv.textContent=cat.cat;
+    ul.appendChild(catDiv);
+    for(const f of filtered){
+      const isAvail=fontAvailCache[f.primary];
+      const isFav=favFonts.includes(f.name);
+      const d=document.createElement('div');
+      d.className='font-item'+(f.name===S.font?' selected':'');
+      d.innerHTML=`<span class="fi-name">${f.name}</span>`+
+        `<span class="fi-prev" style="font-family:${f.css}">あいうえお せんろ</span>`+
+        (isAvail===false?`<span class="fi-badge">代替</span>`:'')+
+        `<span class="fi-fav${isFav?' on':''}" title="お気に入り">★</span>`;
+      d.addEventListener('click',(e)=>{if(e.target.classList.contains('fi-fav'))return;selectFont(f.name);});
+      d.querySelector('.fi-fav').addEventListener('click',()=>toggleFav(f.name));
+      ul.appendChild(d);
+    }
+  }
+}
+
+async function selectFont(name){
+  snapShot();
+  S.font=name;
+  if(!recentFonts.includes(name)){recentFonts.unshift(name);recentFonts=recentFonts.slice(0,5);}
+  else{recentFonts=recentFonts.filter(n=>n!==name);recentFonts.unshift(name);}
+  localStorage.setItem('pcm-recentfonts',JSON.stringify(recentFonts));
+  localStorage.setItem('pcm-lastfont',name);
+  await applyFontChange();
+}
+async function applyFontChange(){
+  const def=currentFontDef();
+  const css=def.css;
+  document.getElementById('font-preview-text').style.fontFamily=css;
+  // 利用可能チェック
+  const avail=await checkFontAvailAsync(def.primary);
+  const fbMsg=document.getElementById('font-fallback-msg');
+  const unavailMsg=document.getElementById('font-unavail-msg');
+  if(def.primary===null||avail){
+    fbMsg.style.display='none'; unavailMsg.style.display='none';
+  } else {
+    fbMsg.style.display='block';
+    unavailMsg.textContent=`⚠ 「${S.font}」はこの端末では利用できません。代替フォントで表示されます。`;
+    unavailMsg.style.display='block';
+  }
+  // ウェイト対応表示
+  updateFWUI();
+  // ウェブフォントロード（タイムアウト3秒）
+  if(def.primary){
+    const aw=getAppliedFontWeight();
+    try{
+      await Promise.race([
+        document.fonts.load(`${aw} 48px "${def.primary}"`, 'あいうえお'),
+        new Promise(r=>setTimeout(r,3000))
+      ]);
+    }catch{}
+  }
+  buildFontList(document.getElementById('font-search').value);
+  drawCard();
+}
+function toggleFav(name){
+  if(favFonts.includes(name)) favFonts=favFonts.filter(n=>n!==name);
+  else favFonts.push(name);
+  localStorage.setItem('pcm-favfonts',JSON.stringify(favFonts));
+  buildFontList(document.getElementById('font-search').value);
+}
+function updateFWUI(){
+  const def=currentFontDef();
+  const sw=S.fwSetting;
+  const aw=getAppliedFontWeight();
+  document.getElementById('fw-label').textContent=`設定値：${sw}`;
+  const noteEl=document.getElementById('fw-applied-note');
+  noteEl.textContent=aw!==sw?`実際の適用：${aw}`:`適用：${aw}`;
+  const noSupport=document.getElementById('fw-no-support-msg');
+  // weights===null (端末依存) or only 1 weight
+  const noVar=!def.weights||def.weights.length<=1;
+  noSupport.style.display=noVar?'block':'none';
+  // font-preview-text weight
+  document.getElementById('font-preview-text').style.fontWeight=aw;
+}
+
+// ============================================================
+// CARD SIZES
+// ============================================================
+const SIZES={
+  'l-land':{w:1500,h:1051,label:'L判 横向き',printW:127,printH:89,dpi:300,hasPrint:true},
+  'l-port':{w:1051,h:1500,label:'L判 縦向き',printW:89,printH:127,dpi:300,hasPrint:true},
+  '4-3':{w:1600,h:1200,label:'4:3 横向き',hasPrint:false},
+  '3-2':{w:1800,h:1200,label:'3:2 横向き',hasPrint:false},
+  'post-land':{w:1748,h:1181,label:'はがき 横向き',printW:148,printH:100,dpi:300,hasPrint:true},
+  'a6-land':{w:1748,h:1240,label:'A6 横向き',printW:148,printH:105,dpi:300,hasPrint:true},
+  'custom':{w:1500,h:1051,label:'カスタム',hasPrint:false},
+};
+function currentSizeDef(){return SIZES[document.getElementById('card-size-sel').value]||SIZES['l-land'];}
+function getSafeMargins(){
+  const sz=currentSizeDef();
+  if(!sz.hasPrint) return null;
+  const safeX=Math.round(S.cardW*(3/sz.printW));
+  const safeY=Math.round(S.cardH*(3/sz.printH));
+  const bleedX=Math.round(S.cardW*(1.5/sz.printW));
+  const bleedY=Math.round(S.cardH*(1.5/sz.printH));
+  return{safeX,safeY,bleedX,bleedY};
+}
+function onSizeChange(){
+  const v=document.getElementById('card-size-sel').value;
+  const sz=SIZES[v];
+  const isCustom=v==='custom';
+  document.getElementById('custom-size-fields').style.display=isCustom?'':'none';
+  if(!isCustom){S.cardW=sz.w;S.cardH=sz.h;}
+  const hasPrint=sz.hasPrint;
+  const guideMsg=document.getElementById('guide-unavail-msg');
+  guideMsg.style.display=hasPrint?'none':'block';
+  document.getElementById('guide-sel').disabled=!hasPrint;
+  updateSizeInfo(); resizeCanvas(); drawCard();
+}
+function onGuideChange(){drawCard();}
+function onCustomSize(){
+  S.cardW=parseInt(document.getElementById('cw-px').value)||1500;
+  S.cardH=parseInt(document.getElementById('ch-px').value)||1051;
+  updateSizeInfo();resizeCanvas();drawCard();
+}
+function updateSizeInfo(){
+  const sz=currentSizeDef();
+  let txt=`画像サイズ：${S.cardW}×${S.cardH}px`;
+  if(sz.hasPrint) txt=`印刷サイズ：${sz.printW}×${sz.printH}mm　${txt}　${sz.dpi}dpi`;
+  document.getElementById('size-info').textContent=txt;
+  document.getElementById('export-size-info').textContent=txt;
+}
+
+// ============================================================
+// CANVAS
+// ============================================================
+function initCanvas(){
+  canvas=document.getElementById('main-canvas');
+  ctx=canvas.getContext('2d');
+  canvas.addEventListener('mousedown',onCanvasDown);
+  canvas.addEventListener('mousemove',onCanvasMove);
+  canvas.addEventListener('mouseup',onCanvasUp);
+  canvas.addEventListener('mouseleave',onCanvasUp);
+  canvas.addEventListener('touchstart',onTouchStart,{passive:false});
+  canvas.addEventListener('touchmove',onTouchMove,{passive:false});
+  canvas.addEventListener('touchend',onTouchEnd);
+}
+function resizeCanvas(){
+  const pa=document.getElementById('preview-area');
+  const avail=Math.max(200,pa.clientWidth-32);
+  previewScale=Math.min(1,avail/S.cardW,(window.innerHeight-180)/S.cardH);
+  canvas.width=S.cardW; canvas.height=S.cardH;
+  canvas.style.width=Math.round(S.cardW*previewScale)+'px';
+  canvas.style.height=Math.round(S.cardH*previewScale)+'px';
+  document.getElementById('canvas-wrap').style.width=canvas.style.width;
+}
+function photoArea(){
+  const r=S.photoRatio;
+  if(S.layout==='left')   return{x:0,y:0,w:Math.round(S.cardW*r),h:S.cardH};
+  if(S.layout==='right')  return{x:Math.round(S.cardW*(1-r)),y:0,w:Math.round(S.cardW*r),h:S.cardH};
+  if(S.layout==='top')    return{x:0,y:0,w:S.cardW,h:Math.round(S.cardH*r)};
+  return{x:0,y:Math.round(S.cardH*(1-r)),w:S.cardW,h:Math.round(S.cardH*r)};
+}
+function textArea(){
+  const pa=photoArea();
+  if(S.layout==='left')   return{x:pa.w,y:0,w:S.cardW-pa.w,h:S.cardH};
+  if(S.layout==='right')  return{x:0,y:0,w:S.cardW-pa.w,h:S.cardH};
+  if(S.layout==='top')    return{x:0,y:pa.h,w:S.cardW,h:S.cardH-pa.h};
+  return{x:0,y:0,w:S.cardW,h:S.cardH-pa.h};
+}
+
+// ============================================================
+// DRAW
+// ============================================================
+function drawCard(targetCtx, skipGuides){
+  const c=targetCtx||ctx;
+  if(!c)return;
+  c.clearRect(0,0,S.cardW,S.cardH);
+  c.fillStyle='#ffffff';
+  c.fillRect(0,0,S.cardW,S.cardH);
+  const pa=photoArea(),ta=textArea();
+  // Photo
+  c.save();c.beginPath();c.rect(pa.x,pa.y,pa.w,pa.h);c.clip();
+  if(S.photoImg) drawPhoto(c,pa);
+  else{c.fillStyle='#e0e8ee';c.fillRect(pa.x,pa.y,pa.w,pa.h);c.fillStyle='#9aaab5';c.font='bold '+Math.round(pa.w*.055)+'px sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText('写真をアップロード',pa.x+pa.w/2,pa.y+pa.h/2);}
+  c.restore();
+  // Text bg
+  c.fillStyle=S.textBgColor;c.fillRect(ta.x,ta.y,ta.w,ta.h);
+  // Text (clipped)
+  c.save();c.beginPath();c.rect(ta.x,ta.y,ta.w,ta.h);c.clip();
+  drawText(c,ta);
+  c.restore();
+  // Illust (clipped)
+  c.save();c.beginPath();c.rect(ta.x,ta.y,ta.w,ta.h);c.clip();
+  drawIllust(c,ta);
+  c.restore();
+  // Guides
+  if(!skipGuides) drawGuides(c);
+}
+
+function drawPhoto(c,pa){
+  const img=S.photoImg;
+  c.save();
+  c.translate(pa.x+pa.w/2+S.photoX,pa.y+pa.h/2+S.photoY);
+  const rotRad=S.photoRot*Math.PI/180;
+  const sw=img.naturalWidth,sh=img.naturalHeight;
+  const cosA=Math.abs(Math.cos(rotRad)),sinA=Math.abs(Math.sin(rotRad));
+  const rotW=sw*cosA+sh*sinA,rotH=sw*sinA+sh*cosA;
+  const baseSc=S.photoFit==='cover'?Math.max(pa.w/rotW,pa.h/rotH):Math.min(pa.w/rotW,pa.h/rotH);
+  const sc=S.photoScale*baseSc;
+  c.rotate(rotRad);
+  if(S.photoFlipH)c.scale(-1,1);
+  if(S.photoFlipV)c.scale(1,-1);
+  c.drawImage(img,-sw*sc/2,-sh*sc/2,sw*sc,sh*sc);
+  c.restore();
+}
+
+// ============================================================
+// TEXT DRAW
+// ============================================================
+const MIN_FONT_SIZE_INTERNAL=18;
+
+function measureLineW(c,chars,ls){
+  let w=0;
+  chars.forEach((ch,i)=>{w+=c.measureText(ch).width;if(i<chars.length-1)w+=ls;});
+  return w;
+}
+
+function drawText(c,ta){
+  const word=S.word;
+  if(!word.trim())return;
+  const fontCSS=currentFontCSS();
+  const aw=getAppliedFontWeight();
+  const ls=S.letterSpacing;
+  const autoSize=S.autoSize;
+  const reserveIll=S.illustType!=='none'&&S.illustReserve;
+  const padding=Math.min(ta.w,ta.h)*0.05;
+  const illReserveH=reserveIll?ta.h*(1-S.illY/100+0.13):0;
+  const availW=ta.w-padding*2;
+  const availH=ta.h-padding*2-illReserveH;
+  if(availW<=0||availH<=0)return;
+  const lines=word.split('\n');
+  let fontSize=S.fontSize;
+
+  if(S.dir==='v'){
+    const numCols=lines.length||1;
+    if(autoSize){
+      let lo=MIN_FONT_SIZE_INTERNAL,hi=S.fontSize,best=MIN_FONT_SIZE_INTERNAL;
+      for(let i=0;i<20;i++){
+        const mid=Math.floor((lo+hi)/2);
+        const blkW=numCols*mid+(numCols-1)*S.colGap;
+        let maxColH=0;
+        for(const l of lines){
+          const ch=[...l];
+          const h=ch.length>0?ch.length*(mid+ls)-ls:0;
+          if(h>maxColH)maxColH=h;
+        }
+        if(blkW<=availW&&maxColH<=availH){best=mid;lo=mid+1;}else hi=mid-1;
+      }
+      if(best<MIN_FONT_SIZE_INTERNAL){
+        showTextWarn('⚠ 文字が小さくなりすぎます。改行を追加するか、文字エリアを広げてください');
+      } else clearTextWarn();
+      fontSize=best;
+    }
+    appliedFontSize=fontSize;
+    updateFSNote();
+    const fontStr=`${aw} ${fontSize}px ${fontCSS}`;
+    c.font=fontStr;c.fillStyle=S.textColor;c.textAlign='center';c.textBaseline='top';
+    const blkW=numCols*fontSize+(numCols-1)*S.colGap;
+    let maxColH=0;
+    for(const l of lines){const ch=[...l];const h=ch.length>0?ch.length*(fontSize+ls)-ls:0;if(h>maxColH)maxColH=h;}
+    // 揃え
+    let baseX=ta.x+padding,baseY=ta.y+padding;
+    if(S.hAlign==='center') baseX=ta.x+(ta.w-blkW)/2;
+    else if(S.hAlign==='right') baseX=ta.x+ta.w-padding-blkW;
+    if(S.vAlign==='middle') baseY=ta.y+(availH+padding*2-maxColH)/2;
+    else if(S.vAlign==='bottom') baseY=ta.y+ta.h-padding-illReserveH-maxColH;
+    // オフセット (相対値 -100~100 → 文字エリアの割合)
+    baseX+=S.txOffset/100*availW;
+    baseY+=S.tyOffset/100*availH;
+    // 列：右から左
+    for(let ci=0;ci<numCols;ci++){
+      const colFromRight=numCols-1-ci;
+      const cx=baseX+colFromRight*(fontSize+S.colGap)+fontSize/2;
+      const chars=[...lines[ci]];
+      chars.forEach((ch,j)=>{c.fillText(ch,cx,baseY+j*(fontSize+ls));});
+    }
+  } else {
+    // 横書き
+    if(autoSize){
+      let lo=MIN_FONT_SIZE_INTERNAL,hi=S.fontSize,best=MIN_FONT_SIZE_INTERNAL;
+      for(let i=0;i<20;i++){
+        const mid=Math.floor((lo+hi)/2);
+        c.font=`${aw} ${mid}px ${fontCSS}`;
+        let maxW=0;
+        for(const l of lines){const w=measureLineW(c,[...l],ls);if(w>maxW)maxW=w;}
+        const totalH=lines.length*mid+(lines.length-1)*S.lineGap;
+        if(maxW<=availW&&totalH<=availH){best=mid;lo=mid+1;}else hi=mid-1;
+      }
+      if(best<MIN_FONT_SIZE_INTERNAL){
+        showTextWarn('⚠ 文字が小さくなりすぎます。改行を追加するか、文字エリアを広げてください');
+      } else clearTextWarn();
+      fontSize=best;
+    }
+    appliedFontSize=fontSize;
+    updateFSNote();
+    c.font=`${aw} ${fontSize}px ${fontCSS}`;
+    c.fillStyle=S.textColor;c.textBaseline='top';
+    const totalH=lines.length*fontSize+(lines.length-1)*S.lineGap;
+    let maxLineW=0;
+    for(const l of lines){const w=measureLineW(c,[...l],ls);if(w>maxLineW)maxLineW=w;}
+    let baseX=ta.x+padding,baseY=ta.y+padding;
+    if(S.hAlign==='center') baseX=ta.x+(ta.w-maxLineW)/2;
+    else if(S.hAlign==='right') baseX=ta.x+ta.w-padding-maxLineW;
+    if(S.vAlign==='middle') baseY=ta.y+(availH+padding*2-totalH)/2;
+    else if(S.vAlign==='bottom') baseY=ta.y+ta.h-padding-illReserveH-totalH;
+    baseX+=S.txOffset/100*availW;
+    baseY+=S.tyOffset/100*availH;
+    for(let i=0;i<lines.length;i++){
+      const chars=[...lines[i]];
+      const lw=measureLineW(c,chars,ls);
+      let lx=baseX;
+      if(S.hAlign==='center') lx=baseX+(maxLineW-lw)/2;
+      else if(S.hAlign==='right') lx=baseX+(maxLineW-lw);
+      const ly=baseY+i*(fontSize+S.lineGap);
+      let drawX=lx;
+      chars.forEach((ch,j)=>{const cw=c.measureText(ch).width;c.fillText(ch,drawX,ly);drawX+=cw+ls;});
+    }
+  }
+}
+function updateFSNote(){
+  const note=document.getElementById('fs-applied-note');
+  const label=document.getElementById('fs-label');
+  if(S.autoSize){
+    label.firstChild.textContent='最大文字サイズ ';
+    note.textContent=appliedFontSize!==S.fontSize?`現在の適用サイズ：${appliedFontSize}px`:'';
+  } else {
+    label.firstChild.textContent='文字サイズ ';
+    note.textContent='';
+  }
+}
+function showTextWarn(msg){const e=document.getElementById('text-warn');e.textContent=msg;e.classList.add('show');}
+function clearTextWarn(){document.getElementById('text-warn').classList.remove('show');}
+
+// ============================================================
+// ILLUST DRAW
+// ============================================================
+function drawIllust(c,ta){
+  if(S.illustType==='none')return;
+  const alpha=S.illAlpha/100;
+  const maxIllW=ta.w*0.8,maxIllH=ta.h*0.4;
+  const illW=maxIllW*S.illSize/100,illH=maxIllH*S.illSize/100;
+  const ix=ta.x+ta.w*(S.illX/100);
+  const iy=ta.y+ta.h*(S.illY/100);
+  c.save();c.globalAlpha=alpha;
+  if(S.illustType==='image'&&S.illustImg){
+    const img=S.illustImg;
+    const sc=Math.min(illW/img.naturalWidth,illH/img.naturalHeight);
+    const dw=img.naturalWidth*sc,dh=img.naturalHeight*sc;
+    c.translate(ix,iy);
+    if(S.illRot){c.rotate(S.illRot*Math.PI/180);}
+    c.drawImage(img,-dw/2,-dh/2,dw,dh);
+  } else if(S.illustType==='emoji'&&S.illustEmoji){
+    const fs=Math.min(illW,illH);
+    c.font=`${fs}px serif`;c.textAlign='center';c.textBaseline='middle';
+    c.translate(ix,iy);
+    if(S.illRot)c.rotate(S.illRot*Math.PI/180);
+    try{c.fillText(S.illustEmoji,0,0);}catch{}
+  }
+  c.restore();
+}
+
+// ============================================================
+// GUIDES
+// ============================================================
+function drawGuides(c){
+  const sz=currentSizeDef();
+  if(!sz.hasPrint)return;
+  const guide=document.getElementById('guide-sel').value;
+  if(guide==='none')return;
+  const m=getSafeMargins();
+  c.save();c.setLineDash([8,6]);
+  if(guide==='safe'||guide==='both'){
+    c.strokeStyle='rgba(60,160,255,0.7)';c.lineWidth=2;
+    c.strokeRect(m.safeX,m.safeY,S.cardW-m.safeX*2,S.cardH-m.safeY*2);
+  }
+  if(guide==='bleed'||guide==='both'){
+    c.strokeStyle='rgba(255,100,60,0.7)';c.lineWidth=2;
+    c.strokeRect(m.bleedX,m.bleedY,S.cardW-m.bleedX*2,S.cardH-m.bleedY*2);
+  }
+  c.restore();
+}
+
+// ============================================================
+// PHOTO INTERACTION
+// ============================================================
+function getIllustRect(ta){
+  if(S.illustType==='none'||(!S.illustImg&&!S.illustEmoji))return null;
+  const maxIllW=ta.w*0.8,maxIllH=ta.h*0.4;
+  const illW=maxIllW*S.illSize/100,illH=maxIllH*S.illSize/100;
+  const ix=ta.x+ta.w*(S.illX/100);
+  const iy=ta.y+ta.h*(S.illY/100);
+  return{x:ix-illW/2,y:iy-illH/2,w:illW,h:illH};
+}
+function canvasCoord(e){
+  const rect=canvas.getBoundingClientRect();
+  return{x:(e.clientX-rect.left)/previewScale,y:(e.clientY-rect.top)/previewScale};
+}
+function inRect(x,y,r){return r&&x>=r.x&&x<=r.x+r.w&&y>=r.y&&y<=r.y+r.h;}
+function onCanvasDown(e){
+  const{x,y}=canvasCoord(e);
+  const ta=textArea();
+  const ir=getIllustRect(ta);
+  // イラストドラッグ判定
+  if(ir&&inRect(x,y,ir)&&S.illustType!=='none'){
+    isDragging=true;dragTarget='illust';
+    dragStartX=x;dragStartY=y;
+    illStartX=S.illX;illStartY=S.illY;
+    canvas.style.cursor='grabbing';
+    return;
+  }
+  // 写真ドラッグ
+  const pa=photoArea();
+  if(S.photoImg&&inRect(x,y,{x:pa.x,y:pa.y,w:pa.w,h:pa.h})){
+    isDragging=true;dragTarget='photo';
+    dragStartX=x;dragStartY=y;
+    photoStartX=S.photoX;photoStartY=S.photoY;
+    canvas.style.cursor='grabbing';
+  }
+}
+function onCanvasMove(e){
+  if(!isDragging)return;
+  const{x,y}=canvasCoord(e);
+  if(dragTarget==='photo'){
+    S.photoX=photoStartX+(x-dragStartX);S.photoY=photoStartY+(y-dragStartY);drawCard();
+  } else if(dragTarget==='illust'){
+    const ta=textArea();
+    const dx=(x-dragStartX)/ta.w*100;
+    const dy=(y-dragStartY)/ta.h*100;
+    S.illX=Math.max(0,Math.min(100,illStartX+dx));
+    S.illY=Math.max(0,Math.min(100,illStartY+dy));
+    syncIllUI();drawCard();
+  }
+}
+function onCanvasUp(){
+  if(isDragging){isDragging=false;dragTarget='none';snapShot();canvas.style.cursor='default';}
+}
+function getTouchDist(t){const dx=t[0].clientX-t[1].clientX,dy=t[0].clientY-t[1].clientY;return Math.sqrt(dx*dx+dy*dy);}
+function onTouchStart(e){
+  if(e.touches.length===1){
+    const t=e.touches[0];const rect=canvas.getBoundingClientRect();
+    const x=(t.clientX-rect.left)/previewScale,y=(t.clientY-rect.top)/previewScale;
+    const ta=textArea();const ir=getIllustRect(ta);
+    if(ir&&inRect(x,y,ir)&&S.illustType!=='none'){
+      e.preventDefault();isDragging=true;dragTarget='illust';
+      dragStartX=x;dragStartY=y;illStartX=S.illX;illStartY=S.illY;return;
+    }
+    const pa=photoArea();
+    if(S.photoImg&&inRect(x,y,{x:pa.x,y:pa.y,w:pa.w,h:pa.h})){
+      e.preventDefault();isDragging=true;dragTarget='photo';
+      dragStartX=x;dragStartY=y;photoStartX=S.photoX;photoStartY=S.photoY;
+    }
+  } else if(e.touches.length===2){
+    e.preventDefault();touchLastDist=getTouchDist(e.touches);touchLastPhotoScale=S.photoScale;
+  }
+}
+function onTouchMove(e){
+  if(e.touches.length===1&&isDragging){
+    e.preventDefault();
+    const t=e.touches[0];const rect=canvas.getBoundingClientRect();
+    const x=(t.clientX-rect.left)/previewScale,y=(t.clientY-rect.top)/previewScale;
+    if(dragTarget==='photo'){S.photoX=photoStartX+(x-dragStartX);S.photoY=photoStartY+(y-dragStartY);drawCard();}
+    else if(dragTarget==='illust'){
+      const ta=textArea();
+      S.illX=Math.max(0,Math.min(100,illStartX+(x-dragStartX)/ta.w*100));
+      S.illY=Math.max(0,Math.min(100,illStartY+(y-dragStartY)/ta.h*100));
+      syncIllUI();drawCard();
+    }
+  } else if(e.touches.length===2&&touchLastDist){
+    e.preventDefault();
+    const d=getTouchDist(e.touches);
+    S.photoScale=Math.max(0.1,Math.min(4,touchLastPhotoScale*(d/touchLastDist)));
+    syncZoomUI();drawCard();
+  }
+}
+function onTouchEnd(){if(isDragging){isDragging=false;dragTarget='none';snapShot();}touchLastDist=null;}
+
+// ============================================================
+// PHOTO CONTROLS
+// ============================================================
+function onPhotoDragOver(e){e.preventDefault();document.getElementById('photo-drop-zone').classList.add('drag');}
+function onPhotoDragLeave(){document.getElementById('photo-drop-zone').classList.remove('drag');}
+function onPhotoDrop(e){
+  e.preventDefault();document.getElementById('photo-drop-zone').classList.remove('drag');
+  const f=e.dataTransfer.files[0];if(f)loadPhotoFile(f);
+}
+function onPhotoFileInput(e){const f=e.target.files[0];if(f)loadPhotoFile(f);e.target.value='';}
+function loadPhotoFile(file){
+  const ok=['image/jpeg','image/png','image/webp'];
+  if(!ok.includes(file.type)){showErr('photo-err','この画像形式は読み込めません。JPGまたはPNGに変換してください');return;}
+  const url=URL.createObjectURL(file);
+  const img=new Image();
+  img.onload=()=>{URL.revokeObjectURL(url);S.photoImg=img;S.photoX=0;S.photoY=0;S.photoScale=1;S.photoRot=0;S.photoFlipH=false;S.photoFlipV=false;
+    document.getElementById('photo-drop-zone').style.display='none';
+    document.getElementById('photo-controls').style.display='';
+    syncPhotoUI();snapShot();drawCard();showErr('photo-err','');};
+  img.onerror=()=>showErr('photo-err','画像の読み込みに失敗しました');img.src=url;
+}
+function removePhoto(){
+  S.photoImg=null;
+  document.getElementById('photo-drop-zone').style.display='';
+  document.getElementById('photo-controls').style.display='none';
+  snapShot();drawCard();
+}
+function resetPhoto(){S.photoX=0;S.photoY=0;S.photoScale=1;S.photoRot=0;S.photoFlipH=false;S.photoFlipV=false;syncPhotoUI();snapShot();drawCard();}
+function centerPhoto(){S.photoX=0;S.photoY=0;syncPhotoUI();snapShot();drawCard();}
+function rotatePhoto(deg){S.photoRot=(S.photoRot+deg)%360;syncPhotoUI();snapShot();drawCard();}
+function flipPhoto(a){if(a==='h')S.photoFlipH=!S.photoFlipH;else S.photoFlipV=!S.photoFlipV;snapShot();drawCard();}
+function setFit(f){
+  S.photoFit=f;S.photoX=0;S.photoY=0;S.photoScale=1;
+  document.getElementById('fit-cover').classList.toggle('active',f==='cover');
+  document.getElementById('fit-contain').classList.toggle('active',f==='contain');
+  syncPhotoUI();drawCard();
+}
+function onZoomInput(){S.photoScale=parseInt(document.getElementById('zoom-slider').value)/100;syncZoomUI();drawCard();}
+function onZoomChange(){snapShot();}
+function onZoomNumInput(){S.photoScale=Math.max(0.1,Math.min(4,(parseInt(document.getElementById('zoom-num').value)||100)/100));syncZoomUI();drawCard();snapShot();}
+function syncZoomUI(){const v=Math.round(S.photoScale*100);document.getElementById('zoom-slider').value=v;document.getElementById('zoom-num').value=v;document.getElementById('zoom-val').textContent=v;}
+function onRotInput(){S.photoRot=parseInt(document.getElementById('rot-num').value)||0;drawCard();snapShot();}
+function syncPhotoUI(){syncZoomUI();document.getElementById('rot-num').value=S.photoRot;}
+
+// ============================================================
+// WORD INPUT
+// ============================================================
+function initWordInput(){
+  const el=document.getElementById('word-input');
+  el.addEventListener('input',()=>{
+    S.word=el.value;drawCard();
+    clearTimeout(wordInputTimer);
+    wordInputTimer=setTimeout(()=>snapShot(),400);
+  });
+}
+
+// ============================================================
+// TEXT / FONT SETTINGS
+// ============================================================
+function setDir(d){
+  S.dir=d;
+  document.getElementById('dir-v').classList.toggle('active',d==='v');
+  document.getElementById('dir-h').classList.toggle('active',d==='h');
+  snapShot();drawCard();
+}
+// FW slider
+function onFWInput(){
+  S.fwSetting=parseInt(document.getElementById('fw-slider').value);
+  updateFWUI();drawCard();
+}
+function onFWChange(){snapShot();}
+// FS slider
+function onFSInput(){
+  S.fontSize=parseInt(document.getElementById('fs-slider').value);
+  document.getElementById('fs-num').value=S.fontSize;
+  document.getElementById('fs-val').textContent=S.fontSize;
+  drawCard();
+}
+function onFSChange(){snapShot();}
+function onFSNumInput(){
+  S.fontSize=Math.max(20,Math.min(400,parseInt(document.getElementById('fs-num').value)||120));
+  document.getElementById('fs-slider').value=S.fontSize;
+  document.getElementById('fs-val').textContent=S.fontSize;
+  drawCard();snapShot();
+}
+// LS
+function onLSInput(){S.letterSpacing=parseInt(document.getElementById('ls-slider').value);document.getElementById('ls-num').value=S.letterSpacing;document.getElementById('ls-val').textContent=S.letterSpacing;drawCard();}
+function onLSChange(){snapShot();}
+function onLSNumInput(){S.letterSpacing=parseInt(document.getElementById('ls-num').value)||0;document.getElementById('ls-slider').value=S.letterSpacing;document.getElementById('ls-val').textContent=S.letterSpacing;drawCard();snapShot();}
+// CG
+function onCGInput(){S.colGap=parseInt(document.getElementById('cg-slider').value);document.getElementById('cg-num').value=S.colGap;document.getElementById('cg-val').textContent=S.colGap;drawCard();}
+function onCGChange(){snapShot();}
+function onCGNumInput(){S.colGap=parseInt(document.getElementById('cg-num').value)||0;document.getElementById('cg-slider').value=S.colGap;document.getElementById('cg-val').textContent=S.colGap;drawCard();snapShot();}
+// LG
+function onLGInput(){S.lineGap=parseInt(document.getElementById('lg-slider').value);document.getElementById('lg-num').value=S.lineGap;document.getElementById('lg-val').textContent=S.lineGap;drawCard();}
+function onLGChange(){snapShot();}
+function onLGNumInput(){S.lineGap=parseInt(document.getElementById('lg-num').value)||0;document.getElementById('lg-slider').value=S.lineGap;document.getElementById('lg-val').textContent=S.lineGap;drawCard();snapShot();}
+
+// Text align/pos
+function setHAlign(a){S.hAlign=a;['left','center','right'].forEach(v=>document.getElementById('halign-'+v).classList.toggle('active',v===a));drawCard();}
+function setVAlign(a){S.vAlign=a;['top','middle','bottom'].forEach(v=>document.getElementById('valign-'+v).classList.toggle('active',v===a));drawCard();}
+function onTXInput(){S.txOffset=parseInt(document.getElementById('tx-slider').value);document.getElementById('tx-num').value=S.txOffset;document.getElementById('tx-val').textContent=S.txOffset;drawCard();}
+function onTXChange(){snapShot();}
+function onTXNumInput(){S.txOffset=Math.max(-100,Math.min(100,parseInt(document.getElementById('tx-num').value)||0));document.getElementById('tx-slider').value=S.txOffset;document.getElementById('tx-val').textContent=S.txOffset;drawCard();snapShot();}
+function onTYInput(){S.tyOffset=parseInt(document.getElementById('ty-slider').value);document.getElementById('ty-num').value=S.tyOffset;document.getElementById('ty-val').textContent=S.tyOffset;drawCard();}
+function onTYChange(){snapShot();}
+function onTYNumInput(){S.tyOffset=Math.max(-100,Math.min(100,parseInt(document.getElementById('ty-num').value)||0));document.getElementById('ty-slider').value=S.tyOffset;document.getElementById('ty-val').textContent=S.tyOffset;drawCard();snapShot();}
+function resetTextPos(){
+  S.hAlign='center';S.vAlign='middle';S.txOffset=0;S.tyOffset=0;
+  setHAlign('center');setVAlign('middle');
+  document.getElementById('tx-slider').value=0;document.getElementById('tx-num').value=0;document.getElementById('tx-val').textContent=0;
+  document.getElementById('ty-slider').value=0;document.getElementById('ty-num').value=0;document.getElementById('ty-val').textContent=0;
+  snapShot();drawCard();
+}
+
+// Layout
+function setLayout(l){
+  S.layout=l;
+  ['left','right','top','bottom'].forEach(v=>document.getElementById('lay-'+v).classList.toggle('active',v===l));
+  snapShot();drawCard();
+}
+function onRatioChange(){
+  const v=document.getElementById('ratio-sel').value;
+  document.getElementById('ratio-custom-row').style.display=v==='custom-r'?'':'none';
+  if(v!=='custom-r'){S.photoRatio=parseInt(v)/100;snapShot();drawCard();}
+}
+function onRatioSliderInput(){S.photoRatio=parseInt(document.getElementById('ratio-slider').value)/100;document.getElementById('ratio-val').textContent=Math.round(S.photoRatio*100);drawCard();}
+function onRatioSliderChange(){snapShot();}
+
+// ============================================================
+// ILLUST
+// ============================================================
+function setIllustType(t){
+  S.illustType=t;
+  ['none','img','emoji'].forEach(k=>document.getElementById('ill-'+k).classList.toggle('active',k===t||(k==='img'&&t==='image')));
+  document.getElementById('illust-img-area').style.display=t==='image'?'':'none';
+  document.getElementById('illust-emoji-area').style.display=t==='emoji'?'':'none';
+  document.getElementById('illust-ctrl').style.display=t==='none'?'none':'';
+  snapShot();drawCard();
+}
+function onIllustDragOver(e){e.preventDefault();document.getElementById('illust-drop-zone').classList.add('drag');}
+function onIllustDragLeave(){document.getElementById('illust-drop-zone').classList.remove('drag');}
+function onIllustDrop(e){
+  e.preventDefault();document.getElementById('illust-drop-zone').classList.remove('drag');
+  const f=e.dataTransfer.files[0];if(f)loadIllustFile(f);
+}
+function onIllustFileInput(e){const f=e.target.files[0];if(f)loadIllustFile(f);e.target.value='';}
+function loadIllustFile(file){
+  const ok=['image/png','image/jpeg','image/webp'];
+  if(!ok.includes(file.type)){showErr('illust-err','この画像形式は読み込めません。PNG、JPG、WebPを選択してください');return;}
+  S.illustImgIsPng=file.type==='image/png';
+  const url=URL.createObjectURL(file);
+  const img=new Image();
+  img.onload=()=>{URL.revokeObjectURL(url);S.illustImg=img;
+    document.getElementById('illust-drop-zone').style.display='none';
+    document.getElementById('illust-replace-btns').style.display='';
+    showErr('illust-err','');snapShot();drawCard();};
+  img.onerror=()=>showErr('illust-err','画像の読み込みに失敗しました');img.src=url;
+}
+function removeIllust(){
+  S.illustImg=null;S.illustEmoji='';S.illustImgIsPng=false;
+  document.getElementById('illust-drop-zone').style.display='';
+  document.getElementById('illust-replace-btns').style.display='none';
+  setIllustType('none');
+}
+function onIllSizeInput(){S.illSize=parseInt(document.getElementById('ill-size').value);document.getElementById('ill-size-num').value=S.illSize;document.getElementById('ill-size-val').textContent=S.illSize;drawCard();}
+function onIllSizeChange(){snapShot();}
+function onIllSizeNumInput(){S.illSize=parseInt(document.getElementById('ill-size-num').value)||80;document.getElementById('ill-size').value=S.illSize;document.getElementById('ill-size-val').textContent=S.illSize;drawCard();snapShot();}
+function onIllPosInput(){
+  S.illX=parseInt(document.getElementById('ill-x').value);
+  S.illY=parseInt(document.getElementById('ill-y').value);
+  document.getElementById('ill-x-val').textContent=S.illX;
+  document.getElementById('ill-y-val').textContent=S.illY;
+  drawCard();
+}
+function onIllPosChange(){snapShot();}
+function onIllRotInput(){S.illRot=parseInt(document.getElementById('ill-rot').value);document.getElementById('ill-rot-num').value=S.illRot;document.getElementById('ill-rot-val').textContent=S.illRot;drawCard();}
+function onIllRotChange(){snapShot();}
+function onIllRotNumInput(){S.illRot=parseInt(document.getElementById('ill-rot-num').value)||0;document.getElementById('ill-rot').value=S.illRot;document.getElementById('ill-rot-val').textContent=S.illRot;drawCard();snapShot();}
+function onIllAlphaInput(){S.illAlpha=parseInt(document.getElementById('ill-alpha').value);document.getElementById('ill-alpha-val').textContent=S.illAlpha;drawCard();}
+function onIllAlphaChange(){snapShot();}
+function resetIllust(){
+  S.illSize=80;S.illX=50;S.illY=85;S.illRot=0;S.illAlpha=100;
+  syncIllUI();snapShot();drawCard();
+}
+function syncIllUI(){
+  document.getElementById('ill-size').value=S.illSize;document.getElementById('ill-size-num').value=S.illSize;document.getElementById('ill-size-val').textContent=S.illSize;
+  document.getElementById('ill-x').value=S.illX;document.getElementById('ill-x-val').textContent=S.illX;
+  document.getElementById('ill-y').value=S.illY;document.getElementById('ill-y-val').textContent=S.illY;
+  document.getElementById('ill-rot').value=S.illRot;document.getElementById('ill-rot-num').value=S.illRot;document.getElementById('ill-rot-val').textContent=S.illRot;
+  document.getElementById('ill-alpha').value=S.illAlpha;document.getElementById('ill-alpha-val').textContent=S.illAlpha;
+}
+
+// ============================================================
+// SECTION TOGGLE
+// ============================================================
+function toggleSec(id){document.getElementById(id).classList.toggle('open');}
+
+// ============================================================
+// SAVE (LocalStorage)
+// ============================================================
+function showSaveModal(){refreshSaveList();document.getElementById('save-modal').classList.add('show');}
+function closeSaveModal(){document.getElementById('save-modal').classList.remove('show');}
+function imgToB64(img,isPng){
+  if(!img)return null;
+  // 保存用に縮小
+  const MAX=600;
+  const sc=Math.min(1,MAX/img.naturalWidth,MAX/img.naturalHeight);
+  const c=document.createElement('canvas');
+  c.width=Math.round(img.naturalWidth*sc);c.height=Math.round(img.naturalHeight*sc);
+  c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+  return isPng?c.toDataURL('image/png'):c.toDataURL('image/jpeg',0.75);
+}
+function doSave(){
+  const name=(document.getElementById('save-name').value.trim()||'無題カード').slice(0,30);
+  const stateData=JSON.stringify({
+    ...S,photoImg:null,illustImg:null,
+    photoImgB64:S.photoImg?imgToB64(S.photoImg,false):null,
+    illustImgB64:S.illustImg?imgToB64(S.illustImg,S.illustImgIsPng):null,
+  });
+  const key='pcm-save-'+Date.now();
+  try{
+    const saves=getSaves();
+    if(saves.length>=20){showInfo('⚠ 保存件数が上限（20件）に達しています。古いデータを削除してください',true);return;}
+    localStorage.setItem(key,JSON.stringify({name,date:new Date().toLocaleDateString('ja-JP'),data:stateData}));
+    saves.push(key);localStorage.setItem('pcm-saves',JSON.stringify(saves));
+    refreshSaveList();showInfo('保存しました：'+name);
+  }catch(e){showInfo('⚠ 保存容量が不足しています。古いデータを削除して再試行してください',true);}
+}
+function getSaves(){try{return JSON.parse(localStorage.getItem('pcm-saves')||'[]');}catch{return[];}}
+function refreshSaveList(){
+  const saves=getSaves();const el=document.getElementById('save-list');el.innerHTML='';
+  if(!saves.length){el.innerHTML='<p style="font-size:12px;color:#888">保存データはありません</p>';return;}
+  saves.slice().reverse().forEach(key=>{
+    try{
+      const d=JSON.parse(localStorage.getItem(key));if(!d)return;
+      const row=document.createElement('div');row.className='save-item';
+      row.innerHTML=`<div><div class="save-item-name">${d.name}</div><div class="save-item-date">${d.date}</div></div>
+      <div style="display:flex;gap:4px;flex-wrap:wrap">
+        <button class="btn" style="font-size:11px" onclick="loadSave('${key}')">開く</button>
+        <button class="btn" style="font-size:11px" onclick="dupSave('${key}')">複製</button>
+        <button class="btn" style="font-size:11px;color:var(--error)" onclick="deleteSave('${key}')">削除</button>
+      </div>`;
+      el.appendChild(row);
+    }catch{}
+  });
+}
+function loadSave(key){
+  try{
+    const d=JSON.parse(localStorage.getItem(key));
+    const st=JSON.parse(d.data);
+    const pB64=st.photoImgB64,iB64=st.illustImgB64,iIsPng=st.illustImgIsPng;
+    delete st.photoImgB64;delete st.illustImgB64;
+    Object.assign(S,st);S.photoImg=null;S.illustImg=null;
+    const li=(b64,cb)=>{if(!b64){cb(null);return;}const img=new Image();img.onload=()=>cb(img);img.src=b64;};
+    li(pB64,pi=>{S.photoImg=pi;li(iB64,ii=>{S.illustImg=ii;syncUI();drawCard();closeSaveModal();});});
+  }catch(e){alert('読み込みに失敗しました');}
+}
+function dupSave(key){
+  try{
+    const d=JSON.parse(localStorage.getItem(key));
+    const nk='pcm-save-'+Date.now();
+    localStorage.setItem(nk,JSON.stringify({...d,name:d.name+'（複製）',date:new Date().toLocaleDateString('ja-JP')}));
+    const saves=getSaves();saves.push(nk);localStorage.setItem('pcm-saves',JSON.stringify(saves));
+    refreshSaveList();
+  }catch{}
+}
+function deleteSave(key){
+  if(!confirm('このデータを削除しますか？'))return;
+  localStorage.removeItem(key);
+  localStorage.setItem('pcm-saves',JSON.stringify(getSaves().filter(k=>k!==key)));
+  refreshSaveList();
+}
+
+// ============================================================
+// EXPORT
+// ============================================================
+let exportFormat='png';
+function showExportModal(){updateSizeInfo();document.getElementById('export-modal').classList.add('show');}
+function closeExportModal(){document.getElementById('export-modal').classList.remove('show');}
+function setEF(f){
+  exportFormat=f;
+  document.getElementById('ef-png').classList.toggle('active',f==='png');
+  document.getElementById('ef-jpeg').classList.toggle('active',f==='jpeg');
+  document.getElementById('jpeg-q-row').style.display=f==='jpeg'?'':'none';
+}
+async function doExport(){
+  // フォントロード待機（最大3秒）
+  const def=currentFontDef();
+  const aw=getAppliedFontWeight();
+  if(def.primary){
+    try{await Promise.race([document.fonts.load(`${aw} 48px "${def.primary}"`, 'あいうえお'),new Promise(r=>setTimeout(r,3000))]);}catch{}
+  }
+  await document.fonts.ready;
+  const off=document.createElement('canvas');off.width=S.cardW;off.height=S.cardH;
+  const oc=off.getContext('2d');
+  const saveGuide=document.getElementById('guide-sel').value;
+  document.getElementById('guide-sel').value='none';
+  drawCard(oc,true);
+  document.getElementById('guide-sel').value=saveGuide;
+  drawCard(); // preview restore
+  const word=S.word.trim().split('\n')[0].replace(/[\\/:*?"<>|]/g,'').slice(0,20)||'カード';
+  const date=new Date().toISOString().slice(0,10).replace(/-/g,'');
+  const fname=`写真カード_${word}_${date}`;
+  const q=parseFloat(document.getElementById('jpeg-q').value);
+  const mime=exportFormat==='png'?'image/png':'image/jpeg';
+  off.toBlob(blob=>{
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download=fname+(exportFormat==='png'?'.png':'.jpg');a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);closeExportModal();
+  },mime,exportFormat==='jpeg'?q:undefined);
+}
+
+// ============================================================
+// CONFIRM / NEW
+// ============================================================
+function showConfirm(title,msg,cb){
+  document.getElementById('confirm-title').textContent=title;
+  document.getElementById('confirm-msg').textContent=msg;
+  document.getElementById('confirm-ok').onclick=()=>{closeConfirm();cb&&cb();};
+  document.getElementById('confirm-modal').classList.add('show');
+}
+function closeConfirm(){document.getElementById('confirm-modal').classList.remove('show');}
+function confirmNew(){
+  showConfirm('新規作成','現在の編集内容を消去して、新しいカードを作成しますか？',()=>{
+    Object.assign(S,DEFAULT_STATE,{photoImg:null,illustImg:null});
+    document.getElementById('card-size-sel').value='l-land';
+    onSizeChange();syncUI();drawCard();
+  });
+}
+
+// ============================================================
+// FULL PREVIEW
+// ============================================================
+let fullMode=false;
+function toggleFullPreview(){
+  fullMode=!fullMode;
+  document.getElementById('panel').style.display=fullMode?'none':'';
+  resizeCanvas();drawCard();
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function showErr(id,msg){const el=document.getElementById(id);el.textContent=msg;el.classList.toggle('show',!!msg);}
+function showInfo(msg,isWarn=false){
+  const d=document.createElement('div');
+  d.style.cssText=`position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:${isWarn?'#e67e22':'#27ae60'};color:#fff;padding:9px 18px;border-radius:28px;font-weight:700;z-index:400;font-size:13px;pointer-events:none;max-width:90vw;text-align:center`;
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),3000);
+}
+
+// ============================================================
+// SYNC UI
+// ============================================================
+function syncUI(){
+  document.getElementById('word-input').value=S.word;
+  setDir(S.dir);
+  setLayout(S.layout);
+  setHAlign(S.hAlign||'center');
+  setVAlign(S.vAlign||'middle');
+  // font
+  document.getElementById('fw-slider').value=S.fwSetting;
+  updateFWUI();
+  document.getElementById('fs-slider').value=S.fontSize;document.getElementById('fs-num').value=S.fontSize;document.getElementById('fs-val').textContent=S.fontSize;
+  document.getElementById('ls-slider').value=S.letterSpacing;document.getElementById('ls-num').value=S.letterSpacing;document.getElementById('ls-val').textContent=S.letterSpacing;
+  document.getElementById('cg-slider').value=S.colGap;document.getElementById('cg-num').value=S.colGap;document.getElementById('cg-val').textContent=S.colGap;
+  document.getElementById('lg-slider').value=S.lineGap;document.getElementById('lg-num').value=S.lineGap;document.getElementById('lg-val').textContent=S.lineGap;
+  document.getElementById('text-color').value=S.textColor;
+  document.getElementById('text-bg-color').value=S.textBgColor;
+  document.getElementById('auto-size-cb').checked=S.autoSize;
+  document.getElementById('tx-slider').value=S.txOffset;document.getElementById('tx-num').value=S.txOffset;document.getElementById('tx-val').textContent=S.txOffset;
+  document.getElementById('ty-slider').value=S.tyOffset;document.getElementById('ty-num').value=S.tyOffset;document.getElementById('ty-val').textContent=S.tyOffset;
+  // photo
+  document.getElementById('photo-drop-zone').style.display=S.photoImg?'none':'';
+  document.getElementById('photo-controls').style.display=S.photoImg?'':'none';
+  syncPhotoUI();
+  // illust
+  setIllustType(S.illustType);
+  syncIllUI();
+  document.getElementById('emoji-input').value=S.illustEmoji||'';
+  document.getElementById('illust-reserve-cb').checked=S.illustReserve||false;
+  document.getElementById('illust-drop-zone').style.display=S.illustImg?'none':'';
+  document.getElementById('illust-replace-btns').style.display=S.illustImg?'':'none';
+  // font list
+  buildFontList();
+  const css=currentFontCSS();
+  document.getElementById('font-preview-text').style.fontFamily=css;
+  document.getElementById('font-preview-text').style.fontWeight=getAppliedFontWeight();
+}
+
+// ============================================================
+// INIT
+// ============================================================
+window.addEventListener('DOMContentLoaded',async()=>{
+  initCanvas();
+  initWordInput();
+  // 保存フォントを復元
+  const sf=localStorage.getItem('pcm-lastfont');
+  if(sf&&findFont(sf)) S.font=sf;
+  updateSizeInfo();
+  // フォント事前チェック（並列）
+  await Promise.allSettled(allFontItems().map(f=>f.primary?checkFontAvailAsync(f.primary):Promise.resolve(true)));
+  buildFontList();
+  syncUI();
+  resizeCanvas();
+  drawCard();
+  snapShot();
+  updateUndoUI();
+  // フォント適用
+  await applyFontChange();
+
+  // イベント
+  document.getElementById('text-color').addEventListener('input',()=>{S.textColor=document.getElementById('text-color').value;drawCard();});
+  document.getElementById('text-color').addEventListener('change',()=>snapShot());
+  document.getElementById('text-bg-color').addEventListener('input',()=>{S.textBgColor=document.getElementById('text-bg-color').value;drawCard();});
+  document.getElementById('text-bg-color').addEventListener('change',()=>snapShot());
+  document.getElementById('auto-size-cb').addEventListener('change',()=>{S.autoSize=document.getElementById('auto-size-cb').checked;updateFSNote();drawCard();snapShot();});
+  document.getElementById('illust-reserve-cb').addEventListener('change',()=>{S.illustReserve=document.getElementById('illust-reserve-cb').checked;drawCard();snapShot();});
+  document.getElementById('emoji-input').addEventListener('input',()=>{S.illustEmoji=document.getElementById('emoji-input').value;drawCard();});
+  document.getElementById('emoji-input').addEventListener('change',()=>snapShot());
+
+  window.addEventListener('resize',()=>{resizeCanvas();drawCard();});
+  ['save-modal','export-modal','confirm-modal'].forEach(id=>{
+    document.getElementById(id).addEventListener('click',(e)=>{if(e.target.id===id)e.target.classList.remove('show');});
+  });
+  document.fonts.ready.then(async()=>{
+    Object.keys(fontAvailCache).forEach(k=>delete fontAvailCache[k]);
+    await Promise.allSettled(allFontItems().map(f=>f.primary?checkFontAvailAsync(f.primary):Promise.resolve(true)));
+    buildFontList();drawCard();
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.ctrlKey||e.metaKey){
+      if(e.key==='z'&&!e.shiftKey){e.preventDefault();undo();}
+      if(e.key==='y'||e.key==='Z'){e.preventDefault();redo();}
+      if(e.key==='s'){e.preventDefault();showSaveModal();}
+    }
+  });
+});
+</script>
+</body>
+</html>
